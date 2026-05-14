@@ -3,667 +3,835 @@
 html>
 
 <html 
-lang="en">
+lang="en" 
+data-theme="dark">
 
 <head>
 
 <meta 
-charset="UTF-8" />
+charset="UTF-8"/>
 
 <meta 
 name="viewport" 
 content=
 "width=device-width, initial-scale=1.0"
- />
+/>
 
 <title>India Tax Calculator — Old vs New Regime</title>
 
+<meta 
+name="description" 
+content="Free India Income Tax Calculator FY 2026-27. Compare Old vs New Regime instantly. No login, no ads."/>
+
+<meta 
+name="keywords" 
+content="India tax calculator,income tax,old regime,new regime,FY 2026-27,6 LPA,HRA,80C,87A,cess"/>
+
+<meta 
+name="author" 
+content="Amit Kumar"/>
+
+<meta 
+property="og:title" 
+content="India Tax Calculator — Old vs New Regime"/>
+
+<meta 
+property="og:type" 
+content="website"/>
+
+<meta 
+property="og:url" 
+content="https://github.com/aAmitSengar/tax-calculator"/>
+
+<meta 
+name="twitter:card" 
+content="summary_large_image"/>
+
+<link 
+rel="canonical" 
+href="https://github.com/aAmitSengar/tax-calculator"/>
+
+<script 
+type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"India Tax Calculator","applicationCategory":"FinanceApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}}</script>
+
+
+
+<!-- Materialize CSS via cdnjs (free, no license required) -->
+
+<link 
+rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+
+<!-- Material Icons -->
+
+<link 
+href="https://fonts.googleapis.com/icon?family=Material+Icons"
+rel="stylesheet"/>
+
+<!-- Fonts -->
+
 <link 
 href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-rel="stylesheet" />
+rel="stylesheet"/>
+
+
 
 <style>
 
-:root {
+/* ── Theme tokens ─────────────────────────────────────────────── */
 
---bg: #0d0f14;
+[data-theme="dark"]{
 
---surface: #161920;
+--bg:#0d0f14; --surface:#161920; --surface2:#1e2230;
 
---surface2: #1e2230;
+--border:#2a2f3d; --text:#e8eaf0; --muted:#7a7f96;
 
---border: #2a2f3d;
+--accent:#f5c542; --green:#3ddc97; --red:#ff5f6d;
 
---text: #e8eaf0;
+--old:#ff8c42; --new:#3ddc97;
 
---muted: #7a7f96;
+--shadow:0
+2px
+14px
+rgba(0,0,0,.5);
 
---accent: #f5c542;
+}
 
---green: #3ddc97;
+[data-theme="light"]{
 
---red: #ff5f6d;
+--bg:#f4f6fb; --surface:#fff; --surface2:#eef0f7;
 
---blue: #5b8dee;
+--border:#d8dce8; --text:#1a1d2e; --muted:#6b7090;
 
---old: #ff8c42;
+--accent:#d4900a; --green:#1a9e6b; --red:#c93342;
 
---new: #3ddc97;
+--old:#c96020; --new:#1a9e6b;
 
---radius: 14px;
-
---font: 'Inter',
-system-ui, -apple-system,
-sans-serif;
-
---mono: 'JetBrains Mono',
-'Courier New',
-monospace;
+--shadow:0
+2px
+14px
+rgba(0,0,0,.08);
 
 }
 
 
 
-*, 
-*::before, 
-*::after { box-sizing: 
-border-box; margin: 0; padding:
-0; }
+*,*::before,*::after{box-sizing:border-box}
 
+body{
 
+background:var(--bg); color:var(--text);
 
-body {
+font-family:'Inter',sans-serif; font-size:14px;
 
-background: var(--bg);
+transition:background
+.3s,color
+.3s;
 
-color: var(--text);
-
-font-family: var(--font);
-
-font-size: 14px;
-
--webkit-font-smoothing: 
-antialiased;
-
--moz-osx-font-smoothing: 
-grayscale;
-
-min-height: 100vh;
-
-padding: 32px
-40px
-80px;
+min-height:100vh; padding-bottom:60px;
 
 }
 
 
 
-.page { max-width: 
-1280px; margin: 
-0 auto; }
+/* ── Nav ─────────────────────────────────────────────────────── */
 
+.app-nav{
 
+background:var(--surface)!important;
 
-header {
-
-display: flex; align-items: 
-center; gap: 16px;
-
-margin-bottom: 36px; padding-bottom:
-20px;
-
-border-bottom: 1px solid
+border-bottom:1px solid
 var(--border);
 
-flex-wrap: nowrap;
+box-shadow:var(--shadow);
+
+padding:0
+24px; height:62px;
+
+display:flex; align-items:center; justify-content:space-between;
 
 }
 
-.logo {
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;line-height:normal}
 
-width: 44px; height:
-44px; border-radius:
-10px; flex-shrink:
-0;
+.nav-logo{
 
-background: linear-gradient(135deg,
-var(--accent),
-var(--old));
+width:38px;height:38px;border-radius:10px;
 
-display: flex; align-items: 
-center; justify-content: center;
+background:linear-gradient(135deg,var(--accent),var(--old));
 
-font-size: 22px; line-height:
-1;
+display:flex;align-items:center;justify-content:center;
+
+font-size:19px;font-weight:800;color:#0d0f14;
 
 }
 
-.header-text { display: 
-flex; flex-direction: column; gap:
-5px; min-width:
-0; }
+.nav-title{font-size:16px;font-weight:700;color:var(--text);line-height:1.2}
 
-header 
-h1 {
+nav 
+.nav-title{display:inline-block;font-size:32px;padding:2px
+0}
 
-font-size: 26px; font-weight:
-800;
+.nav-sub{font-size:11px;color:var(--muted)}
 
-letter-spacing: -0.6px; line-height:
-1.15;
+.theme-btn{
 
-white-space: nowrap;
+background:var(--surface2);border:1px
+ solid var(--border);
 
-}
+border-radius:50%;width:38px;height:38px;cursor:pointer;
 
-header 
-p {
+display:flex;align-items:center;justify-content:center;
 
-font-size: 14px; color:
-var(--muted); font-weight:
-400;
-
-line-height: 1.5; white-space:
-nowrap;
-
-letter-spacing: 0;
+color:var(--muted);transition:all
+.2s;flex-shrink:0;
 
 }
 
+.theme-btn:hover{color:var(--accent);border-color:var(--accent)}
+
+.theme-btn 
+.material-icons{font-size:20px}
 
 
-/* Toggle pill */
 
-.toggle-bar {
+/* ── Page ────────────────────────────────────────────────────── */
 
-display: flex; align-items: 
-center; gap: 12px;
+.page{max-width:1260px;margin:0
+ auto;padding:26px
+18px}
 
-background: var(--surface); border:
-1px solid
-var(--border);
 
-border-radius: 50px; padding:
-6px
-8px; width:
-fit-content;
 
-margin-bottom: 28px;
+/* ── Freq toggle ─────────────────────────────────────────────── */
+
+.toggle-bar{
+
+display:flex;align-items:center;gap:12px;
+
+background:var(--surface);border:1px
+ solid var(--border);
+
+border-radius:50px;padding:6px
+18px;width:fit-content;
+
+margin-bottom:22px;box-shadow:var(--shadow);
 
 }
 
-.toggle-bar 
-span { font-size: 13px; font-weight:
-500; color: 
-var(--muted); padding:
-0
-4px; }
+.toggle-bar>span{font-size:13px;font-weight:500;color:var(--muted)}
 
-.toggle-pill {
+.toggle-pill{
 
-position: relative; width: 
-100px; height: 
-32px;
+position:relative;width:96px;height:30px;
 
-background: var(--surface2); border-radius:
-50px;
-
-cursor: pointer; border: 
-1px solid var(--border);
+background:var(--surface2);border-radius:50px;cursor:pointer;border:1px
+ solid var(--border);
 
 }
 
 .toggle-pill 
-input { display: none; }
+input{display:none}
 
 .toggle-pill 
-.knob {
+.knob{
 
-position: absolute; top: 
-3px; left: 
-3px;
+position:absolute;top:3px;left:3px;width:42px;height:22px;
 
-width: 44px; height:
-24px; border-radius:
-50px;
-
-background: var(--accent); transition:
-transform .25s;
+border-radius:50px;background:var(--accent);transition:transform
+.25s;
 
 }
 
 .toggle-pill 
-input:checked ~ 
-.knob { transform: translateX(50px); }
+input:checked~.knob{transform:translateX(48px)}
 
 .toggle-pill 
-.labels {
+.labels{
 
-position: absolute; inset: 
-0; display: flex;
+position:absolute;inset:0;display:flex;align-items:center;
 
-align-items: center; justify-content:
-space-around;
-
-font-size: 11px; font-weight:
-600; pointer-events: 
-none; z-index: 1;
+justify-content:space-around;font-size:10px;font-weight:700;pointer-events:none;z-index:1;
 
 }
 
 .toggle-pill 
-.labels span:first-child { color:
-var(--bg); }
+.labels span:first-child{color:#0d0f14}
 
 .toggle-pill 
-.labels span:last-child { color:
-var(--muted); }
+.labels span:last-child{color:var(--muted)}
 
 .toggle-pill 
-input:checked ~ 
-.labels span:first-child { color:
-var(--muted); }
+input:checked~.labels
+span:first-child{color:var(--muted)}
 
 .toggle-pill 
-input:checked ~ 
-.labels span:last-child { color:
-var(--bg); }
+input:checked~.labels
+span:last-child{color:#0d0f14}
 
 
 
-/* Grid layout */
+/* ── Grid ────────────────────────────────────────────────────── */
 
-.grid { display: 
-grid; grid-template-columns: 1fr
-1fr; gap: 
-20px; }
+.calc-grid{display:grid;grid-template-columns:1fr
+1fr;gap:18px}
 
-@media (max-width: 
-640px) { 
-.grid { grid-template-columns: 1fr; } }
+.span2{grid-column:1/-1}
+
+@media(max-width:768px){.calc-grid{grid-template-columns:1fr}}
 
 
 
-/* Cards */
+/* ── Card ────────────────────────────────────────────────────── */
 
-.card {
+.tcard{
 
-background: var(--surface); border:
-1px solid
-var(--border);
+background:var(--surface);border:1px
+ solid var(--border);
 
-border-radius: var(--radius); padding:
-20px;
+border-radius:14px;padding:22px;box-shadow:var(--shadow);
+
+transition:background
+.3s,border-color
+.3s;
 
 }
 
-.card-title {
+.tcard-title{
 
-font-size: 11px; font-weight:
-700; letter-spacing: 
-1.2px;
+font-size:11px;font-weight:700;letter-spacing:1.1px;
 
-text-transform: uppercase; color:
-var(--muted); margin-bottom:
-18px;
+text-transform:uppercase;color:var(--muted);margin-bottom:18px;
+
+display:flex;align-items:center;gap:7px;
 
 }
 
+.tcard-title 
+.material-icons{font-size:16px;color:var(--accent)}
 
 
-/* Input rows */
 
-.field { margin-bottom: 
-16px; }
+/* ── Fields ──────────────────────────────────────────────────── */
+
+.field{margin-bottom:16px}
 
 .field 
-label {
+label{
 
-display: flex; justify-content:
-space-between; align-items: 
-center;
+display:flex;justify-content:space-between;align-items:center;
 
-font-size: 13px; font-weight:
-500; color: 
-var(--muted); margin-bottom:
-7px;
+font-size:12px;font-weight:600;color:var(--muted);
 
-letter-spacing: 0;
+margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;
 
 }
 
 .field 
-label .val {
+label .val{
 
-font-family: var(--mono); font-size:
-12px; color:
-var(--text); font-weight:
-400;
+font-family:'JetBrains Mono',monospace;font-size:12px;
 
-}
-
-.field 
-input[type="number"] {
-
-width: 100%; background: 
-var(--surface2); border:
-1px solid
-var(--border);
-
-border-radius: 8px; padding:
-10px
-14px; color:
-var(--text);
-
-font-family: var(--mono); font-size:
-14px; font-weight:
-400;
-
-outline: none; transition: 
-border-color .2s;
+color:var(--accent);font-weight:500;text-transform:none;letter-spacing:0;
 
 }
 
 .field 
-input[type="number"]:focus { border-color:
-var(--accent); }
+input[type="number"]{
 
-input[type="number"]::-webkit-inner-spin-button {
--webkit-appearance: 
-none; }
+width:100%;background:var(--surface2);border:1px
+ solid var(--border);
 
+border-radius:8px;padding:10px
+14px;color:var(--text);
 
+font-family:'JetBrains Mono',monospace;font-size:14px;
 
-/* Sliders */
-
-.field 
-input[type="range"] {
-
-width: 100%; 
--webkit-appearance: none; height:
-4px;
-
-border-radius: 4px; background:
-var(--border);
-
-outline: none; cursor: 
-pointer;
+outline:none;transition:border-color
+.2s,box-shadow
+.2s;
 
 }
 
 .field 
-input[type="range"]::-webkit-slider-thumb {
-
--webkit-appearance: 
-none; width: 16px; height:
-16px;
-
-border-radius: 50%; background:
-var(--accent); cursor:
-pointer;
-
-box-shadow: 0
+input[type="number"]:focus{border-color:var(--accent);box-shadow:0
 0
 0
 3px
-rgba(245,197,66,.15);
+rgba(245,197,66,.12)}
 
-}
+input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none}
 
-.slider-row { display: 
-flex; gap: 10px; align-items:
-center; }
+.hint{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5}
+
+
+
+/* ── Sliders ─────────────────────────────────────────────────── */
+
+.slider-row{display:flex;gap:10px;align-items:center}
 
 .slider-row 
-input[type="number"] { width:
-110px; flex-shrink:
-0; }
+input[type="number"]{width:120px;flex-shrink:0}
 
+.field 
+input[type="range"]{
 
+flex:1;-webkit-appearance:none;height:4px;border-radius:4px;
 
-/* Verdict */
-
-.verdict {
-
-grid-column: 1 /
--1;
-
-background: var(--surface);
-
-border: 1px solid
-var(--border);
-
-border-radius: var(--radius); padding:
-24px;
-
-position: relative; overflow: 
-hidden;
+background:var(--border);outline:none;cursor:pointer;
 
 }
 
-.verdict::before {
+.field 
+input[type="range"]::-webkit-slider-thumb{
 
-content: ''; position: 
-absolute; inset: 0;
+-webkit-appearance:none;width:16px;height:16px;border-radius:50%;
 
-background: linear-gradient(135deg, transparent
-60%,
-rgba(245,197,66,.04));
-
-pointer-events: none;
-
-}
-
-.verdict-top {
-
-display: flex; justify-content:
-space-between; align-items: 
-flex-start;
-
-flex-wrap: wrap; gap: 
-16px; margin-bottom: 
-24px;
+background:var(--accent);cursor:pointer;box-shadow:0
+0
+0
+3px
+rgba(245,197,66,.2);
 
 }
 
-.verdict-badge {
 
-display: inline-flex; align-items:
-center; gap: 
-8px;
 
-background: rgba(61,220,151,.12);
- border: 1px solid
-rgba(61,220,151,.3);
+/* ── Chips ───────────────────────────────────────────────────── */
 
-border-radius: 50px; padding:
-7px
-18px;
+.cbadge{
 
-font-size: 14px; font-weight:
-600; color: 
-var(--green);
+display:inline-flex;align-items:center;border-radius:50px;
 
-letter-spacing: 0;
+padding:2px
+10px;font-size:10px;font-weight:700;
+
+background:rgba(91,141,238,.15);border:1px
+ solid rgba(91,141,238,.3);color:#5b8dee;
 
 }
 
-.verdict-badge.old-wins {
+.cbadge.green{background:rgba(61,220,151,.1);border-color:rgba(61,220,151,.3);color:var(--green)}
 
-background: rgba(255,140,66,.12);
- border-color: rgba(255,140,66,.3);
 
-color: var(--old);
 
-}
+/* ── 80C bar ─────────────────────────────────────────────────── */
 
-.savings {
+.c80c-bar{
 
-font-family: var(--mono); font-size:
-30px; font-weight:
-500;
+margin-top:10px;padding:12px
+16px;background:var(--surface2);
 
-color: var(--accent); letter-spacing:
--1px;
+border-radius:8px;font-size:12px;color:var(--muted);
+
+display:flex;gap:18px;flex-wrap:wrap;
 
 }
 
-.savings 
-small { font-size: 13px; color:
-var(--muted); font-family:
-var(--font); font-weight:
-400; letter-spacing: 
-0; }
+.c80c-bar 
+strong{font-family:'JetBrains Mono',monospace;font-weight:500}
+
+.c80c-bar 
+.eff{color:var(--accent)}
 
 
 
-.regime-cards {
+/* ── Cap warn ────────────────────────────────────────────────── */
 
-display: grid; grid-template-columns:
-1fr
-1fr; gap: 
+.cap-warn{
+
+background:rgba(255,95,109,.1);border:1px
+ solid rgba(255,95,109,.3);
+
+border-radius:8px;padding:10px
+14px;font-size:12px;
+
+color:#ff8a93;margin-top:10px;display:none;
+
+}
+
+
+
+/* ── Metro row ───────────────────────────────────────────────── */
+
+.metro-row{
+
+display:flex;align-items:center;gap:8px;
+
+font-size:12px;color:var(--muted);margin-bottom:14px;cursor:pointer;
+
+}
+
+.metro-row 
+input[type="checkbox"]{accent-color:var(--accent);width:14px;height:14px}
+
+
+
+/* ── Divider ─────────────────────────────────────────────────── */
+
+.sdiv{height:1px;background:var(--border);margin:16px
+0}
+
+
+
+/* ── Gross strip ─────────────────────────────────────────────── */
+
+.gross-strip{
+
+background:var(--surface2);border-radius:8px;padding:10px
 16px;
 
-}
+margin-bottom:18px;display:flex;align-items:center;
 
-@media (max-width: 
-500px) { 
-.regime-cards { grid-template-columns: 
-1fr; } }
-
-
-
-.regime-card {
-
-border-radius: 10px; padding:
-16px;
-
-border: 2px solid
-var(--border);
-
-transition: border-color .3s;
+justify-content:space-between;flex-wrap:wrap;gap:6px;
 
 }
 
-.regime-card.winner { border-color:
-var(--green); }
+.gross-strip 
+.gl{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 
-.regime-card.winner.old-winner { border-color:
-var(--old); }
+.gross-strip 
+.gv{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--accent)}
 
 
+
+/* ── Verdict card ────────────────────────────────────────────── */
+
+.verdict-card{
+
+background:var(--surface);border:1px
+ solid var(--border);
+
+border-radius:14px;padding:24px;box-shadow:var(--shadow);
+
+position:relative;overflow:hidden;transition:background
+.3s;
+
+}
+
+.verdict-card::after{
+
+content:'';position:absolute;top:-50px;right:-50px;
+
+width:200px;height:200px;border-radius:50%;
+
+background:radial-gradient(circle,rgba(245,197,66,.06),transparent
+70%);
+
+pointer-events:none;
+
+}
+
+.verdict-top{
+
+display:flex;justify-content:space-between;align-items:flex-start;
+
+flex-wrap:wrap;gap:16px;margin-bottom:22px;
+
+}
+
+.vlabel{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+
+.verdict-badge{
+
+display:inline-flex;align-items:center;gap:8px;
+
+background:rgba(61,220,151,.12);border:1px
+ solid rgba(61,220,151,.3);
+
+border-radius:50px;padding:8px
+22px;font-size:15px;font-weight:700;color:var(--green);
+
+}
+
+.verdict-badge.old-wins{background:rgba(255,140,66,.12);border-color:rgba(255,140,66,.3);color:var(--old)}
+
+.savings-num{
+
+font-family:'JetBrains Mono',monospace;font-size:32px;
+
+font-weight:500;color:var(--accent);letter-spacing:-1px;
+
+}
+
+.savings-num 
+small{font-size:13px;color:var(--muted);font-family:'Inter',sans-serif}
+
+
+
+/* ── Regime cards ────────────────────────────────────────────── */
+
+.regime-grid{display:grid;grid-template-columns:1fr
+1fr;gap:14px}
+
+@media(max-width:500px){.regime-grid{grid-template-columns:1fr}}
+
+.regime-card{
+
+border-radius:10px;padding:16px;
+
+border:2px solid
+var(--border);background:var(--surface2);transition:border-color
+.3s;
+
+}
+
+.regime-card.winner{border-color:var(--green)}
+
+.regime-card.old-winner{border-color:var(--old)}
 
 .regime-card 
-h3 {
-
-font-size: 11px; font-weight:
-700; letter-spacing: 
-1.2px;
-
-text-transform: uppercase; margin-bottom:
-12px;
-
-}
+.rc-label{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px}
 
 .regime-card.old 
-h3 { color: var(--old); }
+.rc-label{color:var(--old)}
 
 .regime-card.new 
-h3 { color: var(--new); }
+.rc-label{color:var(--new)}
 
+.regime-card 
+.rc-tax-hint{font-size:11px;color:var(--muted);margin-bottom:3px;letter-spacing:.3px}
 
+.regime-card 
+.tax-big{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;letter-spacing:-.5px}
 
-.tax-num {
+.regime-card 
+.rc-secondary{font-size:13px;color:var(--muted);font-family:'JetBrains
+ Mono',monospace;margin-bottom:10px}
 
-font-family: var(--mono); font-size:
-26px; font-weight:
-500;
+.regime-card 
+.rc-taxable-block{border-top:1px solid
+var(--border);padding-top:10px;margin-bottom:14px}
 
-margin-bottom: 14px; letter-spacing:
--0.5px;
+.regime-card 
+.rc-taxable-block .rc-tl{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
 
-}
+.regime-card 
+.rc-taxable-block .rc-tv{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--accent)}
 
-.breakdown { font-size: 
-13px; color: 
-var(--muted); line-height:
-2; font-weight: 
-400; }
+.breakdown{font-size:13px;color:var(--muted)}
 
 .breakdown 
-span { font-family: var(--mono); font-size:
-12px; color:
-var(--text); float:
-right; }
+.bd-row{display:flex;justify-content:space-between;align-items:baseline;padding:3px
+0;line-height:1.8;gap:8px}
+
+.breakdown 
+.bd-row label{flex:1;min-width:0}
+
+.breakdown 
+.bd-row span{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);text-align:right;white-space:nowrap}
+
+.breakdown 
+.bd-row.bd-zero label{text-decoration:line-through;opacity:.45}
+
+.breakdown 
+.bd-row.bd-zero span{opacity:.35}
+
+.breakdown 
+.bd-row.bd-taxable{border-top:1px solid
+var(--border);margin-top:4px;padding-top:8px}
+
+.breakdown 
+.bd-row.bd-taxable label{font-weight:700;color:var(--text);font-size:13px}
+
+.breakdown 
+.bd-row.bd-taxable span{color:var(--accent);font-size:13px;font-weight:700}
+
+.bd-rebate{color:var(--green)!important;font-size:11px;margin-top:2px}
 
 
 
-/* Cap warning */
+/* ── PPP Modal ───────────────────────────────────────────────── */
 
-.cap-warn {
+.modal-overlay{
 
-background: rgba(255,95,109,.1);
- border: 1px solid
-rgba(255,95,109,.25);
+display:none;position:fixed;inset:0;z-index:9999;
 
-border-radius: 8px; padding:
-10px
-14px; font-size:
-12px;
+background:rgba(0,0,0,.72);backdrop-filter:blur(5px);
 
-color: #ff8a93; margin-top: 
-10px; display: 
-none;
+align-items:flex-start;justify-content:center;
+
+padding:32px
+16px;overflow-y:auto;
 
 }
 
+.modal-overlay.open{display:flex}
 
+.ppp-modal{
 
-/* Section divider */
+background:var(--surface);border:1px
+ solid var(--border);
 
-.divider {
+border-radius:18px;width:100%;max-width:1024px;
 
-grid-column: 1 /
--1; height: 
-1px; background: 
+box-shadow:0
+24px
+64px
+rgba(0,0,0,.55);flex-shrink:0;
+
+}
+
+.ppp-head{
+
+display:flex;justify-content:space-between;align-items:flex-start;
+
+padding:22px
+26px
+18px;border-bottom:1px solid
 var(--border);
 
-margin: 4px
-0;
+}
+
+.ppp-head 
+h2{font-size:17px;font-weight:700;color:var(--text);margin:0
+0
+4px}
+
+.ppp-head 
+p{font-size:12px;color:var(--muted);margin:0}
+
+.modal-close{
+
+background:var(--surface2);border:1px
+ solid var(--border);
+
+border-radius:50%;width:32px;height:32px;cursor:pointer;
+
+display:flex;align-items:center;justify-content:center;
+
+color:var(--muted);flex-shrink:0;transition:all
+.2s;
 
 }
 
+.modal-close:hover{color:var(--red);border-color:var(--red)}
 
+.modal-close 
+.material-icons{font-size:18px}
 
-/* Chip */
+.ppp-body{padding:22px
+26px}
 
-.chip {
+.ppp-income-row{
 
-display: inline-block; background:
-rgba(91,141,238,.15);
+display:flex;align-items:flex-end;gap:16px;
 
-border: 1px solid
-rgba(91,141,238,.3);
- border-radius: 50px;
+background:var(--surface2);border:1px
+ solid var(--border);
 
-padding: 2px
-10px; font-size:
-11px; color:
-var(--blue);
-
-font-weight: 600; margin-left:
-6px;
+border-radius:10px;padding:14px
+18px;margin-bottom:22px;flex-wrap:wrap;
 
 }
 
-.chip.green {
+.ppp-income-row 
+.fil{flex:1;min-width:180px}
 
-background: rgba(61,220,151,.1);
- border-color: rgba(61,220,151,.25);
+.ppp-income-row 
+label{
 
-color: var(--green);
+font-size:11px;font-weight:700;color:var(--muted);
+
+text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;
 
 }
+
+.ppp-income-row 
+input{
+
+background:transparent;border:none;border-bottom:2px solid
+var(--border);
+
+padding:4px
+0;color:var(--text);font-family:'JetBrains
+ Mono',monospace;
+
+font-size:18px;width:100%;outline:none;transition:border-color
+.2s;
+
+}
+
+.ppp-income-row 
+input:focus{border-bottom-color:var(--accent)}
+
+.ppp-income-row 
+.ppp-hint{font-size:11px;color:var(--muted);align-self:flex-end;flex-shrink:0}
+
+.ppp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px;margin-bottom:18px}
+
+.ppp-card{
+
+background:var(--surface2);border:1px
+ solid var(--border);
+
+border-radius:12px;padding:14px;transition:border-color
+.2s,box-shadow
+.2s;
+
+}
+
+.ppp-card:hover{border-color:var(--accent);box-shadow:0
+0
+0
+3px
+rgba(245,197,66,.08)}
+
+.ppp-card 
+.pc-flag{font-size:20px;line-height:1;margin-bottom:5px}
+
+.ppp-card 
+.pc-name{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+
+.ppp-card 
+.pc-annual{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:500;color:var(--accent);line-height:1.2}
+
+.ppp-card 
+.pc-monthly{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px}
+
+.ppp-card 
+.pc-tax{font-size:10px;color:var(--muted);margin-top:7px;padding-top:7px;border-top:1px
+ solid var(--border);line-height:1.4}
+
+.ppp-footer{font-size:11px;color:var(--muted);line-height:1.6;padding:12px
+14px;background:var(--surface2);border-radius:8px}
+
+/* ── PPP mode toggle ── */
+
+.ppp-mode-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+
+.ppp-mode-pill{display:flex;background:var(--surface2);border:1px
+ solid var(--border);border-radius:50px;padding:3px;gap:2px}
+
+.ppp-mode-pill 
+button{border:none;background:transparent;border-radius:50px;padding:5px
+16px;font-size:11px;font-weight:700;color:var(--muted);cursor:pointer;transition:all
+.2s;letter-spacing:.3px;white-space:nowrap}
+
+.ppp-mode-pill 
+button.active{background:var(--accent);color:#0d0f14}
+
+.fx-badge{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:5px;white-space:nowrap}
+
+.fx-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background
+.3s}
+
+.fx-dot.live{background:var(--green);animation:fxpulse
+2s infinite}
+
+@keyframes fxpulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.ppp-card 
+.pc-hint{font-size:9px;color:var(--muted);margin-top:3px;margin-bottom:4px;font-style:italic;line-height:1.4}
+
+.ppp-card 
+.pc-inr{font-size:10px;color:var(--green);font-family:'JetBrains
+ Mono',monospace;margin-top:2px}
+
+.inr-toggle{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);cursor:pointer;white-space:nowrap;user-select:none}
+
+.inr-toggle 
+input{accent-color:var(--accent);cursor:pointer;width:12px;height:12px}
 
 </style>
 
@@ -671,30 +839,66 @@ color: var(--green);
 
 <body>
 
+
+
+<!-- ── Nav ──────────────────────────────────────────────────── -->
+
+<nav 
+class="app-nav">
+
+<a 
+class="nav-brand" 
+href="#">
+
 <div 
-class="page">
+class="nav-logo">&#8377;</div>
 
-
-
-<header>
+<div>
 
 <div 
-class="logo">₹</div>
+class="nav-title">Tax Regime Calculator</div>
 
 <div 
-class="header-text">
-
-<h1>Tax Regime Calculator</h1>
-
-<p>Old vs New — FY 2025–26 · Pre-filled from your payslip</p>
+class="nav-sub">Old vs New &mdash; FY 2026&ndash;27</div>
 
 </div>
 
-</header>
+</a>
+
+<div 
+style="display:flex;gap:8px;align-items:center">
+
+<button 
+class="theme-btn" 
+id="pppBtn" 
+title="Global PPP Salary Equivalents">
+
+<span 
+class="material-icons">public</span>
+
+</button>
+
+<button 
+class="theme-btn" 
+id="themeBtn" 
+title="Toggle light / dark">
+
+<span 
+class="material-icons" 
+id="themeIcon">light_mode</span>
+
+</button>
+
+</div>
+
+</nav>
 
 
 
-<!-- Monthly / Yearly toggle -->
+<div 
+class="page">
+
+<!-- Freq toggle -->
 
 <div 
 class="toggle-bar">
@@ -706,7 +910,7 @@ class="toggle-pill">
 
 <input 
 type="checkbox" 
-id="freqToggle" />
+id="freqToggle"/>
 
 <div 
 class="knob"></div>
@@ -725,15 +929,14 @@ style="font-size:13px;color:var(--text);font-weight:600;">Monthly</span>
 
 
 <div 
-class="grid">
+class="calc-grid">
 
 
 
 <!-- VERDICT -->
 
 <div 
-class="verdict" 
-id="verdictCard">
+class="verdict-card span2">
 
 <div 
 class="verdict-top">
@@ -741,44 +944,65 @@ class="verdict-top">
 <div>
 
 <div 
-style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase;">Best Regime</div>
+class="vlabel">Best Regime</div>
 
 <div 
 class="verdict-badge" 
-id="verdictBadge">✦ New Regime</div>
+id="verdictBadge">&#10022; New Regime</div>
 
 </div>
 
 <div 
-style="text-align:right;">
+style="text-align:right">
 
 <div 
-style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px;letter-spacing:1px;text-transform:uppercase;">You save</div>
+class="vlabel">You save</div>
 
 <div 
-class="savings" 
-id="savingsAmt">₹0 <small>/year</small></div>
+class="savings-num" 
+id="savingsAmt">&#8377;0 <small>/year</small></div>
 
 </div>
 
 </div>
 
 <div 
-class="regime-cards">
+class="regime-grid">
 
 <div 
 class="regime-card old" 
 id="oldCard">
 
-<h3>Old Regime</h3>
+<div 
+class="rc-label">Old Regime</div>
 
 <div 
-class="tax-num" 
-id="oldTax">₹0</div>
+class="rc-tax-hint" 
+id="oldTaxHint">Monthly Tax Payable</div>
+
+<div 
+class="tax-big" 
+id="oldTax">&#8377;0</div>
+
+<div 
+class="rc-secondary" 
+id="oldTaxSec">&#8377;0 /yr</div>
+
+<div 
+class="rc-taxable-block">
+
+<div 
+class="rc-tl">Taxable Income</div>
+
+<div 
+class="rc-tv" 
+id="oldTaxable">&#8377;0</div>
+
+</div>
 
 <div 
 class="breakdown" 
-id="oldBreakdown">—</div>
+id="oldBreakdown">&mdash;</div>
 
 </div>
 
@@ -786,15 +1010,36 @@ id="oldBreakdown">—</div>
 class="regime-card new winner"
 id="newCard">
 
-<h3>New Regime</h3>
+<div 
+class="rc-label">New Regime</div>
 
 <div 
-class="tax-num" 
-id="newTax">₹0</div>
+class="rc-tax-hint" 
+id="newTaxHint">Monthly Tax Payable</div>
+
+<div 
+class="tax-big" 
+id="newTax">&#8377;0</div>
+
+<div 
+class="rc-secondary" 
+id="newTaxSec">&#8377;0 /yr</div>
+
+<div 
+class="rc-taxable-block">
+
+<div 
+class="rc-tl">Taxable Income</div>
+
+<div 
+class="rc-tv" 
+id="newTaxable">&#8377;0</div>
+
+</div>
 
 <div 
 class="breakdown" 
-id="newBreakdown">—</div>
+id="newBreakdown">&mdash;</div>
 
 </div>
 
@@ -807,14 +1052,31 @@ id="newBreakdown">—</div>
 <!-- INCOME -->
 
 <div 
-class="card">
+class="tcard">
 
 <div 
-class="card-title">Income <span
-class="chip"
-id="incomeChip">Monthly</span></div>
+class="tcard-title">
 
+<span 
+class="material-icons">account_balance_wallet</span>
 
+Income &nbsp;<span 
+class="cbadge" 
+id="incomeChip">Monthly</span>
+
+</div>
+
+<div 
+class="gross-strip">
+
+<span 
+class="gl">Gross Annual</span>
+
+<span 
+class="gv" 
+id="grossAmt">&#8377;0</span>
+
+</div>
 
 <div 
 class="field">
@@ -826,7 +1088,7 @@ id="basicVal"></span></label>
 <input 
 type="number" 
 id="basic" 
-value="30000" />
+value="25000"/>
 
 </div>
 
@@ -840,7 +1102,7 @@ id="hraVal"></span></label>
 <input 
 type="number" 
 id="hra" 
-value="15000" />
+value="10000"/>
 
 </div>
 
@@ -854,7 +1116,7 @@ id="flexVal"></span></label>
 <input 
 type="number" 
 id="flex" 
-value="0" />
+value="8000"/>
 
 </div>
 
@@ -868,7 +1130,7 @@ id="commVal"></span></label>
 <input 
 type="number" 
 id="comm" 
-value="0" />
+value="1000"/>
 
 </div>
 
@@ -882,7 +1144,7 @@ id="ltaVal"></span></label>
 <input 
 type="number" 
 id="lta" 
-value="0" />
+value="2000"/>
 
 </div>
 
@@ -896,10 +1158,10 @@ id="foodVal"></span></label>
 <input 
 type="number" 
 id="food" 
-value="0" />
+value="1000"/>
 
 <div 
-style="font-size:11px;color:var(--muted);margin-top:4px;">₹26,400/yr tax-exempt (old regime)</div>
+class="hint">&#8377;26,400/yr tax-exempt (old regime)</div>
 
 </div>
 
@@ -907,22 +1169,27 @@ style="font-size:11px;color:var(--muted);margin-top:4px;">₹26,400/yr tax-exemp
 
 
 
-<!-- HRA + HOUSING -->
+<!-- HRA & HOUSING -->
 
 <div 
-class="card">
+class="tcard">
 
 <div 
-class="card-title">HRA & Housing</div>
+class="tcard-title">
 
+<span 
+class="material-icons">home</span>
 
+HRA &amp; Housing
+
+</div>
 
 <div 
 class="field">
 
 <label>Monthly Rent Paid <span
 class="val"
-id="rentVal">₹8,000/mo</span></label>
+id="rentVal">&#8377;0/mo</span></label>
 
 <div 
 class="slider-row">
@@ -933,40 +1200,42 @@ id="rent"
 min="0" 
 max="150000" 
 step="1000" 
-value="8000" />
+value="0"/>
 
 <input 
 type="number" 
 id="rentNum" 
-value="8000" />
+value="0"/>
 
 </div>
 
 </div>
-
-<div 
-style="font-size:11px;color:var(--muted);margin-bottom:14px;">
 
 <label 
-style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+class="metro-row">
 
 <input 
 type="checkbox" 
 id="metro" 
-checked style="accent-color:var(--accent);" />
+checked/>
 
-<span>Metro city (Chennai = Yes)</span>
+<span>Metro city (Mumbai / Delhi / Chennai / Kolkata)</span>
 
 </label>
 
-</div>
+<div 
+class="hint" 
+style="margin-bottom:14px;">HRA exempt = min(HRA received, Rent&minus;10% Basic, 50%/40% Basic)</div>
+
+<div 
+class="sdiv"></div>
 
 <div 
 class="field">
 
 <label>Home Loan Interest / yr <span
 class="val"
-id="intVal">₹0</span></label>
+id="intVal">&#8377;0</span></label>
 
 <div 
 class="slider-row">
@@ -977,17 +1246,17 @@ id="intSlider"
 min="0" 
 max="500000" 
 step="10000" 
-value="0" />
+value="0"/>
 
 <input 
 type="number" 
 id="intNum" 
-value="0" />
+value="0"/>
 
 </div>
 
 <div 
-style="font-size:11px;color:var(--muted);margin-top:4px;">Sec 24(b) cap ₹2,00,000 (old regime)</div>
+class="hint">Sec 24(b) &mdash; capped at &#8377;2,00,000 (old regime)</div>
 
 </div>
 
@@ -996,7 +1265,7 @@ class="field">
 
 <label>Home Loan Principal / yr <span
 class="val"
-id="principalVal">₹0</span></label>
+id="principalVal">&#8377;0</span></label>
 
 <div 
 class="slider-row">
@@ -1007,17 +1276,17 @@ id="principalSlider"
 min="0" 
 max="500000" 
 step="10000" 
-value="0" />
+value="0"/>
 
 <input 
 type="number" 
 id="principalNum" 
-value="0" />
+value="0"/>
 
 </div>
 
 <div 
-style="font-size:11px;color:var(--muted);margin-top:4px;">Goes into 80C bucket</div>
+class="hint">Counts towards 80C bucket</div>
 
 </div>
 
@@ -1028,34 +1297,42 @@ style="font-size:11px;color:var(--muted);margin-top:4px;">Goes into 80C bucket</
 <!-- 80C -->
 
 <div 
-class="card">
+class="tcard">
 
 <div 
-class="card-title">80C Deductions <span
-class="chip green">Cap ₹1,50,000</span></div>
+class="tcard-title">
 
+<span 
+class="material-icons">savings</span>
 
-
-<div 
-class="field">
-
-<label>PF (auto from payslip) <span
-class="val">₹21,600</span></label>
-
-<input 
-type="number" 
-id="pf" 
-value="21600" 
-readonly style="opacity:.5;cursor:not-allowed;" />
+80C Deductions &nbsp;<span 
+class="cbadge green">Cap &#8377;1,50,000</span>
 
 </div>
 
 <div 
 class="field">
 
-<label>PPF / FD / ELSS Deposit <span
+<label>EPF / PF (annual) <span
 class="val"
-id="depositVal">₹0</span></label>
+id="pfVal">&#8377;0</span></label>
+
+<input 
+type="number" 
+id="pf" 
+value="21600"/>
+
+<div 
+class="hint">Employee share &mdash; typically 12% of Basic (&#8377;1,800/mo for 6 LPA)</div>
+
+</div>
+
+<div 
+class="field">
+
+<label>PPF / FD / ELSS <span
+class="val"
+id="depositVal">&#8377;0</span></label>
 
 <div 
 class="slider-row">
@@ -1066,12 +1343,12 @@ id="depositSlider"
 min="0" 
 max="200000" 
 step="5000" 
-value="0" />
+value="0"/>
 
 <input 
 type="number" 
 id="depositNum" 
-value="0" />
+value="0"/>
 
 </div>
 
@@ -1082,7 +1359,7 @@ class="field">
 
 <label>LIC Premium <span
 class="val"
-id="licVal">₹0</span></label>
+id="licVal">&#8377;0</span></label>
 
 <div 
 class="slider-row">
@@ -1093,12 +1370,12 @@ id="licSlider"
 min="0" 
 max="150000" 
 step="5000" 
-value="0" />
+value="0"/>
 
 <input 
 type="number" 
 id="licNum" 
-value="0" />
+value="0"/>
 
 </div>
 
@@ -1109,7 +1386,7 @@ class="field">
 
 <label>School Tuition Fees <span
 class="val"
-id="schoolVal">₹0</span></label>
+id="schoolVal">&#8377;0</span></label>
 
 <div 
 class="slider-row">
@@ -1120,35 +1397,35 @@ id="schoolSlider"
 min="0" 
 max="150000" 
 step="1000" 
-value="0" />
+value="0"/>
 
 <input 
 type="number" 
 id="schoolNum" 
-value="0" />
+value="0"/>
 
 </div>
 
 </div>
-
-
 
 <div 
-style="margin-top:8px;padding:12px 14px;background:var(--surface2);border-radius:8px;font-size:13px;font-weight:500;">
+class="c80c-bar">
 
-80C Used: <strong 
-id="c80cUsed" 
-style="font-family:var(--mono);font-weight:500;">₹0</strong>
+<span>Used: <strong
+id="c80cUsed">&#8377;0</strong></span>
 
-&nbsp;/&nbsp; Effective: <strong
-id="c80cEff"
-style="font-family:var(--mono);font-weight:500;color:var(--accent);">₹0</strong>
+<span>Effective: <strong
+class="eff"
+id="c80cEff">&#8377;0</strong></span>
+
+<span>Remaining: <strong
+id="c80cLeft">&#8377;1,50,000</strong></span>
 
 </div>
 
 <div 
 class="cap-warn" 
-id="capWarn">⚠ You've exceeded ₹1,50,000 — extra investments won't save more tax under 80C.</div>
+id="capWarn">&#9888; Exceeded &#8377;1,50,000 &mdash; extra investments won't reduce tax under 80C.</div>
 
 </div>
 
@@ -1157,19 +1434,24 @@ id="capWarn">⚠ You've exceeded ₹1,50,000 — extra investments won't save mo
 <!-- OTHER DEDUCTIONS -->
 
 <div 
-class="card">
+class="tcard">
 
 <div 
-class="card-title">Other Deductions</div>
+class="tcard-title">
 
+<span 
+class="material-icons">receipt_long</span>
 
+Other Deductions
+
+</div>
 
 <div 
 class="field">
 
-<label>80D — Health Insurance <span
+<label>80D &mdash; Health Insurance <span
 class="val"
-id="d80dVal">₹0</span></label>
+id="d80dVal">&#8377;0</span></label>
 
 <div 
 class="slider-row">
@@ -1180,26 +1462,26 @@ id="d80dSlider"
 min="0" 
 max="50000" 
 step="1000" 
-value="0" />
+value="0"/>
 
 <input 
 type="number" 
 id="d80dNum" 
-value="0" />
+value="0"/>
 
 </div>
 
 <div 
-style="font-size:11px;color:var(--muted);margin-top:4px;">Up to ₹25,000 self + ₹25,000 parents</div>
+class="hint">Self &#8377;25,000 + Parents &#8377;25,000 (&#8377;50,000 if senior citizen)</div>
 
 </div>
 
 <div 
 class="field">
 
-<label>80CCD(1B) — NPS Extra <span
+<label>80CCD(1B) &mdash; NPS Extra <span
 class="val"
-id="npsVal">₹0</span></label>
+id="npsVal">&#8377;0</span></label>
 
 <div 
 class="slider-row">
@@ -1210,26 +1492,26 @@ id="npsSlider"
 min="0" 
 max="50000" 
 step="1000" 
-value="0" />
+value="0"/>
 
 <input 
 type="number" 
 id="npsNum" 
-value="0" />
+value="0"/>
 
 </div>
 
 <div 
-style="font-size:11px;color:var(--muted);margin-top:4px;">Extra ₹50,000 over 80C cap</div>
+class="hint">Additional &#8377;50,000 over &amp; above 80C cap</div>
 
 </div>
 
 <div 
 class="field">
 
-<label>Other (80G donations, etc.) <span
+<label>80G &mdash; Donations <span
 class="val"
-id="otherVal">₹0</span></label>
+id="otherVal">&#8377;0</span></label>
 
 <div 
 class="slider-row">
@@ -1240,70 +1522,358 @@ id="otherSlider"
 min="0" 
 max="100000" 
 step="1000" 
-value="0" />
+value="0"/>
 
 <input 
 type="number" 
 id="otherNum" 
-value="0" />
+value="0"/>
 
 </div>
 
 </div>
 
+<div 
+class="sdiv"></div>
+
+<div 
+class="field">
+
+<label>Professional Tax / yr <span
+class="val"
+id="profTaxVal">&#8377;0</span></label>
+
+<input 
+type="number" 
+id="profTax" 
+value="2400"/>
+
+<div 
+class="hint">Sec 16(iii) &mdash; old regime only (&#8377;200/mo = &#8377;2,400/yr fixed)</div>
+
+</div>
+
 </div>
 
 
 
-</div><!-- /grid -->
+<!-- INCOME FROM OTHER SOURCES -->
+
+<div 
+class="tcard">
+
+<div 
+class="tcard-title">
+
+<span 
+class="material-icons">account_balance</span>
+
+Income from Other Sources
+
+</div>
+
+<div 
+class="field">
+
+<label>Savings Bank Interest / yr <span
+class="val"
+id="savIntVal">&#8377;0</span></label>
+
+<div 
+class="slider-row">
+
+<input 
+type="range" 
+id="savIntSlider" 
+min="0" 
+max="50000" 
+step="500" 
+value="0"/>
+
+<input 
+type="number" 
+id="savIntNum" 
+value="0"/>
+
+</div>
+
+<div 
+class="hint"><strong>Sec 80TTA:</strong> Up to &#8377;10,000 exempt under Old Regime. Fully taxable under New Regime.</div>
+
+</div>
+
+<div 
+class="field">
+
+<label>FD / RD / Bond Interest / yr <span
+class="val"
+id="fdIntVal">&#8377;0</span></label>
+
+<div 
+class="slider-row">
+
+<input 
+type="range" 
+id="fdIntSlider" 
+min="0" 
+max="500000" 
+step="5000" 
+value="0"/>
+
+<input 
+type="number" 
+id="fdIntNum" 
+value="0"/>
+
+</div>
+
+<div 
+class="hint">Fully taxable in both regimes at slab rate. TDS @10% if &gt; &#8377;40,000/yr.</div>
+
+</div>
+
+<div 
+class="field">
+
+<label>Other Income (dividends, rent, etc.) / yr <span
+class="val"
+id="otherIncVal">&#8377;0</span></label>
+
+<div 
+class="slider-row">
+
+<input 
+type="range" 
+id="otherIncSlider" 
+min="0" 
+max="500000" 
+step="5000" 
+value="0"/>
+
+<input 
+type="number" 
+id="otherIncNum" 
+value="0"/>
+
+</div>
+
+<div 
+class="hint">Taxable at slab rates in both regimes.</div>
+
+</div>
+
+</div>
+
+
+
+</div><!-- /calc-grid -->
 
 </div><!-- /page -->
 
 
 
+<!-- ── PPP Modal ──────────────────────────────────────────────── -->
+
+<div 
+class="modal-overlay" 
+id="pppOverlay">
+
+<div 
+class="ppp-modal">
+
+<div 
+class="ppp-head">
+
+<div>
+
+<h2>&#127758; Global PPP Salary Equivalents</h2>
+
+<p>What to ask in other countries to match your Indian take-home purchasing power</p>
+
+</div>
+
+<button 
+class="modal-close" 
+id="pppClose"><span
+class="material-icons">close</span></button>
+
+</div>
+
+<div 
+class="ppp-body">
+
+<div 
+class="ppp-income-row">
+
+<div 
+class="fil">
+
+<label 
+id="pppIncomeLabel">Your take-home salary (Monthly &#8377;)</label>
+
+<input 
+type="number" 
+id="pppIncome" 
+placeholder="e.g. 500000"/>
+
+</div>
+
+<div 
+style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
+
+<span 
+class="ppp-hint">&#8377; auto-filled from calculator</span>
+
+<div 
+class="ppp-mode-pill" 
+style="padding:2px;gap:2px">
+
+<button 
+id="pppMoBtn" 
+class="active" 
+style="padding:4px 12px;font-size:10px">MO</button>
+
+<button 
+id="pppYrBtn" 
+style="padding:4px 12px;font-size:10px">YR</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div 
+class="ppp-mode-bar">
+
+<div 
+class="ppp-mode-pill">
+
+<button 
+id="modePPP" 
+class="active">&#127759; PPP Equivalent</button>
+
+<button 
+id="modeFX">&#128881; Market Rate (FX)</button>
+
+</div>
+
+<div 
+style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+
+<label 
+class="inr-toggle" 
+title="Show INR equivalent of each PPP salary at live FX rates">
+
+<input 
+type="checkbox" 
+id="showINR"/> &#8377; equivalent
+
+</label>
+
+<div 
+class="fx-badge"><span
+class="fx-dot"
+id="fxDot"></span><span
+id="ratesDate">IMF 2024 (annual, fixed)</span></div>
+
+</div>
+
+</div>
+
+<div 
+class="ppp-grid" 
+id="pppGrid"></div>
+
+<div 
+class="ppp-footer">
+
+<strong>PPP mode:</strong> Take-home ÷ India PPP factor (₹24 / Int’l $) × destination PPP factor.
+
+Reflects <em>purchasing power parity</em> — what salary gives same lifestyle. Source: IMF WEO 2024.
+
+&nbsp;&bull;&nbsp;<strong>FX mode:</strong> Direct conversion at live ECB rates via
+
+<a 
+href="https://frankfurter.app"
+target="_blank"
+rel="noopener"
+style="color:var(--accent)">Frankfurter API</a>
+
+(European Central Bank). Shows what your ₹ is literally worth abroad — usually much lower.
+
+&nbsp;&bull;&nbsp;<strong>Tax tip:</strong> Figures are pre-tax equivalents. UAE = 0% income tax; most others 25–45%.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- Materialize JS via cdnjs -->
+
+<script 
+src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 <script>
 
-// ─── helpers ───────────────────────────────────────────────────────────────
-
 const 
-fmt = n => '₹' + Math.round(n).toLocaleString('en-IN');
+fmt = n => '\u20b9' + Math.round(n).toLocaleString('en-IN');
 
 const 
 $ = id => document.getElementById(id);
 
 
 
-// sync slider ↔ number input
+// Dark / Light toggle
+
+$('themeBtn').addEventListener('click', () => {
+
+const h = document.documentElement;
+
+const dark = h.getAttribute('data-theme') ===
+'dark';
+
+h.setAttribute('data-theme', dark ?
+'light' : 
+'dark');
+
+$('themeIcon').textContent = dark ?
+'dark_mode' : 
+'light_mode';
+
+});
+
+
+
+// Slider <-> number sync
 
 function 
-syncPair(sliderId, numId, labelId, labelFn) {
+syncPair(sId, nId, lId, lFn) {
 
 const s = 
-$(sliderId), n = $(numId);
+$(sId), n = $(nId);
 
 const 
-update = val => {
+upd = v => { s.value=v; n.value=v;
+if(lId) 
+$(lId).textContent=lFn?lFn(v):fmt(v); };
 
-s.value = val; n.value = val;
+s.addEventListener('input', () => {
+upd(s.value);
+calculate(); });
 
-if (labelId) 
-$(labelId).textContent = labelFn ?
-labelFn(val) : 
-fmt(val);
+n.addEventListener('input', () => {
+upd(n.value);
+calculate(); });
 
-};
-
-s.addEventListener('input', () =>
-update(s.value));
-
-n.addEventListener('input', () =>
-update(n.value));
-
-update(s.value);
+upd(s.value);
 
 }
-
-
 
 syncPair('rent','rentNum','rentVal', v =>
 fmt(v)+'/mo');
@@ -1324,25 +1894,24 @@ syncPair('npsSlider','npsNum','npsVal');
 
 syncPair('otherSlider','otherNum','otherVal');
 
+syncPair('savIntSlider','savIntNum','savIntVal');
+
+syncPair('fdIntSlider','fdIntNum','fdIntVal');
+
+syncPair('otherIncSlider','otherIncNum','otherIncVal');
 
 
-// ─── monthly/yearly toggle ─────────────────────────────────────────────────
 
-const freqToggle = 
-$('freqToggle');
-
-const salaryIds = ['basic','hra','flex','comm','lta','food'];
+// Monthly / Yearly
 
 let isYearly = 
 false;
 
-const baseMonthly = {basic:30000,hra:15000,flex:0,comm:0,lta:0,food:0};
+const salIds = ['basic','hra','flex','comm','lta','food'];
 
+$('freqToggle').addEventListener('change', () => {
 
-
-freqToggle.addEventListener('change', () => {
-
-isYearly = freqToggle.checked;
+isYearly = $('freqToggle').checked;
 
 $('freqLabel').textContent = isYearly ?
 'Yearly' : 
@@ -1352,34 +1921,9 @@ $('incomeChip').textContent = isYearly ?
 'Yearly' : 
 'Monthly';
 
-salaryIds.forEach(id => {
-
-const m = 
-Number($(id).value) / (isYearly ?
-12 : 
-1);
-
-// if switching direction, recalculate from base
-
-});
-
-// reset to base × multiplier
-
-const mul = isYearly ? 
-12 : 1;
-
-Object.entries(baseMonthly).forEach(([id, val]) => {
-
-const cur = 
-Number($(id).value);
-
-// adjust proportionally from current
-
-$(id).value = Math.round(isYearly ? cur *
-12 : cur / 
-12);
-
-});
+salIds.forEach(id => { 
+$(id).value = Math.round(isYearly ? +$(id).value*12
+ : +$(id).value/12); });
 
 calculate();
 
@@ -1387,440 +1931,729 @@ calculate();
 
 
 
-// ─── slab helpers ──────────────────────────────────────────────────────────
+// Tax slabs
 
 function 
-taxOldSlab(income) {
+taxOld(inc) {
 
-if (income <= 
-250000) return 
+if(inc<=250000)
+return 
 0;
 
-let t = 
-0;
+let t=0;
 
-if (income > 
-1000000) { t += (income - 1000000) *
-0.3; income = 
-1000000; }
+if(inc>1000000){t+=(inc-1000000)*.30;inc=1000000;}
 
-if (income > 
-500000) { t += (income - 500000) *
-0.2; income = 
-500000; }
+if(inc> 
+500000){t+=(inc- 500000)*.20;inc=
+500000;}
 
-if (income > 
-250000) { t += (income - 250000) *
-0.05; }
+if(inc> 
+250000) t+=(inc- 250000)*.05;
 
 return t;
 
 }
 
-
-
 function 
-taxNewSlab(income) {
+taxNew(inc) {
 
-// FY 2025-26 new regime slabs (after budget 2025)
-
-if (income <= 
-400000) return 
+if(inc<=400000)
+return 
 0;
 
-const slabs = [
+return [[400000,800000,.05],[800000,1200000,.10],[1200000,1600000,.15],
 
-[400000, 
-800000, 0.05],
+[1600000,2000000,.20],[2000000,2400000,.25],[2400000,Infinity,.30]]
 
-[800000, 
-1200000, 0.10],
+.reduce((t,[lo,hi,r])=>inc>lo?t+(Math.min(inc,hi)-lo)*r:t,0);
 
-[1200000, 
-1600000, 0.15],
+}
 
-[1600000, 
-2000000, 0.20],
+function 
+withCess(tax,inc){
 
-[2000000, 
-2400000, 0.25],
+let sc=0;
 
-[2400000, 
-Infinity,0.30],
+if(inc>50000000)sc=tax*.37;
+else 
+if(inc>20000000)sc=tax*.25;
+
+else 
+if(inc>10000000)sc=tax*.15;
+else 
+if(inc>5000000)sc=tax*.10;
+
+const t=tax+sc; 
+return t+t*.04;
+
+}
+
+function 
+hraEx(bM,hM,rM,metro){
+
+if(rM<=0)
+return 
+0;
+
+return Math.max(0,Math.min(hM*12,rM*12-bM*12*.1,bM*12*(metro?.5:.4)));
+
+}
+
+
+
+// Main
+
+function 
+calculate(){
+
+const mul=isYearly?1:12;
+
+const bM=+$('basic').value, hM=+$('hra').value,
+ fxM=+$('flex').value;
+
+const cM=+$('comm').value, lM=+$('lta').value,
+ fdM=+$('food').value;
+
+const basic=bM*mul,hr=hM*mul,fx=fxM*mul,cm=cM*mul,lt=lM*mul,fd=fdM*mul;
+
+const gross=basic+hr+fx+cm+lt+fd;
+
+
+
+const rent=+$('rent').value, metro=$('metro').checked;
+
+const int_=+$('intSlider').value, prin=+$('principalSlider').value;
+
+const pf=+$('pf').value, dep=+$('depositSlider').value;
+
+const lic=+$('licSlider').value, sch=+$('schoolSlider').value;
+
+const d80d=+$('d80dSlider').value, nps=+$('npsSlider').value;
+
+const oth=+$('otherSlider').value, pt=Math.min(+$('profTax').value,2500);
+
+const savInt=+$('savIntSlider').value, fdInt=+$('fdIntSlider').value,
+ otherInc=+$('otherIncSlider').value;
+
+const tta = Math.min(savInt,
+10000); 
+// Sec 80TTA: ₹10K exempt, old regime only
+
+
+
+// update labels
+
+['basic','hra','flex','comm','lta','food'].forEach(id=>{const
+ e=$(id+'Val');if(e)e.textContent=fmt($(id).value);});
+
+$('pfVal').textContent=fmt(pf);
+$('profTaxVal').textContent=fmt(+$('profTax').value);
+
+$('grossAmt').textContent=fmt(gross);
+
+
+
+// 80C
+
+const raw80c=pf+dep+lic+sch+prin, eff=Math.min(raw80c,150000);
+
+$('c80cUsed').textContent=fmt(raw80c);
+$('c80cEff').textContent=fmt(eff);
+
+$('c80cLeft').textContent=fmt(Math.max(0,150000-raw80c));
+
+$('capWarn').style.display=raw80c>150000?'block':'none';
+
+
+
+const hEx=hraEx(bM*mul/12,hM*mul/12,rent,metro);
+
+const fEx=Math.min(fd,26400), lEx=Math.min(lt,75000);
+
+const s24=Math.min(int_,200000), d80c=Math.min(d80d,50000);
+
+
+
+let tOld=Math.max(0,gross+savInt+fdInt+otherInc-hEx-fEx-lEx-50000-pt-eff-s24-d80c-nps-oth-tta);
+
+const rOld=taxOld(tOld), rebOld=tOld<=500000?rOld:0;
+
+const fOld=withCess(Math.max(0,rOld-rebOld),tOld);
+
+
+
+let tNew=Math.max(0,gross+savInt+fdInt+otherInc-75000);
+
+const rNew=taxNew(tNew), rebNew=tNew<=1200000?rNew:0;
+
+const fNew=withCess(Math.max(0,rNew-rebNew),tNew);
+
+
+
+const owins=fOld<fNew, diff=Math.abs(fOld-fNew);
+
+$('oldTax').textContent = isYearly ?
+fmt(fOld) : 
+fmt(Math.round(fOld/12));
+
+$('oldTaxSec').textContent = isYearly ?
+fmt(Math.round(fOld/12))+' /mo' :
+fmt(fOld)+' /yr';
+
+$('oldTaxHint').textContent = isYearly ?
+'Annual Tax Payable' : 
+'Monthly Tax Payable';
+
+$('newTax').textContent = isYearly ?
+fmt(fNew) : 
+fmt(Math.round(fNew/12));
+
+$('newTaxSec').textContent = isYearly ?
+fmt(Math.round(fNew/12))+' /mo' :
+fmt(fNew)+' /yr';
+
+$('newTaxHint').textContent = isYearly ?
+'Annual Tax Payable' : 
+'Monthly Tax Payable';
+
+$('savingsAmt').innerHTML = (isYearly ?
+fmt(diff) : 
+fmt(Math.round(diff/12)))+' <small>'+(isYearly?'/year':'/mo')+'</small>';
+
+
+
+const b=$('verdictBadge');
+
+b.textContent=owins?'\u2736 Old Regime':'\u2736
+ New Regime';
+
+b.className='verdict-badge'+(owins?' old-wins':'');
+
+$('oldCard').className='regime-card old'+(owins?'
+ winner old-winner':'');
+
+$('newCard').className='regime-card new'+(!owins?'
+ winner':'');
+
+
+
+const 
+bdRow = (label, val, zero=false) =>
+`<div class="bd-row${zero?' bd-zero':''}"><label>${label}</label><span>${val}</span></div>`;
+
+$('oldTaxable').textContent =
+fmt(tOld);
+
+$('newTaxable').textContent =
+fmt(tNew);
+
+
+
+$('oldBreakdown').innerHTML =
+
+bdRow('Gross',fmt(gross)) +
+
+bdRow('HRA exempt','&minus;'+fmt(hEx)) +
+
+bdRow('LTA exempt','&minus;'+fmt(lEx)) +
+
+bdRow('Food exempt','&minus;'+fmt(fEx)) +
+
+bdRow('Std deduction','&minus;&#8377;50,000') +
+
+bdRow('Prof. Tax','&minus;'+fmt(pt)) +
+
+bdRow('80C','&minus;'+fmt(eff)) +
+
+bdRow('Sec 24(b)','&minus;'+fmt(s24)) +
+
+bdRow('80D / NPS','&minus;'+fmt(d80c+nps)) +
+
+(oth>0 ? 
+bdRow('80G','&minus;'+fmt(oth)) :
+'') +
+
+(savInt>0 ? 
+bdRow('Savings Int. (80TTA)','&minus;'+fmt(tta)+(savInt>10000?'
+ <small>(capped)</small>':'')) :
+'') +
+
+((savInt+fdInt+otherInc)>0 ? 
+bdRow('+ Other Income','+'+fmt(savInt+fdInt+otherInc)) :
+'') +
+
+`<div class="bd-row bd-taxable"><label>Taxable Income</label><span>${fmt(tOld)}</span></div>` +
+
+(rebOld>0 ? 
+'<div class="bd-rebate">87A rebate applied &#10003;</div>' : 
+'');
+
+
+
+$('newBreakdown').innerHTML =
+
+bdRow('Gross',fmt(gross)) +
+
+bdRow('Std deduction','&minus;&#8377;75,000') +
+
+bdRow('HRA exempt','&#8377;0 (N/A)',true) +
+
+bdRow('LTA exempt','&#8377;0 (N/A)',true) +
+
+bdRow('Food exempt','&#8377;0 (N/A)',true) +
+
+bdRow('80C / Sec 24(b)','&#8377;0 (N/A)',true) +
+
+bdRow('80D / NPS','&#8377;0 (N/A)',true) +
+
+((savInt+fdInt+otherInc)>0 ? 
+bdRow('+ Other Income','+'+fmt(savInt+fdInt+otherInc)) :
+'') +
+
+(savInt>0 ? 
+bdRow('80TTA exempt','&#8377;0 (N/A)',true) :
+'') +
+
+`<div class="bd-row bd-taxable"><label>Taxable Income</label><span>${fmt(tNew)}</span></div>` +
+
+(rebNew>0 ? 
+'<div class="bd-rebate">87A rebate applied &#10003;</div>' : 
+'');
+
+}
+
+
+
+['basic','hra','flex','comm','lta','food','metro','pf','profTax','savIntNum','fdIntNum','otherIncNum']
+
+.forEach(id=>$(id).addEventListener('input',calculate));
+
+calculate();
+
+
+
+// ── PPP Modal ─────────────────────────────────────────────────
+
+// PPP: IMF 2024 annual data — hardcoded (no API needed; updates once/year)
+
+const PPP_DATA = [
+
+{flag:'🇺🇸',name:'USA', sym:'$', code:'USD', wbCode:'US',
+ ppp:1.00, tax:'Fed+state ~25–37%'},
+
+{flag:'🇬🇧',name:'UK', sym:'£', code:'GBP', wbCode:'GB',
+ ppp:0.69, tax:'Income tax ~20–45%'},
+
+{flag:'🇦🇪',name:'UAE / Dubai', sym:'AED', code:'AED', wbCode:'AE',
+ ppp:3.67, tax:'No income tax 🎉'},
+
+{flag:'🇸🇬',name:'Singapore', sym:'S$', code:'SGD', wbCode:'SG',
+ ppp:1.09, tax:'Income tax ~0–22%'},
+
+{flag:'🇨🇦',name:'Canada', sym:'C$', code:'CAD', wbCode:'CA',
+ ppp:1.33, tax:'Fed+prov ~20–33%'},
+
+{flag:'🇦🇺',name:'Australia', sym:'A$', code:'AUD', wbCode:'AU',
+ ppp:1.52, tax:'Income tax ~19–45%'},
+
+{flag:'🇩🇪',name:'Germany', sym:'€', code:'EUR', wbCode:'DE',
+ ppp:0.77, tax:'Income tax ~14–45%'},
+
+{flag:'🇳🇱',name:'Netherlands', sym:'€', code:'EUR', wbCode:'NL',
+ ppp:0.78, tax:'Income tax ~9–49%'},
+
+{flag:'🇨🇭',name:'Switzerland', sym:'CHF', code:'CHF', wbCode:'CH',
+ ppp:1.20, tax:'Federal ~0.8–11.5%'},
+
+{flag:'🇫🇷',name:'France', sym:'€', code:'EUR', wbCode:'FR',
+ ppp:0.77, tax:'Income tax ~0–45%'},
+
+{flag:'🇯🇵',name:'Japan', sym:'¥', code:'JPY', wbCode:'JP',
+ ppp:106, tax:'Income tax ~5–45%'},
+
+{flag:'🇳🇿',name:'New Zealand', sym:'NZ$', code:'NZD', wbCode:'NZ',
+ ppp:1.66, tax:'Income tax ~10–39%'},
 
 ];
 
-let t = 
-0;
 
-for (const [lo, hi, rate] of slabs) {
 
-if (income > lo) t += (Math.min(income, hi) - lo) * rate;
+// Hardcoded FX fallback (approx May 2026): 1 INR = X local currency
+
+// Used immediately; overwritten by live Frankfurter API on FX tab click
+
+const FX_FALLBACK = {USD:0.01195,GBP:0.00945,AED:0.04388,SGD:0.01606,CAD:0.01638,AUD:0.01835,EUR:0.01107,CHF:0.01052,JPY:1.8454,NZD:0.02012};
+
+let fxRates = {...FX_FALLBACK};
+
+let fxDate = 
+'', fxFetched = false, fxFetching =
+false;
+
+let pppMode = 
+'ppp', showINR = false;
+
+const pppIndia = 
+24; // INR per Intl $ (IMF WEO 2024)
+
+
+
+async 
+function fetchRates() {
+
+if (fxFetching 
+|| fxFetched) return;
+
+fxFetching = true;
+
+updateBadge();
+
+const fxCodes = [...new
+Set(PPP_DATA.map(c => c.code))].join(',');
+
+try {
+
+const res = 
+await fetch(`https://api.frankfurter.app/latest?from=INR&to=${fxCodes}`);
+
+if (!res.ok)
+throw 
+new Error('non-200');
+
+const d = 
+await res.json();
+
+if (d.rates) Object.assign(fxRates, d.rates);
+// merge live over fallback
+
+fxDate = d.date 
+|| '';
+
+} catch (e) {
+
+fxDate = ''; 
+// fallback rates remain active
 
 }
 
-return t;
+fxFetched = true;
+
+fxFetching = false;
+
+updateBadge();
+
+renderPPP();
 
 }
 
 
 
 function 
-addSurchargeAndCess(tax, income) {
+updateBadge() {
 
-let surcharge = 
-0;
+const isPPP = pppMode === 
+'ppp';
 
-if (income > 
-50000000) surcharge = tax * 0.37;
+let txt, live;
 
-else 
-if (income > 20000000) surcharge = tax *
-0.25;
+if (isPPP) {
 
-else 
-if (income > 10000000) surcharge = tax *
-0.15;
+txt = 'IMF 2024 (annual, fixed)';
 
-else 
-if (income > 5000000) surcharge = tax *
-0.10;
+live = true;
 
-const total = tax + surcharge;
+} else 
+if (fxFetching) {
 
-return total + total * 
-0.04; // 4% cess
+txt = 'Fetching live rates…';
+
+live = false;
+
+} else 
+if (fxDate) {
+
+txt = `ECB live · ${fxDate}`;
+
+live = true;
+
+} else {
+
+txt = fxFetched ? 'FX offline — fallback rates' :
+'Approx. fallback rates';
+
+live = false;
 
 }
+
+$('ratesDate').textContent = txt;
+
+$('fxDot').style.background =
+'';
+
+$('fxDot').className =
+'fx-dot' + (live ? 
+' live' : '');
+
+if (!live
+&& fxFetched 
+&& !fxDate) 
+$('fxDot').style.background =
+'var(--red)';
+
+}
+
+function 
+fmtLocal(n, sym) { return sym + Math.round(n).toLocaleString('en');
+ }
+
+
+
+let pppShowMonthly = 
+true;
 
 
 
 function 
-calcHRAExemption(basicMonthly, hraMonthly, rentMonthly, isMetro) {
+renderPPP() {
 
-const basic = basicMonthly * 
-12;
+const income = +$('pppIncome').value
+|| 
+0;
 
-const hraReceived = hraMonthly *
-12;
+const annIncome = pppShowMonthly ? income *
+12 : income;
 
-const rentPaid = rentMonthly *
-12;
+const isPPP = pppMode === 
+'ppp';
 
-const metroFactor = isMetro ? 
-0.5 : 0.4;
+$('pppGrid').innerHTML = PPP_DATA.map(c => {
 
-return Math.min(
+let ann, hint, inrEq = 
+null;
 
-hraReceived,
+if (isPPP) {
 
-rentPaid - basic * 0.1,
+ann = (annIncome / pppIndia) * c.ppp;
 
-basic * metroFactor
+hint = `IMF 2024: 1 Intl$ = ${c.sym}${c.ppp}`;
 
-);
+if (showINR 
+&& income) inrEq = ann / fxRates[c.code];
+
+} else {
+
+const rate = fxRates[c.code];
+
+ann = annIncome ? annIncome * rate : null;
+
+hint = fxDate
+
+? `1 \u20b9 =
+${rate < 1 ? rate.toFixed(5) : rate.toFixed(3)}
+${c.code}`
+
+: `~1 \u20b9
+\u2248
+${rate < 1 ? rate.toFixed(5) : rate.toFixed(3)}
+${c.code} (est.)`;
 
 }
 
+const disp = ann != 
+null ? (pppShowMonthly ? ann / 12 : ann) :
+null;
 
+const dispInr = inrEq != 
+null ? (pppShowMonthly ? inrEq / 12 : inrEq) :
+null;
 
-// ─── main calculation ──────────────────────────────────────────────────────
+const suffix = pppShowMonthly ?
+'\u202f/mo' :
+'\u202f/yr';
 
-function 
-calculate() {
+const valStr = income 
+&& disp != null ? 
+fmtLocal(disp, c.sym) + suffix :
+'\u2014';
 
-const mul = isYearly ? 
-1 : 12;
+const inrStr = dispInr != 
+null ? `\u2248
+${fmt(dispInr)}${suffix}` :
+'';
 
+return 
+`<div class="ppp-card">
 
+<div class="pc-flag">${c.flag}</div>
 
-const basicM = 
-Number($('basic').value);
+<div class="pc-name">${c.name}</div>
 
-const hraM = 
-Number($('hra').value);
+<div class="pc-annual">${valStr}</div>
 
-const flexM = 
-Number($('flex').value);
-
-const commM = 
-Number($('comm').value);
-
-const ltaM = 
-Number($('lta').value);
-
-const foodM = 
-Number($('food').value);
-
-
-
-// annualise
-
-const basic = basicM * mul;
-
-const hraRec = hraM * mul;
-
-const flex = flexM * mul;
-
-const comm = commM * mul;
-
-const lta = ltaM * mul;
-
-const food = foodM * mul;
-
-
-
-const gross = basic + hraRec + flex + comm + lta + food;
-
-
-
-const rent = 
-Number($('rent').value);
-// always monthly
-
-const isMetro = 
-$('metro').checked;
-
-const interest = 
-Number($('intSlider').value);
-
-const principal = 
-Number($('principalSlider').value);
-
-
-
-const pf = 
-21600;
-
-const deposit = 
-Number($('depositSlider').value);
-
-const lic = 
-Number($('licSlider').value);
-
-const school = 
-Number($('schoolSlider').value);
-
-const d80d = 
-Number($('d80dSlider').value);
-
-const nps = 
-Number($('npsSlider').value);
-
-const other = 
-Number($('otherSlider').value);
-
-
-
-// 80C bucket
-
-const raw80c = pf + deposit + lic + school + principal;
-
-const eff80c = Math.min(raw80c,
-150000);
-
-$('c80cUsed').textContent =
-fmt(raw80c);
-
-$('c80cEff').textContent =
-fmt(eff80c);
-
-$('capWarn').style.display = raw80c >
-150000 ? 
-'block' : 'none';
-
-
-
-// ── OLD REGIME ──
-
-const hraExempt = Math.max(0,
-calcHRAExemption(basicM * mul / 
-12, hraM * mul / 12, rent, isMetro));
-
-const foodExempt = Math.min(food,
-26400);
-
-const ltaExempt = Math.min(lta,
-75000); 
-// simplified
-
-const stdDedOld = 
-50000;
-
-const sec24b = Math.min(interest,
-200000);
-
-const d80dCapped = Math.min(d80d,
-50000);
-
-
-
-let taxableOld = gross
-
-- hraExempt
-
-- foodExempt
-
-- ltaExempt
-
-- stdDedOld
-
-- eff80c
-
-- sec24b
-
-- d80dCapped
-
-- nps
-
-- other;
-
-taxableOld = Math.max(0, taxableOld);
-
-const rawOldTax = 
-taxOldSlab(taxableOld);
-
-// Rebate 87A (old: up to ₹5L → tax = 0)
-
-const rebateOld = taxableOld <=
-500000 ? rawOldTax : 
-0;
-
-const finalOldTax = 
-addSurchargeAndCess(Math.max(0, rawOldTax - rebateOld), taxableOld);
-
-
-
-// ── NEW REGIME ──
-
-const stdDedNew = 
-75000;
-
-let taxableNew = gross - stdDedNew;
-
-taxableNew = Math.max(0, taxableNew);
-
-const rawNewTax = 
-taxNewSlab(taxableNew);
-
-// Rebate 87A new (up to ₹12L)
-
-const rebateNew = taxableNew <=
-1200000 ? rawNewTax : 
-0;
-
-const finalNewTax = 
-addSurchargeAndCess(Math.max(0, rawNewTax - rebateNew), taxableNew);
-
-
-
-// ── UPDATE UI ──
-
-const oldWins = finalOldTax < finalNewTax;
-
-const savings = Math.abs(finalOldTax - finalNewTax);
-
-
-
-$('oldTax').textContent =
-fmt(finalOldTax);
-
-$('newTax').textContent =
-fmt(finalNewTax);
-
-$('savingsAmt').innerHTML =
-fmt(savings) + 
-' <small>/year</small>';
-
-
-
-const badge = 
-$('verdictBadge');
-
-badge.textContent = oldWins ? 
-'✦ Old Regime' : '✦ New Regime';
-
-badge.className = 
-'verdict-badge' + (oldWins ? ' old-wins' :
-'');
-
-
-
-const oCard = 
-$('oldCard'), nCard = 
-$('newCard');
-
-oCard.className = 
-'regime-card old' + (oldWins ? ' winner old-winner' :
-'');
-
-nCard.className = 
-'regime-card new' + (!oldWins ?
-' winner' : 
-'');
-
-
-
-// Breakdown lines
-
-$('oldBreakdown').innerHTML =
-`
-
-Gross &nbsp;<span>${fmt(gross)}</span><br>
-
-HRA exempt &nbsp;<span>−${fmt(hraExempt)}</span><br>
-
-Std deduction &nbsp;<span>−₹50,000</span><br>
-
-80C &nbsp;<span>−${fmt(eff80c)}</span><br>
-
-Sec 24(b) &nbsp;<span>−${fmt(sec24b)}</span><br>
-
-80D / NPS &nbsp;<span>−${fmt(d80dCapped + nps)}</span><br>
-
-<strong>Taxable &nbsp;<span>${fmt(taxableOld)}</span></strong>
-
-`;
-
-$('newBreakdown').innerHTML =
-`
-
-Gross &nbsp;<span>${fmt(gross)}</span><br>
-
-Std deduction &nbsp;<span>−₹75,000</span><br>
-
-No other deductions &nbsp;<span>—</span><br>
-
-<strong>Taxable &nbsp;<span>${fmt(taxableNew)}</span></strong><br>
-
-${taxableNew <= 
-1200000 ? '<span style="color:var(--green)">87A rebate applied ✓</span>' :
+${inrStr ? 
+`<div class="pc-inr">${inrStr}</div>` :
 ''}
 
-`;
+<div class="pc-hint">${hint}</div>
+
+<div class="pc-tax">${c.tax}</div>
+
+</div>`;
+
+}).join('');
 
 }
 
-
-
-// ─── wire all inputs ────────────────────────────────────────────────────────
-
-['basic','hra','flex','comm','lta','food',
-
-'rent','rentNum','intSlider','intNum','principalSlider','principalNum',
-
-'depositSlider','depositNum','licSlider','licNum','schoolSlider','schoolNum',
-
-'d80dSlider','d80dNum','npsSlider','npsNum','otherSlider','otherNum',
-
-'metro'
-
-].forEach(id => 
-$(id).addEventListener('input', calculate));
+function 
+parseFmt(s){ return 
+parseFloat((s||'').replace(/[₹,\s]/g,''))||0;
+ }
 
 
 
-calculate();
+$('pppBtn').addEventListener('click', ()=>{
+
+const gross = 
+parseFmt($('grossAmt').textContent);
+
+const oldTaxV = 
+parseFmt($('oldTax').textContent);
+
+const newTaxV = 
+parseFmt($('newTax').textContent);
+
+const takeHome = Math.max(0, gross - Math.min(oldTaxV, newTaxV));
+
+$('pppIncome').value = Math.round(pppShowMonthly ? takeHome /
+12 : takeHome) 
+|| '';
+
+$('pppIncomeLabel').textContent = pppShowMonthly ?
+'Your take-home salary (Monthly \u20b9)' :
+'Your take-home salary (Annual \u20b9)';
+
+pppMode = 'ppp'; 
+// always open in PPP mode
+
+$('modePPP').classList.add('active');
+
+$('modeFX').classList.remove('active');
+
+updateBadge();
+
+renderPPP(); 
+// no fetch needed for PPP
+
+$('pppOverlay').classList.add('open');
+
+document.body.style.overflow = 
+'hidden';
+
+});
+
+
+
+$('modePPP').addEventListener('click', ()=>{
+
+pppMode = 'ppp';
+
+$('modePPP').classList.add('active');
+
+$('modeFX').classList.remove('active');
+
+updateBadge(); 
+renderPPP();
+
+});
+
+$('modeFX').addEventListener('click', ()=>{
+
+pppMode = 'fx';
+
+$('modeFX').classList.add('active');
+
+$('modePPP').classList.remove('active');
+
+renderPPP(); 
+// render immediately with fallback rates
+
+fetchRates(); 
+// fetch live in background; re-renders on success
+
+updateBadge();
+
+});
+
+
+
+$('showINR').addEventListener('change', ()=>{
+
+showINR = $('showINR').checked;
+
+if (showINR 
+&& !fxFetched) 
+fetchRates(); // need FX rates for ₹ conversion
+
+renderPPP();
+
+});
+
+
+
+$('pppMoBtn').addEventListener('click', ()=>{
+
+if (!pppShowMonthly) {
+const v = +$('pppIncome').value;
+if (v) 
+$('pppIncome').value = Math.round(v /
+12); }
+
+pppShowMonthly = true;
+
+$('pppMoBtn').classList.add('active');
+$('pppYrBtn').classList.remove('active');
+
+$('pppIncomeLabel').textContent =
+'Your take-home salary (Monthly \u20b9)';
+
+renderPPP();
+
+});
+
+$('pppYrBtn').addEventListener('click', ()=>{
+
+if (pppShowMonthly) { 
+const v = +$('pppIncome').value;
+if (v) 
+$('pppIncome').value = Math.round(v *
+12); }
+
+pppShowMonthly = false;
+
+$('pppYrBtn').classList.add('active');
+$('pppMoBtn').classList.remove('active');
+
+$('pppIncomeLabel').textContent =
+'Your take-home salary (Annual \u20b9)';
+
+renderPPP();
+
+});
+
+
+
+function 
+closePPP(){ $('pppOverlay').classList.remove('open'); document.body.style.overflow='';
+ }
+
+$('pppClose').addEventListener('click', closePPP);
+
+$('pppOverlay').addEventListener('click', e=>{
+if(e.target===$('pppOverlay'))
+closePPP(); });
+
+$('pppIncome').addEventListener('input', renderPPP);
 
 </script>
 
