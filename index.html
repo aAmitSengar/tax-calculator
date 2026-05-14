@@ -1,853 +1,1258 @@
+<!DOCTYPE html>
 
-<!DOCTYPE 
-html>
-
-<html 
-lang="en" 
-data-theme="dark">
+<html lang="en" data-theme="dark">
 
 <head>
 
-<meta 
-charset="UTF-8"/>
+    <meta charset="UTF-8" />
 
-<meta 
-name="viewport" 
-content=
-"width=device-width, initial-scale=1.0"
-/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>India Tax Calculator — Old vs New Regime</title>
+    <title>India Tax Calculator — Old vs New Regime</title>
 
-<meta 
-name="description" 
-content="Free India Income Tax Calculator FY 2026-27. Compare Old vs New Regime instantly. No login, no ads."/>
+    <meta name="description"
+        content="Free India Income Tax Calculator FY 2026-27. Compare Old vs New Regime instantly. No login, no ads." />
 
-<meta 
-name="keywords" 
-content="India tax calculator,income tax,old regime,new regime,FY 2026-27,6 LPA,HRA,80C,87A,cess"/>
+    <meta name="keywords"
+        content="India tax calculator,income tax,old regime,new regime,FY 2026-27,6 LPA,HRA,80C,87A,cess" />
 
-<meta 
-name="author" 
-content="Amit Kumar"/>
+    <meta name="author" content="Amit Kumar" />
 
-<meta 
-property="og:title" 
-content="India Tax Calculator — Old vs New Regime"/>
+    <meta property="og:title" content="India Tax Calculator — Old vs New Regime" />
 
-<meta 
-property="og:type" 
-content="website"/>
+    <meta property="og:type" content="website" />
 
-<meta 
-property="og:url" 
-content="https://github.com/aAmitSengar/tax-calculator"/>
+    <meta property="og:url" content="https://github.com/aAmitSengar/tax-calculator" />
 
-<meta 
-name="twitter:card" 
-content="summary_large_image"/>
+    <meta name="twitter:card" content="summary_large_image" />
 
-<link 
-rel="canonical" 
-href="https://github.com/aAmitSengar/tax-calculator"/>
+    <link rel="canonical" href="https://github.com/aAmitSengar/tax-calculator" />
 
-<script 
-type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"India Tax Calculator","applicationCategory":"FinanceApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}}</script>
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"India Tax Calculator","applicationCategory":"FinanceApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}}</script>
 
 
 
-<!-- Material Icons -->
+    <!-- Material Icons -->
 
-<link 
-href="https://fonts.googleapis.com/icon?family=Material+Icons"
-rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-<!-- Fonts -->
+    <!-- Fonts -->
 
-<link 
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-rel="stylesheet"/>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
 
 
 
-<style>
+    <style>
+        /* ── Theme tokens ─────────────────────────────────────────────── */
 
-/* ── Theme tokens ─────────────────────────────────────────────── */
+        [data-theme="dark"] {
 
-[data-theme="dark"]{
+            --bg: #0d0f14;
+            --surface: #161920;
+            --surface2: #1e2230;
 
---bg:#0d0f14; --surface:#161920; --surface2:#1e2230;
+            --border: #2a2f3d;
+            --text: #e8eaf0;
+            --muted: #7a7f96;
 
---border:#2a2f3d; --text:#e8eaf0; --muted:#7a7f96;
+            --accent: #f5c542;
+            --green: #3ddc97;
+            --red: #ff5f6d;
 
---accent:#f5c542; --green:#3ddc97; --red:#ff5f6d;
+            --old: #ff8c42;
+            --new: #3ddc97;
 
---old:#ff8c42; --new:#3ddc97;
+            --shadow: 0 2px 14px rgba(0, 0, 0, .5);
 
---shadow:0
-2px
-14px
-rgba(0,0,0,.5);
+        }
 
-}
+        [data-theme="light"] {
 
-[data-theme="light"]{
+            --bg: #f4f6fb;
+            --surface: #fff;
+            --surface2: #eef0f7;
 
---bg:#f4f6fb; --surface:#fff; --surface2:#eef0f7;
+            --border: #d8dce8;
+            --text: #1a1d2e;
+            --muted: #6b7090;
 
---border:#d8dce8; --text:#1a1d2e; --muted:#6b7090;
+            --accent: #d4900a;
+            --green: #1a9e6b;
+            --red: #c93342;
 
---accent:#d4900a; --green:#1a9e6b; --red:#c93342;
+            --old: #c96020;
+            --new: #1a9e6b;
 
---old:#c96020; --new:#1a9e6b;
+            --shadow: 0 2px 14px rgba(0, 0, 0, .08);
 
---shadow:0
-2px
-14px
-rgba(0,0,0,.08);
+        }
 
-}
 
 
+        /* ── Base reset (no external framework) ─────────────────────── */
 
-/* ── Base reset (no external framework) ─────────────────────── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        body {
 
-body{
+            background: var(--bg);
+            color: var(--text);
 
-background:var(--bg); color:var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
 
-font-family:'Inter',sans-serif; font-size:14px;
+            transition: background .3s, color .3s;
 
-transition:background
-.3s,color
-.3s;
+            min-height: 100vh;
+            padding-bottom: 60px;
 
-min-height:100vh; padding-bottom:60px;
+        }
 
-}
+        button {
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            background: none;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent
+        }
 
-button{border:none;cursor:pointer;font-family:inherit;background:none;padding:0;-webkit-tap-highlight-color:transparent}
+        input,
+        textarea,
+        select {
+            font-family: inherit;
+            box-sizing: border-box
+        }
 
-input,textarea,select{font-family:inherit;box-sizing:border-box}
+        a {
+            text-decoration: none;
+            color: inherit
+        }
 
-a{text-decoration:none;color:inherit}
+        nav {
+            display: block
+        }
 
-nav{display:block}
+        ul,
+        ol {
+            list-style: none
+        }
 
-ul,ol{list-style:none}
 
 
+        /* ── Nav ─────────────────────────────────────────────────────── */
 
-/* ── Nav ─────────────────────────────────────────────────────── */
+        .app-nav {
 
-.app-nav{
+            background: var(--surface);
 
-background:var(--surface);
+            border-bottom: 1px solid var(--border);
 
-border-bottom:1px solid
-var(--border);
+            box-shadow: var(--shadow);
 
-box-shadow:var(--shadow);
+            padding: 0 24px;
+            height: 114px;
 
-padding:0
-24px; height:114px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-display:flex; align-items:center; justify-content:space-between;
+        }
 
-}
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            line-height: normal
+        }
 
-.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;line-height:normal}
+        .nav-logo {
 
-.nav-logo{
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
 
-width:38px;height:38px;border-radius:10px;
+            background: linear-gradient(135deg, var(--accent), var(--old));
 
-background:linear-gradient(135deg,var(--accent),var(--old));
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-display:flex;align-items:center;justify-content:center;
+            font-size: 19px;
+            font-weight: 800;
+            color: #0d0f14;
 
-font-size:19px;font-weight:800;color:#0d0f14;
+        }
 
-}
+        .nav-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2
+        }
 
-.nav-title{font-size:16px;font-weight:700;color:var(--text);line-height:1.2}
+        nav .nav-title {
+            display: inline-block;
+            font-size: 32px;
+            padding: 2px 0
+        }
 
-nav 
-.nav-title{display:inline-block;font-size:32px;padding:2px
-0}
+        .nav-sub {
+            font-size: 11px;
+            color: var(--muted)
+        }
 
-.nav-sub{font-size:11px;color:var(--muted)}
+        .theme-btn {
 
-.theme-btn{
+            background: var(--surface2);
+            border: 1px solid var(--border);
 
-background:var(--surface2);border:1px
- solid var(--border);
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            cursor: pointer;
 
-border-radius:50%;width:38px;height:38px;cursor:pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-display:flex;align-items:center;justify-content:center;
+            color: var(--muted);
+            transition: all .2s;
+            flex-shrink: 0;
 
-color:var(--muted);transition:all
-.2s;flex-shrink:0;
+        }
 
-}
+        .theme-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent)
+        }
 
-.theme-btn:hover{color:var(--accent);border-color:var(--accent)}
+        .theme-btn .material-icons {
+            font-size: 20px
+        }
 
-.theme-btn 
-.material-icons{font-size:20px}
 
 
+        /* ── Page ────────────────────────────────────────────────────── */
 
-/* ── Page ────────────────────────────────────────────────────── */
+        .page {
+            max-width: 1260px;
+            margin: 0 auto;
+            padding: 26px 18px
+        }
 
-.page{max-width:1260px;margin:0
- auto;padding:26px
-18px}
 
 
+        /* ── Freq toggle ─────────────────────────────────────────────── */
 
-/* ── Freq toggle ─────────────────────────────────────────────── */
+        .toggle-bar {
 
-.toggle-bar{
+            display: flex;
+            align-items: center;
+            gap: 12px;
 
-display:flex;align-items:center;gap:12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
 
-background:var(--surface);border:1px
- solid var(--border);
+            border-radius: 50px;
+            padding: 6px 18px;
+            width: fit-content;
 
-border-radius:50px;padding:6px
-18px;width:fit-content;
+            margin-bottom: 22px;
+            box-shadow: var(--shadow);
 
-margin-bottom:22px;box-shadow:var(--shadow);
+        }
 
-}
+        .toggle-bar>span {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted)
+        }
 
-.toggle-bar>span{font-size:13px;font-weight:500;color:var(--muted)}
+        .toggle-pill {
 
-.toggle-pill{
+            position: relative;
+            width: 96px;
+            height: 30px;
 
-position:relative;width:96px;height:30px;
+            background: var(--surface2);
+            border-radius: 50px;
+            cursor: pointer;
+            border: 1px solid var(--border);
 
-background:var(--surface2);border-radius:50px;cursor:pointer;border:1px
- solid var(--border);
+        }
 
-}
+        .toggle-pill input {
+            display: none
+        }
 
-.toggle-pill 
-input{display:none}
+        .toggle-pill .knob {
 
-.toggle-pill 
-.knob{
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 42px;
+            height: 22px;
 
-position:absolute;top:3px;left:3px;width:42px;height:22px;
+            border-radius: 50px;
+            background: var(--accent);
+            transition: transform .25s;
 
-border-radius:50px;background:var(--accent);transition:transform
-.25s;
+        }
 
-}
+        .toggle-pill input:checked~.knob {
+            transform: translateX(48px)
+        }
 
-.toggle-pill 
-input:checked~.knob{transform:translateX(48px)}
+        .toggle-pill .labels {
 
-.toggle-pill 
-.labels{
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
 
-position:absolute;inset:0;display:flex;align-items:center;
+            justify-content: space-around;
+            font-size: 10px;
+            font-weight: 700;
+            pointer-events: none;
+            z-index: 1;
 
-justify-content:space-around;font-size:10px;font-weight:700;pointer-events:none;z-index:1;
+        }
 
-}
+        .toggle-pill .labels span:first-child {
+            color: #0d0f14
+        }
 
-.toggle-pill 
-.labels span:first-child{color:#0d0f14}
+        .toggle-pill .labels span:last-child {
+            color: var(--muted)
+        }
 
-.toggle-pill 
-.labels span:last-child{color:var(--muted)}
+        .toggle-pill input:checked~.labels span:first-child {
+            color: var(--muted)
+        }
 
-.toggle-pill 
-input:checked~.labels
-span:first-child{color:var(--muted)}
+        .toggle-pill input:checked~.labels span:last-child {
+            color: #0d0f14
+        }
 
-.toggle-pill 
-input:checked~.labels
-span:last-child{color:#0d0f14}
 
 
+        /* ── Grid ────────────────────────────────────────────────────── */
 
-/* ── Grid ────────────────────────────────────────────────────── */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px
+        }
 
-.calc-grid{display:grid;grid-template-columns:1fr
-1fr;gap:18px}
+        .span2 {
+            grid-column: 1/-1
+        }
 
-.span2{grid-column:1/-1}
+        @media(max-width:768px) {
+            .calc-grid {
+                grid-template-columns: 1fr
+            }
+        }
 
-@media(max-width:768px){.calc-grid{grid-template-columns:1fr}}
 
 
+        /* ── Card ────────────────────────────────────────────────────── */
 
-/* ── Card ────────────────────────────────────────────────────── */
+        .tcard {
 
-.tcard{
+            background: var(--surface);
+            border: 1px solid var(--border);
 
-background:var(--surface);border:1px
- solid var(--border);
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: var(--shadow);
 
-border-radius:14px;padding:22px;box-shadow:var(--shadow);
+            transition: background .3s, border-color .3s;
 
-transition:background
-.3s,border-color
-.3s;
+        }
 
-}
+        .tcard-title {
 
-.tcard-title{
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.1px;
 
-font-size:11px;font-weight:700;letter-spacing:1.1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 18px;
 
-text-transform:uppercase;color:var(--muted);margin-bottom:18px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
 
-display:flex;align-items:center;gap:7px;
+        }
 
-}
+        .tcard-title .material-icons {
+            font-size: 16px;
+            color: var(--accent)
+        }
 
-.tcard-title 
-.material-icons{font-size:16px;color:var(--accent)}
 
 
+        /* ── Fields ──────────────────────────────────────────────────── */
 
-/* ── Fields ──────────────────────────────────────────────────── */
+        .field {
+            margin-bottom: 16px
+        }
 
-.field{margin-bottom:16px}
+        .field label {
 
-.field 
-label{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-display:flex;justify-content:space-between;align-items:center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
 
-font-size:12px;font-weight:600;color:var(--muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: .4px;
 
-margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;
+        }
 
-}
+        .field label .val {
 
-.field 
-label .val{
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
 
-font-family:'JetBrains Mono',monospace;font-size:12px;
+            color: var(--accent);
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0;
 
-color:var(--accent);font-weight:500;text-transform:none;letter-spacing:0;
+        }
 
-}
+        .field input[type="number"] {
 
-.field 
-input[type="number"]{
+            width: 100%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
 
-width:100%;background:var(--surface2);border:1px
- solid var(--border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--text);
 
-border-radius:8px;padding:10px
-14px;color:var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
 
-font-family:'JetBrains Mono',monospace;font-size:14px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
 
-outline:none;transition:border-color
-.2s,box-shadow
-.2s;
+        }
 
-}
+        .field input[type="number"]:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(245, 197, 66, .12)
+        }
 
-.field 
-input[type="number"]:focus{border-color:var(--accent);box-shadow:0
-0
-0
-3px
-rgba(245,197,66,.12)}
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none
+        }
 
-input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none}
+        .hint {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 4px;
+            line-height: 1.5
+        }
 
-.hint{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5}
 
 
+        /* ── Sliders ─────────────────────────────────────────────────── */
 
-/* ── Sliders ─────────────────────────────────────────────────── */
+        .slider-row {
+            display: flex;
+            gap: 10px;
+            align-items: center
+        }
 
-.slider-row{display:flex;gap:10px;align-items:center}
+        .slider-row input[type="number"] {
+            width: 120px;
+            flex-shrink: 0
+        }
 
-.slider-row 
-input[type="number"]{width:120px;flex-shrink:0}
+        .field input[type="range"] {
 
-.field 
-input[type="range"]{
+            flex: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            border-radius: 4px;
 
-flex:1;-webkit-appearance:none;height:4px;border-radius:4px;
+            background: var(--border);
+            outline: none;
+            cursor: pointer;
 
-background:var(--border);outline:none;cursor:pointer;
+        }
 
-}
+        .field input[type="range"]::-webkit-slider-thumb {
 
-.field 
-input[type="range"]::-webkit-slider-thumb{
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
 
--webkit-appearance:none;width:16px;height:16px;border-radius:50%;
+            background: var(--accent);
+            cursor: pointer;
+            box-shadow: 0 0 0 3px rgba(245, 197, 66, .2);
 
-background:var(--accent);cursor:pointer;box-shadow:0
-0
-0
-3px
-rgba(245,197,66,.2);
+        }
 
-}
 
 
+        /* ── Chips ───────────────────────────────────────────────────── */
 
-/* ── Chips ───────────────────────────────────────────────────── */
+        .cbadge {
 
-.cbadge{
+            display: inline-flex;
+            align-items: center;
+            border-radius: 50px;
 
-display:inline-flex;align-items:center;border-radius:50px;
+            padding: 2px 10px;
+            font-size: 10px;
+            font-weight: 700;
 
-padding:2px
-10px;font-size:10px;font-weight:700;
+            background: rgba(91, 141, 238, .15);
+            border: 1px solid rgba(91, 141, 238, .3);
+            color: #5b8dee;
 
-background:rgba(91,141,238,.15);border:1px
- solid rgba(91,141,238,.3);color:#5b8dee;
+        }
 
-}
+        .cbadge.green {
+            background: rgba(61, 220, 151, .1);
+            border-color: rgba(61, 220, 151, .3);
+            color: var(--green)
+        }
 
-.cbadge.green{background:rgba(61,220,151,.1);border-color:rgba(61,220,151,.3);color:var(--green)}
 
 
+        /* ── 80C bar ─────────────────────────────────────────────────── */
 
-/* ── 80C bar ─────────────────────────────────────────────────── */
+        .c80c-bar {
 
-.c80c-bar{
+            margin-top: 10px;
+            padding: 12px 16px;
+            background: var(--surface2);
 
-margin-top:10px;padding:12px
-16px;background:var(--surface2);
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--muted);
 
-border-radius:8px;font-size:12px;color:var(--muted);
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
 
-display:flex;gap:18px;flex-wrap:wrap;
+        }
 
-}
+        .c80c-bar strong {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500
+        }
 
-.c80c-bar 
-strong{font-family:'JetBrains Mono',monospace;font-weight:500}
+        .c80c-bar .eff {
+            color: var(--accent)
+        }
 
-.c80c-bar 
-.eff{color:var(--accent)}
 
 
+        /* ── Cap warn ────────────────────────────────────────────────── */
 
-/* ── Cap warn ────────────────────────────────────────────────── */
+        .cap-warn {
 
-.cap-warn{
+            background: rgba(255, 95, 109, .1);
+            border: 1px solid rgba(255, 95, 109, .3);
 
-background:rgba(255,95,109,.1);border:1px
- solid rgba(255,95,109,.3);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 12px;
 
-border-radius:8px;padding:10px
-14px;font-size:12px;
+            color: #ff8a93;
+            margin-top: 10px;
+            display: none;
 
-color:#ff8a93;margin-top:10px;display:none;
+        }
 
-}
 
 
+        /* ── Metro row ───────────────────────────────────────────────── */
 
-/* ── Metro row ───────────────────────────────────────────────── */
+        .metro-row {
 
-.metro-row{
+            display: flex;
+            align-items: center;
+            gap: 8px;
 
-display:flex;align-items:center;gap:8px;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 14px;
+            cursor: pointer;
 
-font-size:12px;color:var(--muted);margin-bottom:14px;cursor:pointer;
+        }
 
-}
+        .metro-row input[type="checkbox"] {
+            accent-color: var(--accent);
+            width: 14px;
+            height: 14px
+        }
 
-.metro-row 
-input[type="checkbox"]{accent-color:var(--accent);width:14px;height:14px}
 
 
+        /* ── Divider ─────────────────────────────────────────────────── */
 
-/* ── Divider ─────────────────────────────────────────────────── */
+        .sdiv {
+            height: 1px;
+            background: var(--border);
+            margin: 16px 0
+        }
 
-.sdiv{height:1px;background:var(--border);margin:16px
-0}
 
 
+        /* ── Gross strip ─────────────────────────────────────────────── */
 
-/* ── Gross strip ─────────────────────────────────────────────── */
+        .gross-strip {
 
-.gross-strip{
+            background: var(--surface2);
+            border-radius: 8px;
+            padding: 10px 16px;
 
-background:var(--surface2);border-radius:8px;padding:10px
-16px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
 
-margin-bottom:18px;display:flex;align-items:center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 6px;
 
-justify-content:space-between;flex-wrap:wrap;gap:6px;
+        }
 
-}
+        .gross-strip .gl {
+            font-size: 11px;
+            color: var(--muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .5px
+        }
 
-.gross-strip 
-.gl{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+        .gross-strip .gv {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 15px;
+            color: var(--accent)
+        }
 
-.gross-strip 
-.gv{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--accent)}
 
 
+        /* ── Verdict card ────────────────────────────────────────────── */
 
-/* ── Verdict card ────────────────────────────────────────────── */
+        .verdict-card {
 
-.verdict-card{
+            background: var(--surface);
+            border: 1px solid var(--border);
 
-background:var(--surface);border:1px
- solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: var(--shadow);
 
-border-radius:14px;padding:24px;box-shadow:var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: background .3s;
 
-position:relative;overflow:hidden;transition:background
-.3s;
+        }
 
-}
+        .verdict-card::after {
 
-.verdict-card::after{
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
 
-content:'';position:absolute;top:-50px;right:-50px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
 
-width:200px;height:200px;border-radius:50%;
+            background: radial-gradient(circle, rgba(245, 197, 66, .06), transparent 70%);
 
-background:radial-gradient(circle,rgba(245,197,66,.06),transparent
-70%);
+            pointer-events: none;
 
-pointer-events:none;
+        }
 
-}
+        .verdict-top {
 
-.verdict-top{
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
 
-display:flex;justify-content:space-between;align-items:flex-start;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 22px;
 
-flex-wrap:wrap;gap:16px;margin-bottom:22px;
+        }
 
-}
+        .vlabel {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 8px
+        }
 
-.vlabel{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+        .verdict-badge {
 
-.verdict-badge{
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
 
-display:inline-flex;align-items:center;gap:8px;
+            background: rgba(61, 220, 151, .12);
+            border: 1px solid rgba(61, 220, 151, .3);
 
-background:rgba(61,220,151,.12);border:1px
- solid rgba(61,220,151,.3);
+            border-radius: 50px;
+            padding: 8px 22px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--green);
 
-border-radius:50px;padding:8px
-22px;font-size:15px;font-weight:700;color:var(--green);
+        }
 
-}
+        .verdict-badge.old-wins {
+            background: rgba(255, 140, 66, .12);
+            border-color: rgba(255, 140, 66, .3);
+            color: var(--old)
+        }
 
-.verdict-badge.old-wins{background:rgba(255,140,66,.12);border-color:rgba(255,140,66,.3);color:var(--old)}
+        .savings-num {
 
-.savings-num{
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
 
-font-family:'JetBrains Mono',monospace;font-size:32px;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: -1px;
 
-font-weight:500;color:var(--accent);letter-spacing:-1px;
+        }
 
-}
+        .savings-num small {
+            font-size: 13px;
+            color: var(--muted);
+            font-family: 'Inter', sans-serif
+        }
 
-.savings-num 
-small{font-size:13px;color:var(--muted);font-family:'Inter',sans-serif}
 
 
+        /* ── Regime cards ────────────────────────────────────────────── */
 
-/* ── Regime cards ────────────────────────────────────────────── */
+        .regime-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px
+        }
 
-.regime-grid{display:grid;grid-template-columns:1fr
-1fr;gap:14px}
+        @media(max-width:500px) {
+            .regime-grid {
+                grid-template-columns: 1fr
+            }
+        }
 
-@media(max-width:500px){.regime-grid{grid-template-columns:1fr}}
+        .regime-card {
 
-.regime-card{
+            border-radius: 10px;
+            padding: 16px;
 
-border-radius:10px;padding:16px;
+            border: 2px solid var(--border);
+            background: var(--surface2);
+            transition: border-color .3s;
 
-border:2px solid
-var(--border);background:var(--surface2);transition:border-color
-.3s;
+        }
 
-}
+        .regime-card.winner {
+            border-color: var(--green)
+        }
 
-.regime-card.winner{border-color:var(--green)}
+        .regime-card.old-winner {
+            border-color: var(--old)
+        }
 
-.regime-card.old-winner{border-color:var(--old)}
+        .regime-card .rc-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 10px
+        }
 
-.regime-card 
-.rc-label{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px}
+        .regime-card.old .rc-label {
+            color: var(--old)
+        }
 
-.regime-card.old 
-.rc-label{color:var(--old)}
+        .regime-card.new .rc-label {
+            color: var(--new)
+        }
 
-.regime-card.new 
-.rc-label{color:var(--new)}
+        .regime-card .rc-tax-hint {
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 3px;
+            letter-spacing: .3px
+        }
 
-.regime-card 
-.rc-tax-hint{font-size:11px;color:var(--muted);margin-bottom:3px;letter-spacing:.3px}
+        .regime-card .tax-big {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -.5px
+        }
 
-.regime-card 
-.tax-big{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;letter-spacing:-.5px}
+        .regime-card .rc-secondary {
+            font-size: 13px;
+            color: var(--muted);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 10px;
+        }
 
-.regime-card 
-.rc-secondary{font-size:13px;color:var(--muted);font-family:'JetBrains
- Mono',monospace;margin-bottom:10px}
 
-.regime-card 
-.rc-taxable-block{border-top:1px solid
-var(--border);padding-top:10px;margin-bottom:14px}
+        .regime-card .rc-taxable-block {
+            border-top: 1px solid var(--border);
+            padding-top: 10px;
+            margin-bottom: 14px
+        }
 
-.regime-card 
-.rc-taxable-block .rc-tl{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+        .regime-card .rc-taxable-block .rc-tl {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 2px
+        }
 
-.regime-card 
-.rc-taxable-block .rc-tv{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--accent)}
+        .regime-card .rc-taxable-block .rc-tv {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--accent)
+        }
 
-.breakdown{font-size:13px;color:var(--muted)}
+        .breakdown {
+            font-size: 13px;
+            color: var(--muted)
+        }
 
-.breakdown 
-.bd-row{display:flex;justify-content:space-between;align-items:baseline;padding:3px
-0;line-height:1.8;gap:8px}
+        .breakdown .bd-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 3px 0;
+            line-height: 1.8;
+            gap: 8px
+        }
 
-.breakdown 
-.bd-row label{flex:1;min-width:0}
+        .breakdown .bd-row label {
+            flex: 1;
+            min-width: 0
+        }
 
-.breakdown 
-.bd-row span{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);text-align:right;white-space:nowrap}
+        .breakdown .bd-row span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text);
+            text-align: right;
+            white-space: nowrap
+        }
 
-.breakdown 
-.bd-row.bd-zero label{text-decoration:line-through;opacity:.45}
+        .breakdown .bd-row.bd-zero label {
+            text-decoration: line-through;
+            opacity: .45
+        }
 
-.breakdown 
-.bd-row.bd-zero span{opacity:.35}
+        .breakdown .bd-row.bd-zero span {
+            opacity: .35
+        }
 
-.breakdown 
-.bd-row.bd-taxable{border-top:1px solid
-var(--border);margin-top:4px;padding-top:8px}
+        .breakdown .bd-row.bd-taxable {
+            border-top: 1px solid var(--border);
+            margin-top: 4px;
+            padding-top: 8px
+        }
 
-.breakdown 
-.bd-row.bd-taxable label{font-weight:700;color:var(--text);font-size:13px}
+        .breakdown .bd-row.bd-taxable label {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 13px
+        }
 
-.breakdown 
-.bd-row.bd-taxable span{color:var(--accent);font-size:13px;font-weight:700}
+        .breakdown .bd-row.bd-taxable span {
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 700
+        }
 
-.bd-rebate{color:var(--green)!important;font-size:11px;margin-top:2px}
+        .bd-rebate {
+            color: var(--green) !important;
+            font-size: 11px;
+            margin-top: 2px
+        }
 
 
 
-/* ── PPP Modal ───────────────────────────────────────────────── */
+        /* ── PPP Modal ───────────────────────────────────────────────── */
 
-.modal-overlay{
+        .modal-overlay {
 
-display:none;position:fixed;
+            display: none;
+            position: fixed;
 
-top:0;right:0;bottom:0;left:0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
 
-z-index:9999;
+            z-index: 9999;
 
-background:rgba(0,0,0,.72);backdrop-filter:blur(5px);
+            background: rgba(0, 0, 0, .72);
+            backdrop-filter: blur(5px);
 
--webkit-backdrop-filter:blur(5px);
+            -webkit-backdrop-filter: blur(5px);
 
-align-items:flex-start;justify-content:center;
+            align-items: flex-start;
+            justify-content: center;
 
-padding:32px
-16px;overflow-y:auto;
+            padding: 32px 16px;
+            overflow-y: auto;
 
--webkit-overflow-scrolling:touch;
+            -webkit-overflow-scrolling: touch;
 
-}
+        }
 
-.modal-overlay.open{display:flex}
+        .modal-overlay.open {
+            display: flex
+        }
 
-.ppp-modal{
+        .ppp-modal {
 
-background:var(--surface);border:1px
- solid var(--border);
+            background: var(--surface);
+            border: 1px solid var(--border);
 
-border-radius:18px;width:100%;max-width:1024px;
+            border-radius: 18px;
+            width: 100%;
+            max-width: 1024px;
 
-box-shadow:0
-24px
-64px
-rgba(0,0,0,.55);flex-shrink:0;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, .55);
+            flex-shrink: 0;
 
-}
+        }
 
-.ppp-head{
+        .ppp-head {
 
-display:flex;justify-content:space-between;align-items:flex-start;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
 
-padding:22px
-26px
-18px;border-bottom:1px solid
-var(--border);
+            padding: 22px 26px 18px;
+            border-bottom: 1px solid var(--border);
 
-}
+        }
 
-.ppp-head 
-h2{font-size:17px;font-weight:700;color:var(--text);margin:0
-0
-4px}
+        .ppp-head h2 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0 0 4px
+        }
 
-.ppp-head 
-p{font-size:12px;color:var(--muted);margin:0}
+        .ppp-head p {
+            font-size: 12px;
+            color: var(--muted);
+            margin: 0
+        }
 
-.modal-close{
+        .modal-close {
 
-background:var(--surface2);border:1px
- solid var(--border);
+            background: var(--surface2);
+            border: 1px solid var(--border);
 
-border-radius:50%;width:32px;height:32px;cursor:pointer;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
 
-display:flex;align-items:center;justify-content:center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-color:var(--muted);flex-shrink:0;transition:all
-.2s;
+            color: var(--muted);
+            flex-shrink: 0;
+            transition: all .2s;
 
-}
+        }
 
-.modal-close:hover{color:var(--red);border-color:var(--red)}
+        .modal-close:hover {
+            color: var(--red);
+            border-color: var(--red)
+        }
 
-.modal-close 
-.material-icons{font-size:18px}
+        .modal-close .material-icons {
+            font-size: 18px
+        }
 
-.ppp-body{padding:22px
-26px}
+        .ppp-body {
+            padding: 22px 26px
+        }
 
-.ppp-income-row{
+        .ppp-income-row {
 
-display:flex;align-items:flex-end;gap:16px;
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
 
-background:var(--surface2);border:1px
- solid var(--border);
+            background: var(--surface2);
+            border: 1px solid var(--border);
 
-border-radius:10px;padding:14px
-18px;margin-bottom:22px;flex-wrap:wrap;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
 
-}
+        }
 
-.ppp-income-row 
-.fil{flex:1;min-width:180px}
+        .ppp-income-row .fil {
+            flex: 1;
+            min-width: 180px
+        }
 
-.ppp-income-row 
-label{
+        .ppp-income-row label {
 
-font-size:11px;font-weight:700;color:var(--muted);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted);
 
-text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            display: block;
+            margin-bottom: 6px;
 
-}
+        }
 
-.ppp-income-row 
-input{
+        .ppp-income-row input {
 
-background:transparent;border:none;border-bottom:2px solid
-var(--border);
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--border);
 
-padding:4px
-0;color:var(--text);font-family:'JetBrains
- Mono',monospace;
+            padding: 4px 0;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            width: 100%;
+            outline: none;
+            transition: border-color .2s;
 
-font-size:18px;width:100%;outline:none;transition:border-color
-.2s;
+        }
 
-}
+        .ppp-income-row input:focus {
+            border-bottom-color: var(--accent)
+        }
 
-.ppp-income-row 
-input:focus{border-bottom-color:var(--accent)}
+        .ppp-income-row .ppp-hint {
+            font-size: 11px;
+            color: var(--muted);
+            align-self: flex-end;
+            flex-shrink: 0
+        }
 
-.ppp-income-row 
-.ppp-hint{font-size:11px;color:var(--muted);align-self:flex-end;flex-shrink:0}
+        .ppp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+            gap: 10px;
+            margin-bottom: 18px
+        }
 
-.ppp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px;margin-bottom:18px}
+        .ppp-card {
 
-.ppp-card{
+            background: var(--surface2);
+            border: 1px solid var(--border);
 
-background:var(--surface2);border:1px
- solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            transition: border-color .2s, box-shadow .2s;
 
-border-radius:12px;padding:14px;transition:border-color
-.2s,box-shadow
-.2s;
+        }
 
-}
+        .ppp-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(245, 197, 66, .08)
+        }
 
-.ppp-card:hover{border-color:var(--accent);box-shadow:0
-0
-0
-3px
-rgba(245,197,66,.08)}
+        .ppp-card .pc-flag {
+            font-size: 20px;
+            line-height: 1;
+            margin-bottom: 5px
+        }
 
-.ppp-card 
-.pc-flag{font-size:20px;line-height:1;margin-bottom:5px}
+        .ppp-card .pc-name {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            margin-bottom: 8px
+        }
 
-.ppp-card 
-.pc-name{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+        .ppp-card .pc-annual {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--accent);
+            line-height: 1.2
+        }
 
-.ppp-card 
-.pc-annual{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:500;color:var(--accent);line-height:1.2}
+        .ppp-card .pc-monthly {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px
+        }
 
-.ppp-card 
-.pc-monthly{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px}
+        .ppp-card .pc-tax {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 7px;
+            padding-top: 7px;
+            border-top: 1px solid var(--border);
+            line-height: 1.4
+        }
 
-.ppp-card 
-.pc-tax{font-size:10px;color:var(--muted);margin-top:7px;padding-top:7px;border-top:1px
- solid var(--border);line-height:1.4}
+        .ppp-footer {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.6;
+            padding: 12px 14px;
+            background: var(--surface2);
+            border-radius: 8px
+        }
 
-.ppp-footer{font-size:11px;color:var(--muted);line-height:1.6;padding:12px
-14px;background:var(--surface2);border-radius:8px}
+        /* ── PPP mode toggle ── */
 
-/* ── PPP mode toggle ── */
+        .ppp-mode-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px
+        }
 
-.ppp-mode-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+        .ppp-mode-pill {
+            display: flex;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 3px;
+            gap: 2px
+        }
 
-.ppp-mode-pill{display:flex;background:var(--surface2);border:1px
- solid var(--border);border-radius:50px;padding:3px;gap:2px}
+        .ppp-mode-pill button {
+            border: none;
+            background: transparent;
+            border-radius: 50px;
+            padding: 5px 16px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all .2s;
+            letter-spacing: .3px;
+            white-space: nowrap
+        }
 
-.ppp-mode-pill 
-button{border:none;background:transparent;border-radius:50px;padding:5px
-16px;font-size:11px;font-weight:700;color:var(--muted);cursor:pointer;transition:all
-.2s;letter-spacing:.3px;white-space:nowrap}
+        .ppp-mode-pill button.active {
+            background: var(--accent);
+            color: #0d0f14
+        }
 
-.ppp-mode-pill 
-button.active{background:var(--accent);color:#0d0f14}
+        .fx-badge {
+            font-size: 10px;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap
+        }
 
-.fx-badge{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:5px;white-space:nowrap}
+        .fx-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--muted);
+            flex-shrink: 0;
+            transition: background .3s
+        }
 
-.fx-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background
-.3s}
+        .fx-dot.live {
+            background: var(--green);
+            animation: fxpulse 2s infinite
+        }
 
-.fx-dot.live{background:var(--green);animation:fxpulse
-2s infinite}
+        @keyframes fxpulse {
 
-@keyframes fxpulse{0%,100%{opacity:1}50%{opacity:.3}}
+            0%,
+            100% {
+                opacity: 1
+            }
 
-.ppp-card 
-.pc-hint{font-size:9px;color:var(--muted);margin-top:3px;margin-bottom:4px;font-style:italic;line-height:1.4}
+            50% {
+                opacity: .3
+            }
+        }
 
-.ppp-card 
-.pc-inr{font-size:10px;color:var(--green);font-family:'JetBrains
- Mono',monospace;margin-top:2px}
+        .ppp-card .pc-hint {
+            font-size: 9px;
+            color: var(--muted);
+            margin-top: 3px;
+            margin-bottom: 4px;
+            font-style: italic;
+            line-height: 1.4
+        }
 
-.inr-toggle{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);cursor:pointer;white-space:nowrap;user-select:none}
+        .ppp-card .pc-inr {
+            font-size: 10px;
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 2px
+        }
 
-.inr-toggle 
-input{accent-color:var(--accent);cursor:pointer;width:12px;height:12px}
+        .inr-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--muted);
+            cursor: pointer;
+            white-space: nowrap;
+            user-select: none
+        }
 
-</style>
+        .inr-toggle input {
+            accent-color: var(--accent);
+            cursor: pointer;
+            width: 12px;
+            height: 12px
+        }
+    </style>
 
 </head>
 
@@ -855,1667 +1260,1321 @@ input{accent-color:var(--accent);cursor:pointer;width:12px;height:12px}
 
 
 
-<!-- ── Nav ──────────────────────────────────────────────────── -->
+    <!-- ── Nav ──────────────────────────────────────────────────── -->
 
-<nav 
-class="app-nav">
+    <nav class="app-nav">
 
-<a 
-class="nav-brand" 
-href="#">
+        <a class="nav-brand" href="#">
 
-<div 
-class="nav-logo">&#8377;</div>
+            <div class="nav-logo">&#8377;</div>
 
-<div>
+            <div>
 
-<div 
-class="nav-title">Tax Regime Calculator</div>
+                <div class="nav-title">Tax Regime Calculator</div>
 
-<div 
-class="nav-sub">Old vs New &mdash; FY 2026&ndash;27</div>
+                <div class="nav-sub">Old vs New &mdash; FY 2026&ndash;27</div>
 
-</div>
+            </div>
 
-</a>
+        </a>
 
-<div 
-style="display:flex;gap:8px;align-items:center">
+        <div style="display:flex;gap:8px;align-items:center">
 
-<button 
-class="theme-btn" 
-id="pppBtn" 
-title="Global PPP Salary Equivalents">
+            <button class="theme-btn" id="pppBtn" title="Global PPP Salary Equivalents">
 
-<span 
-class="material-icons">public</span>
+                <span class="material-icons">public</span>
 
-</button>
+            </button>
 
-<button 
-class="theme-btn" 
-id="themeBtn" 
-title="Toggle light / dark">
+            <button class="theme-btn" id="themeBtn" title="Toggle light / dark">
 
-<span 
-class="material-icons" 
-id="themeIcon">light_mode</span>
+                <span class="material-icons" id="themeIcon">light_mode</span>
 
-</button>
+            </button>
 
-</div>
+        </div>
 
-</nav>
+    </nav>
 
 
 
-<div 
-class="page">
+    <div class="page">
 
-<!-- Freq toggle -->
+        <!-- Freq toggle -->
 
-<div 
-class="toggle-bar">
+        <div class="toggle-bar">
 
-<span>Salary inputs</span>
+            <span>Salary inputs</span>
 
-<label 
-class="toggle-pill">
+            <label class="toggle-pill">
 
-<input 
-type="checkbox" 
-id="freqToggle"/>
+                <input type="checkbox" id="freqToggle" />
 
-<div 
-class="knob"></div>
+                <div class="knob"></div>
 
-<div 
-class="labels"><span>MO</span><span>YR</span></div>
+                <div class="labels"><span>MO</span><span>YR</span></div>
 
-</label>
+            </label>
 
-<span 
-id="freqLabel" 
-style="font-size:13px;color:var(--text);font-weight:600;">Monthly</span>
+            <span id="freqLabel" style="font-size:13px;color:var(--text);font-weight:600;">Monthly</span>
 
-</div>
+        </div>
 
 
 
-<div 
-class="calc-grid">
+        <div class="calc-grid">
 
 
 
-<!-- VERDICT -->
+            <!-- VERDICT -->
 
-<div 
-class="verdict-card span2">
+            <div class="verdict-card span2">
 
-<div 
-class="verdict-top">
+                <div class="verdict-top">
 
-<div>
+                    <div>
 
-<div 
-class="vlabel">Best Regime</div>
+                        <div class="vlabel">Best Regime</div>
 
-<div 
-class="verdict-badge" 
-id="verdictBadge">&#10022; New Regime</div>
+                        <div class="verdict-badge" id="verdictBadge">&#10022; New Regime</div>
 
-</div>
+                    </div>
 
-<div 
-style="text-align:right">
+                    <div style="text-align:right">
 
-<div 
-class="vlabel">You save</div>
+                        <div class="vlabel">You save</div>
 
-<div 
-class="savings-num" 
-id="savingsAmt">&#8377;0 <small>/year</small></div>
+                        <div class="savings-num" id="savingsAmt">&#8377;0 <small>/year</small></div>
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-<div 
-class="regime-grid">
+                <div class="regime-grid">
 
-<div 
-class="regime-card old" 
-id="oldCard">
+                    <div class="regime-card old" id="oldCard">
 
-<div 
-class="rc-label">Old Regime</div>
+                        <div class="rc-label">Old Regime</div>
 
-<div 
-class="rc-tax-hint" 
-id="oldTaxHint">Monthly Tax Payable</div>
+                        <div class="rc-tax-hint" id="oldTaxHint">Monthly Tax Payable</div>
 
-<div 
-class="tax-big" 
-id="oldTax">&#8377;0</div>
+                        <div class="tax-big" id="oldTax">&#8377;0</div>
 
-<div 
-class="rc-secondary" 
-id="oldTaxSec">&#8377;0 /yr</div>
+                        <div class="rc-secondary" id="oldTaxSec">&#8377;0 /yr</div>
 
-<div 
-class="rc-taxable-block">
+                        <div class="rc-taxable-block">
 
-<div 
-class="rc-tl">Taxable Income</div>
+                            <div class="rc-tl">Taxable Income</div>
 
-<div 
-class="rc-tv" 
-id="oldTaxable">&#8377;0</div>
+                            <div class="rc-tv" id="oldTaxable">&#8377;0</div>
 
-</div>
+                        </div>
 
-<div 
-class="breakdown" 
-id="oldBreakdown">&mdash;</div>
+                        <div class="breakdown" id="oldBreakdown">&mdash;</div>
 
-</div>
+                    </div>
 
-<div 
-class="regime-card new winner"
-id="newCard">
+                    <div class="regime-card new winner" id="newCard">
 
-<div 
-class="rc-label">New Regime</div>
+                        <div class="rc-label">New Regime</div>
 
-<div 
-class="rc-tax-hint" 
-id="newTaxHint">Monthly Tax Payable</div>
+                        <div class="rc-tax-hint" id="newTaxHint">Monthly Tax Payable</div>
 
-<div 
-class="tax-big" 
-id="newTax">&#8377;0</div>
+                        <div class="tax-big" id="newTax">&#8377;0</div>
 
-<div 
-class="rc-secondary" 
-id="newTaxSec">&#8377;0 /yr</div>
+                        <div class="rc-secondary" id="newTaxSec">&#8377;0 /yr</div>
 
-<div 
-class="rc-taxable-block">
+                        <div class="rc-taxable-block">
 
-<div 
-class="rc-tl">Taxable Income</div>
+                            <div class="rc-tl">Taxable Income</div>
 
-<div 
-class="rc-tv" 
-id="newTaxable">&#8377;0</div>
+                            <div class="rc-tv" id="newTaxable">&#8377;0</div>
 
-</div>
+                        </div>
 
-<div 
-class="breakdown" 
-id="newBreakdown">&mdash;</div>
+                        <div class="breakdown" id="newBreakdown">&mdash;</div>
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
 
 
-<!-- INCOME -->
+            <!-- INCOME -->
 
-<div 
-class="tcard">
+            <div class="tcard">
 
-<div 
-class="tcard-title">
+                <div class="tcard-title">
 
-<span 
-class="material-icons">account_balance_wallet</span>
+                    <span class="material-icons">account_balance_wallet</span>
 
-Income &nbsp;<span 
-class="cbadge" 
-id="incomeChip">Monthly</span>
+                    Income &nbsp;<span class="cbadge" id="incomeChip">Monthly</span>
 
-</div>
+                </div>
 
-<div 
-class="gross-strip">
+                <div class="gross-strip">
 
-<span 
-class="gl">Gross Annual</span>
+                    <span class="gl">Gross Annual</span>
 
-<span 
-class="gv" 
-id="grossAmt">&#8377;0</span>
+                    <span class="gv" id="grossAmt">&#8377;0</span>
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>Basic <span
-class="val"
-id="basicVal"></span></label>
+                    <label>Basic <span class="val" id="basicVal"></span></label>
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="basic" 
-value="25000"/>
+                    <input type="number" inputmode="numeric" id="basic" value="25000" />
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>HRA <span
-class="val"
-id="hraVal"></span></label>
+                    <label>HRA <span class="val" id="hraVal"></span></label>
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="hra" 
-value="10000"/>
+                    <input type="number" inputmode="numeric" id="hra" value="10000" />
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>Flexible Allowance <span
-class="val"
-id="flexVal"></span></label>
+                    <label>Flexible Allowance <span class="val" id="flexVal"></span></label>
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="flex" 
-value="8000"/>
+                    <input type="number" inputmode="numeric" id="flex" value="8000" />
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>Communication Allowance <span
-class="val"
-id="commVal"></span></label>
+                    <label>Communication Allowance <span class="val" id="commVal"></span></label>
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="comm" 
-value="1000"/>
+                    <input type="number" inputmode="numeric" id="comm" value="1000" />
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>LTA <span
-class="val"
-id="ltaVal"></span></label>
+                    <label>LTA <span class="val" id="ltaVal"></span></label>
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="lta" 
-value="2000"/>
+                    <input type="number" inputmode="numeric" id="lta" value="2000" />
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>Food Coupon <span
-class="val"
-id="foodVal"></span></label>
+                    <label>Food Coupon <span class="val" id="foodVal"></span></label>
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="food" 
-value="1000"/>
+                    <input type="number" inputmode="numeric" id="food" value="1000" />
 
-<div 
-class="hint">&#8377;26,400/yr tax-exempt (old regime)</div>
+                    <div class="hint">&#8377;26,400/yr tax-exempt (old regime)</div>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
 
 
-<!-- HRA & HOUSING -->
+            <!-- HRA & HOUSING -->
 
-<div 
-class="tcard">
+            <div class="tcard">
 
-<div 
-class="tcard-title">
+                <div class="tcard-title">
 
-<span 
-class="material-icons">home</span>
+                    <span class="material-icons">home</span>
 
-HRA &amp; Housing
+                    HRA &amp; Housing
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>Monthly Rent Paid <span
-class="val"
-id="rentVal">&#8377;0/mo</span></label>
+                    <label>Monthly Rent Paid <span class="val" id="rentVal">&#8377;0/mo</span></label>
 
-<div 
-class="slider-row">
+                    <div class="slider-row">
 
-<input 
-type="range" 
-id="rent" 
-min="0" 
-max="150000" 
-step="1000" 
-value="0"/>
+                        <input type="range" id="rent" min="0" max="150000" step="1000" value="0" />
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="rentNum" 
-value="0"/>
+                        <input type="number" inputmode="numeric" id="rentNum" value="0" />
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-<label 
-class="metro-row">
+                <label class="metro-row">
 
-<input 
-type="checkbox" 
-id="metro" 
-checked/>
+                    <input type="checkbox" id="metro" checked />
 
-<span>Metro city (Mumbai / Delhi / Chennai / Kolkata)</span>
+                    <span>Metro city (Mumbai / Delhi / Chennai / Kolkata)</span>
 
-</label>
+                </label>
 
-<div 
-class="hint" 
-style="margin-bottom:14px;">HRA exempt = min(HRA received, Rent&minus;10% Basic, 50%/40% Basic)</div>
+                <div class="hint" style="margin-bottom:14px;">HRA exempt = min(HRA received, Rent&minus;10% Basic,
+                    50%/40% Basic)</div>
 
-<div 
-class="sdiv"></div>
+                <div class="sdiv"></div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>Home Loan Interest / yr <span
-class="val"
-id="intVal">&#8377;0</span></label>
+                    <label>Home Loan Interest / yr <span class="val" id="intVal">&#8377;0</span></label>
 
-<div 
-class="slider-row">
+                    <div class="slider-row">
 
-<input 
-type="range" 
-id="intSlider" 
-min="0" 
-max="500000" 
-step="10000" 
-value="0"/>
+                        <input type="range" id="intSlider" min="0" max="500000" step="10000" value="0" />
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="intNum" 
-value="0"/>
+                        <input type="number" inputmode="numeric" id="intNum" value="0" />
 
-</div>
+                    </div>
 
-<div 
-class="hint">Sec 24(b) &mdash; capped at &#8377;2,00,000 (old regime)</div>
+                    <div class="hint">Sec 24(b) &mdash; capped at &#8377;2,00,000 (old regime)</div>
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>Home Loan Principal / yr <span
-class="val"
-id="principalVal">&#8377;0</span></label>
+                    <label>Home Loan Principal / yr <span class="val" id="principalVal">&#8377;0</span></label>
 
-<div 
-class="slider-row">
+                    <div class="slider-row">
 
-<input 
-type="range" 
-id="principalSlider" 
-min="0" 
-max="500000" 
-step="10000" 
-value="0"/>
+                        <input type="range" id="principalSlider" min="0" max="500000" step="10000" value="0" />
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="principalNum" 
-value="0"/>
+                        <input type="number" inputmode="numeric" id="principalNum" value="0" />
 
-</div>
+                    </div>
 
-<div 
-class="hint">Counts towards 80C bucket</div>
+                    <div class="hint">Counts towards 80C bucket</div>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
 
 
-<!-- 80C -->
+            <!-- 80C -->
 
-<div 
-class="tcard">
+            <div class="tcard">
 
-<div 
-class="tcard-title">
+                <div class="tcard-title">
 
-<span 
-class="material-icons">savings</span>
+                    <span class="material-icons">savings</span>
 
-80C Deductions &nbsp;<span 
-class="cbadge green">Cap &#8377;1,50,000</span>
+                    80C Deductions &nbsp;<span class="cbadge green">Cap &#8377;1,50,000</span>
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>EPF / PF (annual) <span
-class="val"
-id="pfVal">&#8377;0</span></label>
+                    <label>EPF / PF (annual) <span class="val" id="pfVal">&#8377;0</span></label>
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="pf" 
-value="21600"/>
+                    <input type="number" inputmode="numeric" id="pf" value="21600" />
 
-<div 
-class="hint">Employee share &mdash; typically 12% of Basic (&#8377;1,800/mo for 6 LPA)</div>
+                    <div class="hint">Employee share &mdash; typically 12% of Basic (&#8377;1,800/mo for 6 LPA)</div>
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>PPF / FD / ELSS <span
-class="val"
-id="depositVal">&#8377;0</span></label>
+                    <label>PPF / FD / ELSS <span class="val" id="depositVal">&#8377;0</span></label>
 
-<div 
-class="slider-row">
+                    <div class="slider-row">
 
-<input 
-type="range" 
-id="depositSlider" 
-min="0" 
-max="200000" 
-step="5000" 
-value="0"/>
+                        <input type="range" id="depositSlider" min="0" max="200000" step="5000" value="0" />
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="depositNum" 
-value="0"/>
+                        <input type="number" inputmode="numeric" id="depositNum" value="0" />
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>LIC Premium <span
-class="val"
-id="licVal">&#8377;0</span></label>
+                    <label>LIC Premium <span class="val" id="licVal">&#8377;0</span></label>
 
-<div 
-class="slider-row">
+                    <div class="slider-row">
 
-<input 
-type="range" 
-id="licSlider" 
-min="0" 
-max="150000" 
-step="5000" 
-value="0"/>
+                        <input type="range" id="licSlider" min="0" max="150000" step="5000" value="0" />
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="licNum" 
-value="0"/>
+                        <input type="number" inputmode="numeric" id="licNum" value="0" />
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>School Tuition Fees <span
-class="val"
-id="schoolVal">&#8377;0</span></label>
+                    <label>School Tuition Fees <span class="val" id="schoolVal">&#8377;0</span></label>
 
-<div 
-class="slider-row">
+                    <div class="slider-row">
 
-<input 
-type="range" 
-id="schoolSlider" 
-min="0" 
-max="150000" 
-step="1000" 
-value="0"/>
+                        <input type="range" id="schoolSlider" min="0" max="150000" step="1000" value="0" />
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="schoolNum" 
-value="0"/>
+                        <input type="number" inputmode="numeric" id="schoolNum" value="0" />
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-<div 
-class="c80c-bar">
+                <div class="c80c-bar">
 
-<span>Used: <strong
-id="c80cUsed">&#8377;0</strong></span>
+                    <span>Used: <strong id="c80cUsed">&#8377;0</strong></span>
 
-<span>Effective: <strong
-class="eff"
-id="c80cEff">&#8377;0</strong></span>
+                    <span>Effective: <strong class="eff" id="c80cEff">&#8377;0</strong></span>
 
-<span>Remaining: <strong
-id="c80cLeft">&#8377;1,50,000</strong></span>
+                    <span>Remaining: <strong id="c80cLeft">&#8377;1,50,000</strong></span>
 
-</div>
+                </div>
 
-<div 
-class="cap-warn" 
-id="capWarn">&#9888; Exceeded &#8377;1,50,000 &mdash; extra investments won't reduce tax under 80C.</div>
+                <div class="cap-warn" id="capWarn">&#9888; Exceeded &#8377;1,50,000 &mdash; extra investments won't
+                    reduce tax under 80C.</div>
 
-</div>
+            </div>
 
 
 
-<!-- OTHER DEDUCTIONS -->
+            <!-- OTHER DEDUCTIONS -->
 
-<div 
-class="tcard">
+            <div class="tcard">
 
-<div 
-class="tcard-title">
+                <div class="tcard-title">
 
-<span 
-class="material-icons">receipt_long</span>
+                    <span class="material-icons">receipt_long</span>
 
-Other Deductions
+                    Other Deductions
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>80D &mdash; Health Insurance <span
-class="val"
-id="d80dVal">&#8377;0</span></label>
+                    <label>80D &mdash; Health Insurance <span class="val" id="d80dVal">&#8377;0</span></label>
 
-<div 
-class="slider-row">
+                    <div class="slider-row">
 
-<input 
-type="range" 
-id="d80dSlider" 
-min="0" 
-max="50000" 
-step="1000" 
-value="0"/>
+                        <input type="range" id="d80dSlider" min="0" max="50000" step="1000" value="0" />
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="d80dNum" 
-value="0"/>
+                        <input type="number" inputmode="numeric" id="d80dNum" value="0" />
 
-</div>
+                    </div>
 
-<div 
-class="hint">Self &#8377;25,000 + Parents &#8377;25,000 (&#8377;50,000 if senior citizen)</div>
+                    <div class="hint">Self &#8377;25,000 + Parents &#8377;25,000 (&#8377;50,000 if senior citizen)</div>
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>80CCD(1B) &mdash; NPS Extra <span
-class="val"
-id="npsVal">&#8377;0</span></label>
+                    <label>80CCD(1B) &mdash; NPS Extra <span class="val" id="npsVal">&#8377;0</span></label>
 
-<div 
-class="slider-row">
+                    <div class="slider-row">
 
-<input 
-type="range" 
-id="npsSlider" 
-min="0" 
-max="50000" 
-step="1000" 
-value="0"/>
+                        <input type="range" id="npsSlider" min="0" max="50000" step="1000" value="0" />
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="npsNum" 
-value="0"/>
+                        <input type="number" inputmode="numeric" id="npsNum" value="0" />
 
-</div>
+                    </div>
 
-<div 
-class="hint">Additional &#8377;50,000 over &amp; above 80C cap</div>
+                    <div class="hint">Additional &#8377;50,000 over &amp; above 80C cap</div>
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>80G &mdash; Donations <span
-class="val"
-id="otherVal">&#8377;0</span></label>
+                    <label>80G &mdash; Donations <span class="val" id="otherVal">&#8377;0</span></label>
 
-<div 
-class="slider-row">
+                    <div class="slider-row">
 
-<input 
-type="range" 
-id="otherSlider" 
-min="0" 
-max="100000" 
-step="1000" 
-value="0"/>
+                        <input type="range" id="otherSlider" min="0" max="100000" step="1000" value="0" />
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="otherNum" 
-value="0"/>
+                        <input type="number" inputmode="numeric" id="otherNum" value="0" />
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-<div 
-class="sdiv"></div>
+                <div class="sdiv"></div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>Professional Tax / yr <span
-class="val"
-id="profTaxVal">&#8377;0</span></label>
+                    <label>Professional Tax / yr <span class="val" id="profTaxVal">&#8377;0</span></label>
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="profTax" 
-value="2400"/>
+                    <input type="number" inputmode="numeric" id="profTax" value="2400" />
 
-<div 
-class="hint">Sec 16(iii) &mdash; old regime only (&#8377;200/mo = &#8377;2,400/yr fixed)</div>
+                    <div class="hint">Sec 16(iii) &mdash; old regime only (&#8377;200/mo = &#8377;2,400/yr fixed)</div>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
 
 
-<!-- INCOME FROM OTHER SOURCES -->
+            <!-- INCOME FROM OTHER SOURCES -->
 
-<div 
-class="tcard">
+            <div class="tcard">
 
-<div 
-class="tcard-title">
+                <div class="tcard-title">
 
-<span 
-class="material-icons">account_balance</span>
+                    <span class="material-icons">account_balance</span>
 
-Income from Other Sources
+                    Income from Other Sources
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>Savings Bank Interest / yr <span
-class="val"
-id="savIntVal">&#8377;0</span></label>
+                    <label>Savings Bank Interest / yr <span class="val" id="savIntVal">&#8377;0</span></label>
 
-<div 
-class="slider-row">
+                    <div class="slider-row">
 
-<input 
-type="range" 
-id="savIntSlider" 
-min="0" 
-max="50000" 
-step="500" 
-value="0"/>
+                        <input type="range" id="savIntSlider" min="0" max="50000" step="500" value="0" />
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="savIntNum" 
-value="0"/>
+                        <input type="number" inputmode="numeric" id="savIntNum" value="0" />
 
-</div>
+                    </div>
 
-<div 
-class="hint"><strong>Sec 80TTA:</strong> Up to &#8377;10,000 exempt under Old Regime. Fully taxable under New Regime.</div>
+                    <div class="hint"><strong>Sec 80TTA:</strong> Up to &#8377;10,000 exempt under Old Regime. Fully
+                        taxable under New Regime.</div>
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>FD / RD / Bond Interest / yr <span
-class="val"
-id="fdIntVal">&#8377;0</span></label>
+                    <label>FD / RD / Bond Interest / yr <span class="val" id="fdIntVal">&#8377;0</span></label>
 
-<div 
-class="slider-row">
+                    <div class="slider-row">
 
-<input 
-type="range" 
-id="fdIntSlider" 
-min="0" 
-max="500000" 
-step="5000" 
-value="0"/>
+                        <input type="range" id="fdIntSlider" min="0" max="500000" step="5000" value="0" />
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="fdIntNum" 
-value="0"/>
+                        <input type="number" inputmode="numeric" id="fdIntNum" value="0" />
 
-</div>
+                    </div>
 
-<div 
-class="hint">Fully taxable in both regimes at slab rate. TDS @10% if &gt; &#8377;40,000/yr.</div>
+                    <div class="hint">Fully taxable in both regimes at slab rate. TDS @10% if &gt; &#8377;40,000/yr.
+                    </div>
 
-</div>
+                </div>
 
-<div 
-class="field">
+                <div class="field">
 
-<label>Other Income (dividends, rent, etc.) / yr <span
-class="val"
-id="otherIncVal">&#8377;0</span></label>
+                    <label>Other Income (dividends, rent, etc.) / yr <span class="val"
+                            id="otherIncVal">&#8377;0</span></label>
 
-<div 
-class="slider-row">
+                    <div class="slider-row">
 
-<input 
-type="range" 
-id="otherIncSlider" 
-min="0" 
-max="500000" 
-step="5000" 
-value="0"/>
+                        <input type="range" id="otherIncSlider" min="0" max="500000" step="5000" value="0" />
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="otherIncNum" 
-value="0"/>
+                        <input type="number" inputmode="numeric" id="otherIncNum" value="0" />
 
-</div>
+                    </div>
 
-<div 
-class="hint">Taxable at slab rates in both regimes.</div>
+                    <div class="hint">Taxable at slab rates in both regimes.</div>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
 
 
-</div><!-- /calc-grid -->
+        </div><!-- /calc-grid -->
 
-</div><!-- /page -->
+    </div><!-- /page -->
 
 
 
-<!-- ── PPP Modal ──────────────────────────────────────────────── -->
+    <!-- ── PPP Modal ──────────────────────────────────────────────── -->
 
-<div 
-class="modal-overlay" 
-id="pppOverlay">
+    <div class="modal-overlay" id="pppOverlay">
 
-<div 
-class="ppp-modal">
+        <div class="ppp-modal">
 
-<div 
-class="ppp-head">
+            <div class="ppp-head">
 
-<div>
+                <div>
 
-<h2>&#127758; Global PPP Salary Equivalents</h2>
+                    <h2>&#127758; Global PPP Salary Equivalents</h2>
 
-<p>What to ask in other countries to match your Indian take-home purchasing power</p>
+                    <p>What to ask in other countries to match your Indian take-home purchasing power</p>
 
-</div>
+                </div>
 
-<button 
-class="modal-close" 
-id="pppClose"><span
-class="material-icons">close</span></button>
+                <button class="modal-close" id="pppClose"><span class="material-icons">close</span></button>
 
-</div>
+            </div>
 
-<div 
-class="ppp-body">
+            <div class="ppp-body">
 
-<div 
-class="ppp-income-row">
+                <div class="ppp-income-row">
 
-<div 
-class="fil">
+                    <div class="fil">
 
-<label 
-id="pppIncomeLabel">Your take-home salary (Monthly &#8377;)</label>
+                        <label id="pppIncomeLabel">Your take-home salary (Monthly &#8377;)</label>
 
-<input 
-type="number" 
-inputmode="numeric" 
-id="pppIncome" 
-placeholder="e.g. 500000"/>
+                        <input type="number" inputmode="numeric" id="pppIncome" placeholder="e.g. 500000" />
 
-</div>
+                    </div>
 
-<div 
-style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
+                    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
 
-<span 
-class="ppp-hint">&#8377; auto-filled from calculator</span>
+                        <span class="ppp-hint">&#8377; auto-filled from calculator</span>
 
-<div 
-class="ppp-mode-pill" 
-style="padding:2px;gap:2px">
+                        <div class="ppp-mode-pill" style="padding:2px;gap:2px">
 
-<button 
-id="pppMoBtn" 
-class="active" 
-style="padding:4px 12px;font-size:10px">MO</button>
+                            <button id="pppMoBtn" class="active" style="padding:4px 12px;font-size:10px">MO</button>
 
-<button 
-id="pppYrBtn" 
-style="padding:4px 12px;font-size:10px">YR</button>
+                            <button id="pppYrBtn" style="padding:4px 12px;font-size:10px">YR</button>
 
-</div>
+                        </div>
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-<div 
-class="ppp-mode-bar">
+                <div class="ppp-mode-bar">
 
-<div 
-class="ppp-mode-pill">
+                    <div class="ppp-mode-pill">
 
-<button 
-id="modePPP" 
-class="active">&#127759; PPP Equivalent</button>
+                        <button id="modePPP" class="active">&#127759; PPP Equivalent</button>
 
-<button 
-id="modeFX">&#128881; Market Rate (FX)</button>
+                        <button id="modeFX">&#128881; Market Rate (FX)</button>
 
-</div>
+                    </div>
 
-<div 
-style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
 
-<label 
-class="inr-toggle" 
-title="Show INR equivalent of each PPP salary at live FX rates">
+                        <label class="inr-toggle" title="Show INR equivalent of each PPP salary at live FX rates">
 
-<input 
-type="checkbox" 
-id="showINR"/> &#8377; equivalent
+                            <input type="checkbox" id="showINR" /> &#8377; equivalent
 
-</label>
+                        </label>
 
-<div 
-class="fx-badge"><span
-class="fx-dot"
-id="fxDot"></span><span
-id="ratesDate">IMF 2024 (annual, fixed)</span></div>
+                        <div class="fx-badge"><span class="fx-dot" id="fxDot"></span><span id="ratesDate">IMF 2024
+                                (annual, fixed)</span></div>
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-<div 
-class="ppp-grid" 
-id="pppGrid"></div>
+                <div class="ppp-grid" id="pppGrid"></div>
 
-<div 
-class="ppp-footer">
+                <div class="ppp-footer">
 
-<strong>PPP mode:</strong> Take-home ÷ India PPP factor (₹24 / Int’l $) × destination PPP factor.
+                    <strong>PPP mode:</strong> Take-home ÷ India PPP factor (₹24 / Int’l $) × destination PPP factor.
 
-Reflects <em>purchasing power parity</em> — what salary gives same lifestyle. Source: IMF WEO 2024.
+                    Reflects <em>purchasing power parity</em> — what salary gives same lifestyle. Source: IMF WEO 2024.
 
-&nbsp;&bull;&nbsp;<strong>FX mode:</strong> Direct conversion at live ECB rates via
+                    &nbsp;&bull;&nbsp;<strong>FX mode:</strong> Direct conversion at live ECB rates via
 
-<a 
-href="https://frankfurter.app"
-target="_blank"
-rel="noopener"
-style="color:var(--accent)">Frankfurter API</a>
+                    <a href="https://frankfurter.app" target="_blank" rel="noopener"
+                        style="color:var(--accent)">Frankfurter API</a>
 
-(European Central Bank). Shows what your ₹ is literally worth abroad — usually much lower.
+                    (European Central Bank). Shows what your ₹ is literally worth abroad — usually much lower.
 
-&nbsp;&bull;&nbsp;<strong>Tax tip:</strong> Figures are pre-tax equivalents. UAE = 0% income tax; most others 25–45%.
+                    &nbsp;&bull;&nbsp;<strong>Tax tip:</strong> Figures are pre-tax equivalents. UAE = 0% income tax;
+                    most others 25–45%.
 
-</div>
+                </div>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 
 
-<!-- Materialize JS removed; no framework JS needed -->
+    <!-- Materialize JS removed; no framework JS needed -->
 
-<script>
+    <script>
 
-const 
-fmt = n => '\u20b9' + Math.round(n).toLocaleString('en-IN');
+        const
+            fmt = n => '\u20b9' + Math.round(n).toLocaleString('en-IN');
 
-const 
-$ = id => document.getElementById(id);
+        const
+            $ = id => document.getElementById(id);
 
 
 
-// Dark / Light toggle
+        // Dark / Light toggle
 
-$('themeBtn').addEventListener('click', () => {
+        $('themeBtn').addEventListener('click', () => {
 
-const h = document.documentElement;
+            const h = document.documentElement;
 
-const dark = h.getAttribute('data-theme') ===
-'dark';
+            const dark = h.getAttribute('data-theme') ===
+                'dark';
 
-h.setAttribute('data-theme', dark ?
-'light' : 
-'dark');
+            h.setAttribute('data-theme', dark ?
+                'light' :
+                'dark');
 
-$('themeIcon').textContent = dark ?
-'dark_mode' : 
-'light_mode';
+            $('themeIcon').textContent = dark ?
+                'dark_mode' :
+                'light_mode';
 
-});
+        });
 
 
 
-// Slider <-> number sync
+        // Slider <-> number sync
 
-function 
-syncPair(sId, nId, lId, lFn) {
+        function
+            syncPair(sId, nId, lId, lFn) {
 
-const s = 
-$(sId), n = $(nId);
+            const s =
+                $(sId), n = $(nId);
 
-const 
-upd = v => { s.value=v; n.value=v;
-if(lId) 
-$(lId).textContent=lFn?lFn(v):fmt(v); };
+            const
+                upd = v => {
+                    s.value = v; n.value = v;
+                    if (lId)
+                        $(lId).textContent = lFn ? lFn(v) : fmt(v);
+                };
 
-s.addEventListener('input', () => {
-upd(s.value);
-calculate(); });
+            s.addEventListener('input', () => {
+                upd(s.value);
+                calculate();
+            });
 
-n.addEventListener('input', () => {
-upd(n.value);
-calculate(); });
+            n.addEventListener('input', () => {
+                upd(n.value);
+                calculate();
+            });
 
-upd(s.value);
+            upd(s.value);
 
-}
+        }
 
-syncPair('rent','rentNum','rentVal', v =>
-fmt(v)+'/mo');
+        syncPair('rent', 'rentNum', 'rentVal', v =>
+            fmt(v) + '/mo');
 
-syncPair('intSlider','intNum','intVal');
+        syncPair('intSlider', 'intNum', 'intVal');
 
-syncPair('principalSlider','principalNum','principalVal');
+        syncPair('principalSlider', 'principalNum', 'principalVal');
 
-syncPair('depositSlider','depositNum','depositVal');
+        syncPair('depositSlider', 'depositNum', 'depositVal');
 
-syncPair('licSlider','licNum','licVal');
+        syncPair('licSlider', 'licNum', 'licVal');
 
-syncPair('schoolSlider','schoolNum','schoolVal');
+        syncPair('schoolSlider', 'schoolNum', 'schoolVal');
 
-syncPair('d80dSlider','d80dNum','d80dVal');
+        syncPair('d80dSlider', 'd80dNum', 'd80dVal');
 
-syncPair('npsSlider','npsNum','npsVal');
+        syncPair('npsSlider', 'npsNum', 'npsVal');
 
-syncPair('otherSlider','otherNum','otherVal');
+        syncPair('otherSlider', 'otherNum', 'otherVal');
 
-syncPair('savIntSlider','savIntNum','savIntVal');
+        syncPair('savIntSlider', 'savIntNum', 'savIntVal');
 
-syncPair('fdIntSlider','fdIntNum','fdIntVal');
+        syncPair('fdIntSlider', 'fdIntNum', 'fdIntVal');
 
-syncPair('otherIncSlider','otherIncNum','otherIncVal');
+        syncPair('otherIncSlider', 'otherIncNum', 'otherIncVal');
 
 
 
-// Monthly / Yearly
+        // Monthly / Yearly
 
-let isYearly = 
-false;
+        let isYearly =
+            false;
 
-const salIds = ['basic','hra','flex','comm','lta','food'];
+        const salIds = ['basic', 'hra', 'flex', 'comm', 'lta', 'food'];
 
-$('freqToggle').addEventListener('change', () => {
+        $('freqToggle').addEventListener('change', () => {
 
-isYearly = $('freqToggle').checked;
+            isYearly = $('freqToggle').checked;
 
-$('freqLabel').textContent = isYearly ?
-'Yearly' : 
-'Monthly';
+            $('freqLabel').textContent = isYearly ?
+                'Yearly' :
+                'Monthly';
 
-$('incomeChip').textContent = isYearly ?
-'Yearly' : 
-'Monthly';
+            $('incomeChip').textContent = isYearly ?
+                'Yearly' :
+                'Monthly';
 
-salIds.forEach(id => { 
-$(id).value = Math.round(isYearly ? +$(id).value*12
- : +$(id).value/12); });
+            salIds.forEach(id => {
+                $(id).value = Math.round(isYearly ? +$(id).value * 12
+                    : +$(id).value / 12);
+            });
 
-calculate();
+            calculate();
 
-});
+        });
 
 
 
-// Tax slabs
+        // Tax slabs
 
-function 
-taxOld(inc) {
+        function
+            taxOld(inc) {
 
-if(inc<=250000)
-return 
-0;
+            if (inc <= 250000)
+                return
+            0;
 
-let t=0;
+            let t = 0;
 
-if(inc>1000000){t+=(inc-1000000)*.30;inc=1000000;}
+            if (inc > 1000000) { t += (inc - 1000000) * .30; inc = 1000000; }
 
-if(inc> 
-500000){t+=(inc- 500000)*.20;inc=
-500000;}
+            if (inc >
+                500000) {
+                t += (inc - 500000) * .20; inc =
+                    500000;
+            }
 
-if(inc> 
-250000) t+=(inc- 250000)*.05;
+            if (inc >
+                250000) t += (inc - 250000) * .05;
 
-return t;
+            return t;
 
-}
+        }
 
-function 
-taxNew(inc) {
+        function
+            taxNew(inc) {
 
-if(inc<=400000)
-return 
-0;
+            if (inc <= 400000)
+                return
+            0;
 
-return [[400000,800000,.05],[800000,1200000,.10],[1200000,1600000,.15],
+            return [[400000, 800000, .05], [800000, 1200000, .10], [1200000, 1600000, .15],
 
-[1600000,2000000,.20],[2000000,2400000,.25],[2400000,Infinity,.30]]
+            [1600000, 2000000, .20], [2000000, 2400000, .25], [2400000, Infinity, .30]]
 
-.reduce((t,[lo,hi,r])=>inc>lo?t+(Math.min(inc,hi)-lo)*r:t,0);
+                .reduce((t, [lo, hi, r]) => inc > lo ? t + (Math.min(inc, hi) - lo) * r : t, 0);
 
-}
+        }
 
-function 
-withCess(tax,inc){
+        function
+            withCess(tax, inc) {
 
-let sc=0;
+            let sc = 0;
 
-if(inc>50000000)sc=tax*.37;
-else 
-if(inc>20000000)sc=tax*.25;
+            if (inc > 50000000) sc = tax * .37;
+            else
+                if (inc > 20000000) sc = tax * .25;
 
-else 
-if(inc>10000000)sc=tax*.15;
-else 
-if(inc>5000000)sc=tax*.10;
+                else
+                    if (inc > 10000000) sc = tax * .15;
+                    else
+                        if (inc > 5000000) sc = tax * .10;
 
-const t=tax+sc; 
-return t+t*.04;
+            const t = tax + sc;
+            return t + t * .04;
 
-}
+        }
 
-function 
-hraEx(bM,hM,rM,metro){
+        function
+            hraEx(bM, hM, rM, metro) {
 
-if(rM<=0)
-return 
-0;
+            if (rM <= 0)
+                return
+            0;
 
-return Math.max(0,Math.min(hM*12,rM*12-bM*12*.1,bM*12*(metro?.5:.4)));
+            return Math.max(0, Math.min(hM * 12, rM * 12 - bM * 12 * .1, bM * 12 * (metro ? .5 : .4)));
 
-}
+        }
 
 
 
-// Main
+        // Main
 
-function 
-calculate(){
+        function
+            calculate() {
 
-const mul=isYearly?1:12;
+            const mul = isYearly ? 1 : 12;
 
-const bM=+$('basic').value, hM=+$('hra').value,
- fxM=+$('flex').value;
+            const bM = +$('basic').value, hM = +$('hra').value,
+                fxM = +$('flex').value;
 
-const cM=+$('comm').value, lM=+$('lta').value,
- fdM=+$('food').value;
+            const cM = +$('comm').value, lM = +$('lta').value,
+                fdM = +$('food').value;
 
-const basic=bM*mul,hr=hM*mul,fx=fxM*mul,cm=cM*mul,lt=lM*mul,fd=fdM*mul;
+            const basic = bM * mul, hr = hM * mul, fx = fxM * mul, cm = cM * mul, lt = lM * mul, fd = fdM * mul;
 
-const gross=basic+hr+fx+cm+lt+fd;
+            const gross = basic + hr + fx + cm + lt + fd;
 
 
 
-const rent=+$('rent').value, metro=$('metro').checked;
+            const rent = +$('rent').value, metro = $('metro').checked;
 
-const int_=+$('intSlider').value, prin=+$('principalSlider').value;
+            const int_ = +$('intSlider').value, prin = +$('principalSlider').value;
 
-const pf=+$('pf').value, dep=+$('depositSlider').value;
+            const pf = +$('pf').value, dep = +$('depositSlider').value;
 
-const lic=+$('licSlider').value, sch=+$('schoolSlider').value;
+            const lic = +$('licSlider').value, sch = +$('schoolSlider').value;
 
-const d80d=+$('d80dSlider').value, nps=+$('npsSlider').value;
+            const d80d = +$('d80dSlider').value, nps = +$('npsSlider').value;
 
-const oth=+$('otherSlider').value, pt=Math.min(+$('profTax').value,2500);
+            const oth = +$('otherSlider').value, pt = Math.min(+$('profTax').value, 2500);
 
-const savInt=+$('savIntSlider').value, fdInt=+$('fdIntSlider').value,
- otherInc=+$('otherIncSlider').value;
+            const savInt = +$('savIntSlider').value, fdInt = +$('fdIntSlider').value,
+                otherInc = +$('otherIncSlider').value;
 
-const tta = Math.min(savInt,
-10000); 
-// Sec 80TTA: ₹10K exempt, old regime only
+            const tta = Math.min(savInt,
+                10000);
+            // Sec 80TTA: ₹10K exempt, old regime only
 
 
 
-// update labels
+            // update labels
 
-['basic','hra','flex','comm','lta','food'].forEach(id=>{const
- e=$(id+'Val');if(e)e.textContent=fmt($(id).value);});
+            ['basic', 'hra', 'flex', 'comm', 'lta', 'food'].forEach(id => {
+                const
+                    e = $(id + 'Val'); if (e) e.textContent = fmt($(id).value);
+            });
 
-$('pfVal').textContent=fmt(pf);
-$('profTaxVal').textContent=fmt(+$('profTax').value);
+            $('pfVal').textContent = fmt(pf);
+            $('profTaxVal').textContent = fmt(+$('profTax').value);
 
-$('grossAmt').textContent=fmt(gross);
+            $('grossAmt').textContent = fmt(gross);
 
 
 
-// 80C
+            // 80C
 
-const raw80c=pf+dep+lic+sch+prin, eff=Math.min(raw80c,150000);
+            const raw80c = pf + dep + lic + sch + prin, eff = Math.min(raw80c, 150000);
 
-$('c80cUsed').textContent=fmt(raw80c);
-$('c80cEff').textContent=fmt(eff);
+            $('c80cUsed').textContent = fmt(raw80c);
+            $('c80cEff').textContent = fmt(eff);
 
-$('c80cLeft').textContent=fmt(Math.max(0,150000-raw80c));
+            $('c80cLeft').textContent = fmt(Math.max(0, 150000 - raw80c));
 
-$('capWarn').style.display=raw80c>150000?'block':'none';
+            $('capWarn').style.display = raw80c > 150000 ? 'block' : 'none';
 
 
 
-const hEx=hraEx(bM*mul/12,hM*mul/12,rent,metro);
+            const hEx = hraEx(bM * mul / 12, hM * mul / 12, rent, metro);
 
-const fEx=Math.min(fd,26400), lEx=Math.min(lt,75000);
+            const fEx = Math.min(fd, 26400), lEx = Math.min(lt, 75000);
 
-const s24=Math.min(int_,200000), d80c=Math.min(d80d,50000);
+            const s24 = Math.min(int_, 200000), d80c = Math.min(d80d, 50000);
 
 
 
-let tOld=Math.max(0,gross+savInt+fdInt+otherInc-hEx-fEx-lEx-50000-pt-eff-s24-d80c-nps-oth-tta);
+            let tOld = Math.max(0, gross + savInt + fdInt + otherInc - hEx - fEx - lEx - 50000 - pt - eff - s24 - d80c - nps - oth - tta);
 
-const rOld=taxOld(tOld), rebOld=tOld<=500000?rOld:0;
+            const rOld = taxOld(tOld), rebOld = tOld <= 500000 ? rOld : 0;
 
-const fOld=withCess(Math.max(0,rOld-rebOld),tOld);
+            const fOld = withCess(Math.max(0, rOld - rebOld), tOld);
 
 
 
-let tNew=Math.max(0,gross+savInt+fdInt+otherInc-75000);
+            let tNew = Math.max(0, gross + savInt + fdInt + otherInc - 75000);
 
-const rNew=taxNew(tNew), rebNew=tNew<=1200000?rNew:0;
+            const rNew = taxNew(tNew), rebNew = tNew <= 1200000 ? rNew : 0;
 
-const fNew=withCess(Math.max(0,rNew-rebNew),tNew);
+            const fNew = withCess(Math.max(0, rNew - rebNew), tNew);
 
 
 
-const owins=fOld<fNew, diff=Math.abs(fOld-fNew);
+            const owins = fOld < fNew, diff = Math.abs(fOld - fNew);
 
-$('oldTax').textContent = isYearly ?
-fmt(fOld) : 
-fmt(Math.round(fOld/12));
+            $('oldTax').textContent = isYearly ?
+                fmt(fOld) :
+                fmt(Math.round(fOld / 12));
 
-$('oldTaxSec').textContent = isYearly ?
-fmt(Math.round(fOld/12))+' /mo' :
-fmt(fOld)+' /yr';
+            $('oldTaxSec').textContent = isYearly ?
+                fmt(Math.round(fOld / 12)) + ' /mo' :
+                fmt(fOld) + ' /yr';
 
-$('oldTaxHint').textContent = isYearly ?
-'Annual Tax Payable' : 
-'Monthly Tax Payable';
+            $('oldTaxHint').textContent = isYearly ?
+                'Annual Tax Payable' :
+                'Monthly Tax Payable';
 
-$('newTax').textContent = isYearly ?
-fmt(fNew) : 
-fmt(Math.round(fNew/12));
+            $('newTax').textContent = isYearly ?
+                fmt(fNew) :
+                fmt(Math.round(fNew / 12));
 
-$('newTaxSec').textContent = isYearly ?
-fmt(Math.round(fNew/12))+' /mo' :
-fmt(fNew)+' /yr';
+            $('newTaxSec').textContent = isYearly ?
+                fmt(Math.round(fNew / 12)) + ' /mo' :
+                fmt(fNew) + ' /yr';
 
-$('newTaxHint').textContent = isYearly ?
-'Annual Tax Payable' : 
-'Monthly Tax Payable';
+            $('newTaxHint').textContent = isYearly ?
+                'Annual Tax Payable' :
+                'Monthly Tax Payable';
 
-$('savingsAmt').innerHTML = (isYearly ?
-fmt(diff) : 
-fmt(Math.round(diff/12)))+' <small>'+(isYearly?'/year':'/mo')+'</small>';
+            $('savingsAmt').innerHTML = (isYearly ?
+                fmt(diff) :
+                fmt(Math.round(diff / 12))) + ' <small>' + (isYearly ? '/year' : '/mo') + '</small>';
 
 
 
-const b=$('verdictBadge');
+            const b = $('verdictBadge');
 
-b.textContent=owins?'\u2736 Old Regime':'\u2736
- New Regime';
+            b.textContent = owins ? '\u2736 Old Regime' : '\u2736 New Regime';
 
-b.className='verdict-badge'+(owins?' old-wins':'');
+            b.className = 'verdict-badge' + (owins ? ' old-wins' : '');
 
-$('oldCard').className='regime-card old'+(owins?'
- winner old-winner':'');
+            $('oldCard').className = 'regime-card old' + (owins ? 'winner old - winner' : '');
 
-$('newCard').className='regime-card new'+(!owins?'
- winner':'');
+            $('newCard').className = 'regime-card new' + (!owins ? 'winner' : '');
 
 
 
-const 
-bdRow = (label, val, zero=false) =>
-`<div class="bd-row${zero?' bd-zero':''}"><label>${label}</label><span>${val}</span></div>`;
+            const
+                bdRow = (label, val, zero = false) =>
+                    `<div class="bd-row${zero ? ' bd-zero' : ''}"><label>${label}</label><span>${val}</span></div>`;
 
-$('oldTaxable').textContent =
-fmt(tOld);
+            $('oldTaxable').textContent =
+                fmt(tOld);
 
-$('newTaxable').textContent =
-fmt(tNew);
+            $('newTaxable').textContent =
+                fmt(tNew);
 
 
 
-$('oldBreakdown').innerHTML =
+            $('oldBreakdown').innerHTML =
 
-bdRow('Gross',fmt(gross)) +
+                bdRow('Gross', fmt(gross)) +
 
-bdRow('HRA exempt','&minus;'+fmt(hEx)) +
+                bdRow('HRA exempt', '&minus;' + fmt(hEx)) +
 
-bdRow('LTA exempt','&minus;'+fmt(lEx)) +
+                bdRow('LTA exempt', '&minus;' + fmt(lEx)) +
 
-bdRow('Food exempt','&minus;'+fmt(fEx)) +
+                bdRow('Food exempt', '&minus;' + fmt(fEx)) +
 
-bdRow('Std deduction','&minus;&#8377;50,000') +
+                bdRow('Std deduction', '&minus;&#8377;50,000') +
 
-bdRow('Prof. Tax','&minus;'+fmt(pt)) +
+                bdRow('Prof. Tax', '&minus;' + fmt(pt)) +
 
-bdRow('80C','&minus;'+fmt(eff)) +
+                bdRow('80C', '&minus;' + fmt(eff)) +
 
-bdRow('Sec 24(b)','&minus;'+fmt(s24)) +
+                bdRow('Sec 24(b)', '&minus;' + fmt(s24)) +
 
-bdRow('80D / NPS','&minus;'+fmt(d80c+nps)) +
+                bdRow('80D / NPS', '&minus;' + fmt(d80c + nps)) +
 
-(oth>0 ? 
-bdRow('80G','&minus;'+fmt(oth)) :
-'') +
+                (oth > 0 ?
+                    bdRow('80G', '&minus;' + fmt(oth)) :
+                    '') +
 
-(savInt>0 ? 
-bdRow('Savings Int. (80TTA)','&minus;'+fmt(tta)+(savInt>10000?'
- <small>(capped)</small>':'')) :
-'') +
+                (savInt > 0 ?
+                    bdRow('Savings Int. (80TTA)', '&minus;' + fmt(tta) + (savInt > 10000 ? '< small > (capped)</small > ' : '')) : '') +
 
-((savInt+fdInt+otherInc)>0 ? 
-bdRow('+ Other Income','+'+fmt(savInt+fdInt+otherInc)) :
-'') +
+                ((savInt + fdInt + otherInc) > 0 ?
+                    bdRow('+ Other Income', '+' + fmt(savInt + fdInt + otherInc)) :
+                    '') +
 
-`<div class="bd-row bd-taxable"><label>Taxable Income</label><span>${fmt(tOld)}</span></div>` +
+                `<div class="bd-row bd-taxable"><label>Taxable Income</label><span>${fmt(tOld)}</span></div>` +
 
-(rebOld>0 ? 
-'<div class="bd-rebate">87A rebate applied &#10003;</div>' : 
-'');
+                (rebOld > 0 ?
+                    '<div class="bd-rebate">87A rebate applied &#10003;</div>' :
+                    '');
 
 
 
-$('newBreakdown').innerHTML =
+            $('newBreakdown').innerHTML =
 
-bdRow('Gross',fmt(gross)) +
+                bdRow('Gross', fmt(gross)) +
 
-bdRow('Std deduction','&minus;&#8377;75,000') +
+                bdRow('Std deduction', '&minus;&#8377;75,000') +
 
-bdRow('HRA exempt','&#8377;0 (N/A)',true) +
+                bdRow('HRA exempt', '&#8377;0 (N/A)', true) +
 
-bdRow('LTA exempt','&#8377;0 (N/A)',true) +
+                bdRow('LTA exempt', '&#8377;0 (N/A)', true) +
 
-bdRow('Food exempt','&#8377;0 (N/A)',true) +
+                bdRow('Food exempt', '&#8377;0 (N/A)', true) +
 
-bdRow('80C / Sec 24(b)','&#8377;0 (N/A)',true) +
+                bdRow('80C / Sec 24(b)', '&#8377;0 (N/A)', true) +
 
-bdRow('80D / NPS','&#8377;0 (N/A)',true) +
+                bdRow('80D / NPS', '&#8377;0 (N/A)', true) +
 
-((savInt+fdInt+otherInc)>0 ? 
-bdRow('+ Other Income','+'+fmt(savInt+fdInt+otherInc)) :
-'') +
+                ((savInt + fdInt + otherInc) > 0 ?
+                    bdRow('+ Other Income', '+' + fmt(savInt + fdInt + otherInc)) :
+                    '') +
 
-(savInt>0 ? 
-bdRow('80TTA exempt','&#8377;0 (N/A)',true) :
-'') +
+                (savInt > 0 ?
+                    bdRow('80TTA exempt', '&#8377;0 (N/A)', true) :
+                    '') +
 
-`<div class="bd-row bd-taxable"><label>Taxable Income</label><span>${fmt(tNew)}</span></div>` +
+                `<div class="bd-row bd-taxable"><label>Taxable Income</label><span>${fmt(tNew)}</span></div>` +
 
-(rebNew>0 ? 
-'<div class="bd-rebate">87A rebate applied &#10003;</div>' : 
-'');
+                (rebNew > 0 ?
+                    '<div class="bd-rebate">87A rebate applied &#10003;</div>' :
+                    '');
 
-}
+        }
 
 
 
-['basic','hra','flex','comm','lta','food','metro','pf','profTax','savIntNum','fdIntNum','otherIncNum']
+        ['basic', 'hra', 'flex', 'comm', 'lta', 'food', 'metro', 'pf', 'profTax', 'savIntNum', 'fdIntNum', 'otherIncNum']
 
-.forEach(id=>$(id).addEventListener('input',calculate));
+            .forEach(id => $(id).addEventListener('input', calculate));
 
-calculate();
+        calculate();
 
 
 
-// ── PPP Modal ─────────────────────────────────────────────────
+        // ── PPP Modal ─────────────────────────────────────────────────
 
-// PPP: IMF 2024 annual data — hardcoded (no API needed; updates once/year)
+        // PPP: IMF 2024 annual data — hardcoded (no API needed; updates once/year)
 
-const PPP_DATA = [
+        const PPP_DATA = [
 
-{flag:'🇺🇸',name:'USA', sym:'$', code:'USD', wbCode:'US',
- ppp:1.00, tax:'Fed+state ~25–37%'},
+            {
+                flag: '🇺🇸', name: 'USA', sym: '$', code: 'USD', wbCode: 'US',
+                ppp: 1.00, tax: 'Fed+state ~25–37%'
+            },
 
-{flag:'🇬🇧',name:'UK', sym:'£', code:'GBP', wbCode:'GB',
- ppp:0.69, tax:'Income tax ~20–45%'},
+            {
+                flag: '🇬🇧', name: 'UK', sym: '£', code: 'GBP', wbCode: 'GB',
+                ppp: 0.69, tax: 'Income tax ~20–45%'
+            },
 
-{flag:'🇦🇪',name:'UAE / Dubai', sym:'AED', code:'AED', wbCode:'AE',
- ppp:3.67, tax:'No income tax 🎉'},
+            {
+                flag: '🇦🇪', name: 'UAE / Dubai', sym: 'AED', code: 'AED', wbCode: 'AE',
+                ppp: 3.67, tax: 'No income tax 🎉'
+            },
 
-{flag:'🇸🇬',name:'Singapore', sym:'S$', code:'SGD', wbCode:'SG',
- ppp:1.09, tax:'Income tax ~0–22%'},
+            {
+                flag: '🇸🇬', name: 'Singapore', sym: 'S$', code: 'SGD', wbCode: 'SG',
+                ppp: 1.09, tax: 'Income tax ~0–22%'
+            },
 
-{flag:'🇨🇦',name:'Canada', sym:'C$', code:'CAD', wbCode:'CA',
- ppp:1.33, tax:'Fed+prov ~20–33%'},
+            {
+                flag: '🇨🇦', name: 'Canada', sym: 'C$', code: 'CAD', wbCode: 'CA',
+                ppp: 1.33, tax: 'Fed+prov ~20–33%'
+            },
 
-{flag:'🇦🇺',name:'Australia', sym:'A$', code:'AUD', wbCode:'AU',
- ppp:1.52, tax:'Income tax ~19–45%'},
+            {
+                flag: '🇦🇺', name: 'Australia', sym: 'A$', code: 'AUD', wbCode: 'AU',
+                ppp: 1.52, tax: 'Income tax ~19–45%'
+            },
 
-{flag:'🇩🇪',name:'Germany', sym:'€', code:'EUR', wbCode:'DE',
- ppp:0.77, tax:'Income tax ~14–45%'},
+            {
+                flag: '🇩🇪', name: 'Germany', sym: '€', code: 'EUR', wbCode: 'DE',
+                ppp: 0.77, tax: 'Income tax ~14–45%'
+            },
 
-{flag:'🇳🇱',name:'Netherlands', sym:'€', code:'EUR', wbCode:'NL',
- ppp:0.78, tax:'Income tax ~9–49%'},
+            {
+                flag: '🇳🇱', name: 'Netherlands', sym: '€', code: 'EUR', wbCode: 'NL',
+                ppp: 0.78, tax: 'Income tax ~9–49%'
+            },
 
-{flag:'🇨🇭',name:'Switzerland', sym:'CHF', code:'CHF', wbCode:'CH',
- ppp:1.20, tax:'Federal ~0.8–11.5%'},
+            {
+                flag: '🇨🇭', name: 'Switzerland', sym: 'CHF', code: 'CHF', wbCode: 'CH',
+                ppp: 1.20, tax: 'Federal ~0.8–11.5%'
+            },
 
-{flag:'🇫🇷',name:'France', sym:'€', code:'EUR', wbCode:'FR',
- ppp:0.77, tax:'Income tax ~0–45%'},
+            {
+                flag: '🇫🇷', name: 'France', sym: '€', code: 'EUR', wbCode: 'FR',
+                ppp: 0.77, tax: 'Income tax ~0–45%'
+            },
 
-{flag:'🇯🇵',name:'Japan', sym:'¥', code:'JPY', wbCode:'JP',
- ppp:106, tax:'Income tax ~5–45%'},
+            {
+                flag: '🇯🇵', name: 'Japan', sym: '¥', code: 'JPY', wbCode: 'JP',
+                ppp: 106, tax: 'Income tax ~5–45%'
+            },
 
-{flag:'🇳🇿',name:'New Zealand', sym:'NZ$', code:'NZD', wbCode:'NZ',
- ppp:1.66, tax:'Income tax ~10–39%'},
+            {
+                flag: '🇳🇿', name: 'New Zealand', sym: 'NZ$', code: 'NZD', wbCode: 'NZ',
+                ppp: 1.66, tax: 'Income tax ~10–39%'
+            },
 
-];
+        ];
 
 
 
-// Hardcoded FX fallback (approx May 2026): 1 INR = X local currency
+        // Hardcoded FX fallback (approx May 2026): 1 INR = X local currency
 
-// Used immediately; overwritten by live Frankfurter API on FX tab click
+        // Used immediately; overwritten by live Frankfurter API on FX tab click
 
-const FX_FALLBACK = {USD:0.01195,GBP:0.00945,AED:0.04388,SGD:0.01606,CAD:0.01638,AUD:0.01835,EUR:0.01107,CHF:0.01052,JPY:1.8454,NZD:0.02012};
+        const FX_FALLBACK = { USD: 0.01195, GBP: 0.00945, AED: 0.04388, SGD: 0.01606, CAD: 0.01638, AUD: 0.01835, EUR: 0.01107, CHF: 0.01052, JPY: 1.8454, NZD: 0.02012 };
 
-let fxRates = {...FX_FALLBACK};
+        let fxRates = { ...FX_FALLBACK };
 
-let fxDate = 
-'', fxFetched = false, fxFetching =
-false;
+        let fxDate =
+            '', fxFetched = false, fxFetching =
+                false;
 
-let pppMode = 
-'ppp', showINR = false;
+        let pppMode =
+            'ppp', showINR = false;
 
-const pppIndia = 
-24; // INR per Intl $ (IMF WEO 2024)
+        const pppIndia =
+            24; // INR per Intl $ (IMF WEO 2024)
 
 
 
-async 
-function fetchRates() {
+        async function fetchRates() {
 
-if (fxFetching 
-|| fxFetched) return;
+            if (fxFetching
+                || fxFetched) return;
 
-fxFetching = true;
+            fxFetching = true;
 
-updateBadge();
+            updateBadge();
 
-const fxCodes = [...new
-Set(PPP_DATA.map(c => c.code))].join(',');
+            const fxCodes = [...new
+                Set(PPP_DATA.map(c => c.code))].join(',');
 
-try {
+            try {
 
-const res = 
-await fetch(`https://api.frankfurter.app/latest?from=INR&to=${fxCodes}`);
+                const res =
+                    await fetch(`https://api.frankfurter.app/latest?from=INR&to=${fxCodes}`);
 
-if (!res.ok)
-throw 
-new Error('non-200');
+                if (!res.ok)
+                    throw
+                new Error('non-200');
 
-const d = 
-await res.json();
+                const d =
+                    await res.json();
 
-if (d.rates) Object.assign(fxRates, d.rates);
-// merge live over fallback
+                if (d.rates) Object.assign(fxRates, d.rates);
+                // merge live over fallback
 
-fxDate = d.date 
-|| '';
+                fxDate = d.date
+                    || '';
 
-} catch (e) {
+            } catch (e) {
 
-fxDate = ''; 
-// fallback rates remain active
+                fxDate = '';
+                // fallback rates remain active
 
-}
+            }
 
-fxFetched = true;
+            fxFetched = true;
 
-fxFetching = false;
+            fxFetching = false;
 
-updateBadge();
+            updateBadge();
 
-renderPPP();
+            renderPPP();
 
-}
+        }
 
 
 
-function 
-updateBadge() {
+        function
+            updateBadge() {
 
-const isPPP = pppMode === 
-'ppp';
+            const isPPP = pppMode ===
+                'ppp';
 
-let txt, live;
+            let txt, live;
 
-if (isPPP) {
+            if (isPPP) {
 
-txt = 'IMF 2024 (annual, fixed)';
+                txt = 'IMF 2024 (annual, fixed)';
 
-live = true;
+                live = true;
 
-} else 
-if (fxFetching) {
+            } else
+                if (fxFetching) {
 
-txt = 'Fetching live rates…';
+                    txt = 'Fetching live rates…';
 
-live = false;
+                    live = false;
 
-} else 
-if (fxDate) {
+                } else
+                    if (fxDate) {
 
-txt = `ECB live · ${fxDate}`;
+                        txt = `ECB live · ${fxDate}`;
 
-live = true;
+                        live = true;
 
-} else {
+                    } else {
 
-txt = fxFetched ? 'FX offline — fallback rates' :
-'Approx. fallback rates';
+                        txt = fxFetched ? 'FX offline — fallback rates' :
+                            'Approx. fallback rates';
 
-live = false;
+                        live = false;
 
-}
+                    }
 
-$('ratesDate').textContent = txt;
+            $('ratesDate').textContent = txt;
 
-$('fxDot').style.background =
-'';
+            $('fxDot').style.background =
+                '';
 
-$('fxDot').className =
-'fx-dot' + (live ? 
-' live' : '');
+            $('fxDot').className =
+                'fx-dot' + (live ?
+                    ' live' : '');
 
-if (!live
-&& fxFetched 
-&& !fxDate) 
-$('fxDot').style.background =
-'var(--red)';
+            if (!live
+                && fxFetched
+                && !fxDate)
+                $('fxDot').style.background =
+                    'var(--red)';
 
-}
+        }
 
-function 
-fmtLocal(n, sym) { return sym + Math.round(n).toLocaleString('en');
- }
+        function
+            fmtLocal(n, sym) {
+            return sym + Math.round(n).toLocaleString('en');
+        }
 
 
 
-let pppShowMonthly = 
-true;
+        let pppShowMonthly =
+            true;
 
 
 
-function 
-renderPPP() {
+        function
+            renderPPP() {
 
-const income = +$('pppIncome').value
-|| 
-0;
+            const income = +$('pppIncome').value
+                ||
+                0;
 
-const annIncome = pppShowMonthly ? income *
-12 : income;
+            const annIncome = pppShowMonthly ? income *
+                12 : income;
 
-const isPPP = pppMode === 
-'ppp';
+            const isPPP = pppMode ===
+                'ppp';
 
-$('pppGrid').innerHTML = PPP_DATA.map(c => {
+            $('pppGrid').innerHTML = PPP_DATA.map(c => {
 
-let ann, hint, inrEq = 
-null;
+                let ann, hint, inrEq =
+                    null;
 
-if (isPPP) {
+                if (isPPP) {
 
-ann = (annIncome / pppIndia) * c.ppp;
+                    ann = (annIncome / pppIndia) * c.ppp;
 
-hint = `IMF 2024: 1 Intl$ = ${c.sym}${c.ppp}`;
+                    hint = `IMF 2024: 1 Intl$ = ${c.sym}${c.ppp}`;
 
-if (showINR 
-&& income) inrEq = ann / fxRates[c.code];
+                    if (showINR
+                        && income) inrEq = ann / fxRates[c.code];
 
-} else {
+                } else {
 
-const rate = fxRates[c.code];
+                    const rate = fxRates[c.code];
 
-ann = annIncome ? annIncome * rate : null;
+                    ann = annIncome ? annIncome * rate : null;
 
-hint = fxDate
+                    hint = fxDate
 
-? `1 \u20b9 =
+                        ? `1 \u20b9 =
 ${rate < 1 ? rate.toFixed(5) : rate.toFixed(3)}
 ${c.code}`
 
-: `~1 \u20b9
+                        : `~1 \u20b9
 \u2248
 ${rate < 1 ? rate.toFixed(5) : rate.toFixed(3)}
 ${c.code} (est.)`;
 
-}
+                }
 
-const disp = ann != 
-null ? (pppShowMonthly ? ann / 12 : ann) :
-null;
+                const disp = ann !=
+                    null ? (pppShowMonthly ? ann / 12 : ann) :
+                    null;
 
-const dispInr = inrEq != 
-null ? (pppShowMonthly ? inrEq / 12 : inrEq) :
-null;
+                const dispInr = inrEq !=
+                    null ? (pppShowMonthly ? inrEq / 12 : inrEq) :
+                    null;
 
-const suffix = pppShowMonthly ?
-'\u202f/mo' :
-'\u202f/yr';
+                const suffix = pppShowMonthly ?
+                    '\u202f/mo' :
+                    '\u202f/yr';
 
-const valStr = income 
-&& disp != null ? 
-fmtLocal(disp, c.sym) + suffix :
-'\u2014';
+                const valStr = income
+                    && disp != null ?
+                    fmtLocal(disp, c.sym) + suffix :
+                    '\u2014';
 
-const inrStr = dispInr != 
-null ? `\u2248
+                const inrStr = dispInr !=
+                    null ? `\u2248
 ${fmt(dispInr)}${suffix}` :
-'';
+                    '';
 
-return 
-`<div class="ppp-card">
+                return
+                `<div class="ppp-card">
 
 <div class="pc-flag">${c.flag}</div>
 
@@ -2523,9 +2582,9 @@ return
 
 <div class="pc-annual">${valStr}</div>
 
-${inrStr ? 
-`<div class="pc-inr">${inrStr}</div>` :
-''}
+${inrStr ?
+                        `<div class="pc-inr">${inrStr}</div>` :
+                        ''}
 
 <div class="pc-hint">${hint}</div>
 
@@ -2533,173 +2592,182 @@ ${inrStr ?
 
 </div>`;
 
-}).join('');
+            }).join('');
 
-}
+        }
 
-function 
-parseFmt(s){ return 
-parseFloat((s||'').replace(/[₹,\s]/g,''))||0;
- }
+        function
+            parseFmt(s) {
+            return
+            parseFloat((s || '').replace(/[₹,\s]/g, '')) || 0;
+        }
 
 
 
-$('pppBtn').addEventListener('click', ()=>{
+        $('pppBtn').addEventListener('click', () => {
 
-const gross = 
-parseFmt($('grossAmt').textContent);
+            const gross =
+                parseFmt($('grossAmt').textContent);
 
-const oldTaxV = 
-parseFmt($('oldTax').textContent);
+            const oldTaxV =
+                parseFmt($('oldTax').textContent);
 
-const newTaxV = 
-parseFmt($('newTax').textContent);
+            const newTaxV =
+                parseFmt($('newTax').textContent);
 
-const takeHome = Math.max(0, gross - Math.min(oldTaxV, newTaxV));
+            const takeHome = Math.max(0, gross - Math.min(oldTaxV, newTaxV));
 
-$('pppIncome').value = Math.round(pppShowMonthly ? takeHome /
-12 : takeHome) 
-|| '';
+            $('pppIncome').value = Math.round(pppShowMonthly ? takeHome /
+                12 : takeHome)
+                || '';
 
-$('pppIncomeLabel').textContent = pppShowMonthly ?
-'Your take-home salary (Monthly \u20b9)' :
-'Your take-home salary (Annual \u20b9)';
+            $('pppIncomeLabel').textContent = pppShowMonthly ?
+                'Your take-home salary (Monthly \u20b9)' :
+                'Your take-home salary (Annual \u20b9)';
 
-pppMode = 'ppp'; 
-// always open in PPP mode
+            pppMode = 'ppp';
+            // always open in PPP mode
 
-$('modePPP').classList.add('active');
+            $('modePPP').classList.add('active');
 
-$('modeFX').classList.remove('active');
+            $('modeFX').classList.remove('active');
 
-updateBadge();
+            updateBadge();
 
-renderPPP(); 
-// no fetch needed for PPP
+            renderPPP();
+            // no fetch needed for PPP
 
-$('pppOverlay').classList.add('open');
+            $('pppOverlay').classList.add('open');
 
-document.body.style.overflow = 
-'hidden';
+            document.body.style.overflow =
+                'hidden';
 
-});
+        });
 
 
 
-$('modePPP').addEventListener('click', ()=>{
+        $('modePPP').addEventListener('click', () => {
 
-pppMode = 'ppp';
+            pppMode = 'ppp';
 
-$('modePPP').classList.add('active');
+            $('modePPP').classList.add('active');
 
-$('modeFX').classList.remove('active');
+            $('modeFX').classList.remove('active');
 
-updateBadge(); 
-renderPPP();
+            updateBadge();
+            renderPPP();
 
-});
+        });
 
-$('modeFX').addEventListener('click', ()=>{
+        $('modeFX').addEventListener('click', () => {
 
-pppMode = 'fx';
+            pppMode = 'fx';
 
-$('modeFX').classList.add('active');
+            $('modeFX').classList.add('active');
 
-$('modePPP').classList.remove('active');
+            $('modePPP').classList.remove('active');
 
-renderPPP(); 
-// render immediately with fallback rates
+            renderPPP();
+            // render immediately with fallback rates
 
-fetchRates(); 
-// fetch live in background; re-renders on success
+            fetchRates();
+            // fetch live in background; re-renders on success
 
-updateBadge();
+            updateBadge();
 
-});
+        });
 
 
 
-$('showINR').addEventListener('change', ()=>{
+        $('showINR').addEventListener('change', () => {
 
-showINR = $('showINR').checked;
+            showINR = $('showINR').checked;
 
-if (showINR 
-&& !fxFetched) 
-fetchRates(); // need FX rates for ₹ conversion
+            if (showINR
+                && !fxFetched)
+                fetchRates(); // need FX rates for ₹ conversion
 
-renderPPP();
+            renderPPP();
 
-});
+        });
 
 
 
-$('pppMoBtn').addEventListener('click', ()=>{
+        $('pppMoBtn').addEventListener('click', () => {
 
-if (!pppShowMonthly) {
-const v = +$('pppIncome').value;
-if (v) 
-$('pppIncome').value = Math.round(v /
-12); }
+            if (!pppShowMonthly) {
+                const v = +$('pppIncome').value;
+                if (v)
+                    $('pppIncome').value = Math.round(v /
+                        12);
+            }
 
-pppShowMonthly = true;
+            pppShowMonthly = true;
 
-$('pppMoBtn').classList.add('active');
-$('pppYrBtn').classList.remove('active');
+            $('pppMoBtn').classList.add('active');
+            $('pppYrBtn').classList.remove('active');
 
-$('pppIncomeLabel').textContent =
-'Your take-home salary (Monthly \u20b9)';
+            $('pppIncomeLabel').textContent =
+                'Your take-home salary (Monthly \u20b9)';
 
-renderPPP();
+            renderPPP();
 
-});
+        });
 
-$('pppYrBtn').addEventListener('click', ()=>{
+        $('pppYrBtn').addEventListener('click', () => {
 
-if (pppShowMonthly) { 
-const v = +$('pppIncome').value;
-if (v) 
-$('pppIncome').value = Math.round(v *
-12); }
+            if (pppShowMonthly) {
+                const v = +$('pppIncome').value;
+                if (v)
+                    $('pppIncome').value = Math.round(v *
+                        12);
+            }
 
-pppShowMonthly = false;
+            pppShowMonthly = false;
 
-$('pppYrBtn').classList.add('active');
-$('pppMoBtn').classList.remove('active');
+            $('pppYrBtn').classList.add('active');
+            $('pppMoBtn').classList.remove('active');
 
-$('pppIncomeLabel').textContent =
-'Your take-home salary (Annual \u20b9)';
+            $('pppIncomeLabel').textContent =
+                'Your take-home salary (Annual \u20b9)';
 
-renderPPP();
+            renderPPP();
 
-});
+        });
 
 
 
-function 
-closePPP(){ $('pppOverlay').classList.remove('open'); document.body.style.overflow='';
- }
+        function
+            closePPP() {
+            $('pppOverlay').classList.remove('open'); document.body.style.overflow = '';
+        }
 
-$('pppClose').addEventListener('click', closePPP);
+        $('pppClose').addEventListener('click', closePPP);
 
-$('pppClose').addEventListener('touchend',
-function(e){ e.preventDefault();
-closePPP(); });
+        $('pppClose').addEventListener('touchend',
+            function (e) {
+                e.preventDefault();
+                closePPP();
+            });
 
-$('pppOverlay').addEventListener('click',
-function(e){ 
-if(e.target===$('pppOverlay'))
-closePPP(); });
+        $('pppOverlay').addEventListener('click',
+            function (e) {
+                if (e.target === $('pppOverlay'))
+                    closePPP();
+            });
 
-$('pppOverlay').addEventListener('touchend',
-function(e){ 
-if(e.target===$('pppOverlay')){ e.preventDefault();
-closePPP(); } });
+        $('pppOverlay').addEventListener('touchend',
+            function (e) {
+                if (e.target === $('pppOverlay')) {
+                    e.preventDefault();
+                    closePPP();
+                }
+            });
 
-$('pppIncome').addEventListener('input', renderPPP);
+        $('pppIncome').addEventListener('input', renderPPP);
 
-</script>
+    </script>
 
 </body>
 
 </html>
-
