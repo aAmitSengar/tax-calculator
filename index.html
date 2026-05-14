@@ -56,12 +56,6 @@ type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplicat
 
 
 
-<!-- Materialize CSS via cdnjs (free, no license required) -->
-
-<link 
-rel="stylesheet" 
-href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
-
 <!-- Material Icons -->
 
 <link 
@@ -116,7 +110,9 @@ rgba(0,0,0,.08);
 
 
 
-*,*::before,*::after{box-sizing:border-box}
+/* ── Base reset (no external framework) ─────────────────────── */
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 body{
 
@@ -132,13 +128,23 @@ min-height:100vh; padding-bottom:60px;
 
 }
 
+button{border:none;cursor:pointer;font-family:inherit;background:none;padding:0;-webkit-tap-highlight-color:transparent}
+
+input,textarea,select{font-family:inherit;box-sizing:border-box}
+
+a{text-decoration:none;color:inherit}
+
+nav{display:block}
+
+ul,ol{list-style:none}
+
 
 
 /* ── Nav ─────────────────────────────────────────────────────── */
 
 .app-nav{
 
-background:var(--surface)!important;
+background:var(--surface);
 
 border-bottom:1px solid
 var(--border);
@@ -146,7 +152,7 @@ var(--border);
 box-shadow:var(--shadow);
 
 padding:0
-24px; height:62px;
+24px; height:114px;
 
 display:flex; align-items:center; justify-content:space-between;
 
@@ -645,14 +651,22 @@ var(--border);margin-top:4px;padding-top:8px}
 
 .modal-overlay{
 
-display:none;position:fixed;inset:0;z-index:9999;
+display:none;position:fixed;
+
+top:0;right:0;bottom:0;left:0;
+
+z-index:9999;
 
 background:rgba(0,0,0,.72);backdrop-filter:blur(5px);
+
+-webkit-backdrop-filter:blur(5px);
 
 align-items:flex-start;justify-content:center;
 
 padding:32px
 16px;overflow-y:auto;
+
+-webkit-overflow-scrolling:touch;
 
 }
 
@@ -1087,6 +1101,7 @@ id="basicVal"></span></label>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="basic" 
 value="25000"/>
 
@@ -1101,6 +1116,7 @@ id="hraVal"></span></label>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="hra" 
 value="10000"/>
 
@@ -1115,6 +1131,7 @@ id="flexVal"></span></label>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="flex" 
 value="8000"/>
 
@@ -1129,6 +1146,7 @@ id="commVal"></span></label>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="comm" 
 value="1000"/>
 
@@ -1143,6 +1161,7 @@ id="ltaVal"></span></label>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="lta" 
 value="2000"/>
 
@@ -1157,6 +1176,7 @@ id="foodVal"></span></label>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="food" 
 value="1000"/>
 
@@ -1204,6 +1224,7 @@ value="0"/>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="rentNum" 
 value="0"/>
 
@@ -1250,6 +1271,7 @@ value="0"/>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="intNum" 
 value="0"/>
 
@@ -1280,6 +1302,7 @@ value="0"/>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="principalNum" 
 value="0"/>
 
@@ -1319,6 +1342,7 @@ id="pfVal">&#8377;0</span></label>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="pf" 
 value="21600"/>
 
@@ -1347,6 +1371,7 @@ value="0"/>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="depositNum" 
 value="0"/>
 
@@ -1374,6 +1399,7 @@ value="0"/>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="licNum" 
 value="0"/>
 
@@ -1401,6 +1427,7 @@ value="0"/>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="schoolNum" 
 value="0"/>
 
@@ -1466,6 +1493,7 @@ value="0"/>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="d80dNum" 
 value="0"/>
 
@@ -1496,6 +1524,7 @@ value="0"/>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="npsNum" 
 value="0"/>
 
@@ -1526,6 +1555,7 @@ value="0"/>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="otherNum" 
 value="0"/>
 
@@ -1545,6 +1575,7 @@ id="profTaxVal">&#8377;0</span></label>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="profTax" 
 value="2400"/>
 
@@ -1592,6 +1623,7 @@ value="0"/>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="savIntNum" 
 value="0"/>
 
@@ -1622,6 +1654,7 @@ value="0"/>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="fdIntNum" 
 value="0"/>
 
@@ -1652,6 +1685,7 @@ value="0"/>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="otherIncNum" 
 value="0"/>
 
@@ -1713,6 +1747,7 @@ id="pppIncomeLabel">Your take-home salary (Monthly &#8377;)</label>
 
 <input 
 type="number" 
+inputmode="numeric" 
 id="pppIncome" 
 placeholder="e.g. 500000"/>
 
@@ -1814,10 +1849,7 @@ style="color:var(--accent)">Frankfurter API</a>
 
 
 
-<!-- Materialize JS via cdnjs -->
-
-<script 
-src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!-- Materialize JS removed; no framework JS needed -->
 
 <script>
 
@@ -2649,9 +2681,19 @@ closePPP(){ $('pppOverlay').classList.remove('open'); document.body.style.overfl
 
 $('pppClose').addEventListener('click', closePPP);
 
-$('pppOverlay').addEventListener('click', e=>{
+$('pppClose').addEventListener('touchend',
+function(e){ e.preventDefault();
+closePPP(); });
+
+$('pppOverlay').addEventListener('click',
+function(e){ 
 if(e.target===$('pppOverlay'))
 closePPP(); });
+
+$('pppOverlay').addEventListener('touchend',
+function(e){ 
+if(e.target===$('pppOverlay')){ e.preventDefault();
+closePPP(); } });
 
 $('pppIncome').addEventListener('input', renderPPP);
 
@@ -2660,3 +2702,4 @@ $('pppIncome').addEventListener('input', renderPPP);
 </body>
 
 </html>
+
