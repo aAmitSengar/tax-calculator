@@ -1,0 +1,1829 @@
+
+<!DOCTYPE 
+html>
+
+<html 
+lang="en">
+
+<head>
+
+<meta 
+charset="UTF-8" />
+
+<meta 
+name="viewport" 
+content=
+"width=device-width, initial-scale=1.0"
+ />
+
+<title>India Tax Calculator — Old vs New Regime</title>
+
+<link 
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+rel="stylesheet" />
+
+<style>
+
+:root {
+
+--bg: #0d0f14;
+
+--surface: #161920;
+
+--surface2: #1e2230;
+
+--border: #2a2f3d;
+
+--text: #e8eaf0;
+
+--muted: #7a7f96;
+
+--accent: #f5c542;
+
+--green: #3ddc97;
+
+--red: #ff5f6d;
+
+--blue: #5b8dee;
+
+--old: #ff8c42;
+
+--new: #3ddc97;
+
+--radius: 14px;
+
+--font: 'Inter',
+system-ui, -apple-system,
+sans-serif;
+
+--mono: 'JetBrains Mono',
+'Courier New',
+monospace;
+
+}
+
+
+
+*, 
+*::before, 
+*::after { box-sizing: 
+border-box; margin: 0; padding:
+0; }
+
+
+
+body {
+
+background: var(--bg);
+
+color: var(--text);
+
+font-family: var(--font);
+
+font-size: 14px;
+
+-webkit-font-smoothing: 
+antialiased;
+
+-moz-osx-font-smoothing: 
+grayscale;
+
+min-height: 100vh;
+
+padding: 32px
+40px
+80px;
+
+}
+
+
+
+.page { max-width: 
+1280px; margin: 
+0 auto; }
+
+
+
+header {
+
+display: flex; align-items: 
+center; gap: 16px;
+
+margin-bottom: 36px; padding-bottom:
+20px;
+
+border-bottom: 1px solid
+var(--border);
+
+flex-wrap: nowrap;
+
+}
+
+.logo {
+
+width: 44px; height:
+44px; border-radius:
+10px; flex-shrink:
+0;
+
+background: linear-gradient(135deg,
+var(--accent),
+var(--old));
+
+display: flex; align-items: 
+center; justify-content: center;
+
+font-size: 22px; line-height:
+1;
+
+}
+
+.header-text { display: 
+flex; flex-direction: column; gap:
+5px; min-width:
+0; }
+
+header 
+h1 {
+
+font-size: 26px; font-weight:
+800;
+
+letter-spacing: -0.6px; line-height:
+1.15;
+
+white-space: nowrap;
+
+}
+
+header 
+p {
+
+font-size: 14px; color:
+var(--muted); font-weight:
+400;
+
+line-height: 1.5; white-space:
+nowrap;
+
+letter-spacing: 0;
+
+}
+
+
+
+/* Toggle pill */
+
+.toggle-bar {
+
+display: flex; align-items: 
+center; gap: 12px;
+
+background: var(--surface); border:
+1px solid
+var(--border);
+
+border-radius: 50px; padding:
+6px
+8px; width:
+fit-content;
+
+margin-bottom: 28px;
+
+}
+
+.toggle-bar 
+span { font-size: 13px; font-weight:
+500; color: 
+var(--muted); padding:
+0
+4px; }
+
+.toggle-pill {
+
+position: relative; width: 
+100px; height: 
+32px;
+
+background: var(--surface2); border-radius:
+50px;
+
+cursor: pointer; border: 
+1px solid var(--border);
+
+}
+
+.toggle-pill 
+input { display: none; }
+
+.toggle-pill 
+.knob {
+
+position: absolute; top: 
+3px; left: 
+3px;
+
+width: 44px; height:
+24px; border-radius:
+50px;
+
+background: var(--accent); transition:
+transform .25s;
+
+}
+
+.toggle-pill 
+input:checked ~ 
+.knob { transform: translateX(50px); }
+
+.toggle-pill 
+.labels {
+
+position: absolute; inset: 
+0; display: flex;
+
+align-items: center; justify-content:
+space-around;
+
+font-size: 11px; font-weight:
+600; pointer-events: 
+none; z-index: 1;
+
+}
+
+.toggle-pill 
+.labels span:first-child { color:
+var(--bg); }
+
+.toggle-pill 
+.labels span:last-child { color:
+var(--muted); }
+
+.toggle-pill 
+input:checked ~ 
+.labels span:first-child { color:
+var(--muted); }
+
+.toggle-pill 
+input:checked ~ 
+.labels span:last-child { color:
+var(--bg); }
+
+
+
+/* Grid layout */
+
+.grid { display: 
+grid; grid-template-columns: 1fr
+1fr; gap: 
+20px; }
+
+@media (max-width: 
+640px) { 
+.grid { grid-template-columns: 1fr; } }
+
+
+
+/* Cards */
+
+.card {
+
+background: var(--surface); border:
+1px solid
+var(--border);
+
+border-radius: var(--radius); padding:
+20px;
+
+}
+
+.card-title {
+
+font-size: 11px; font-weight:
+700; letter-spacing: 
+1.2px;
+
+text-transform: uppercase; color:
+var(--muted); margin-bottom:
+18px;
+
+}
+
+
+
+/* Input rows */
+
+.field { margin-bottom: 
+16px; }
+
+.field 
+label {
+
+display: flex; justify-content:
+space-between; align-items: 
+center;
+
+font-size: 13px; font-weight:
+500; color: 
+var(--muted); margin-bottom:
+7px;
+
+letter-spacing: 0;
+
+}
+
+.field 
+label .val {
+
+font-family: var(--mono); font-size:
+12px; color:
+var(--text); font-weight:
+400;
+
+}
+
+.field 
+input[type="number"] {
+
+width: 100%; background: 
+var(--surface2); border:
+1px solid
+var(--border);
+
+border-radius: 8px; padding:
+10px
+14px; color:
+var(--text);
+
+font-family: var(--mono); font-size:
+14px; font-weight:
+400;
+
+outline: none; transition: 
+border-color .2s;
+
+}
+
+.field 
+input[type="number"]:focus { border-color:
+var(--accent); }
+
+input[type="number"]::-webkit-inner-spin-button {
+-webkit-appearance: 
+none; }
+
+
+
+/* Sliders */
+
+.field 
+input[type="range"] {
+
+width: 100%; 
+-webkit-appearance: none; height:
+4px;
+
+border-radius: 4px; background:
+var(--border);
+
+outline: none; cursor: 
+pointer;
+
+}
+
+.field 
+input[type="range"]::-webkit-slider-thumb {
+
+-webkit-appearance: 
+none; width: 16px; height:
+16px;
+
+border-radius: 50%; background:
+var(--accent); cursor:
+pointer;
+
+box-shadow: 0
+0
+0
+3px
+rgba(245,197,66,.15);
+
+}
+
+.slider-row { display: 
+flex; gap: 10px; align-items:
+center; }
+
+.slider-row 
+input[type="number"] { width:
+110px; flex-shrink:
+0; }
+
+
+
+/* Verdict */
+
+.verdict {
+
+grid-column: 1 /
+-1;
+
+background: var(--surface);
+
+border: 1px solid
+var(--border);
+
+border-radius: var(--radius); padding:
+24px;
+
+position: relative; overflow: 
+hidden;
+
+}
+
+.verdict::before {
+
+content: ''; position: 
+absolute; inset: 0;
+
+background: linear-gradient(135deg, transparent
+60%,
+rgba(245,197,66,.04));
+
+pointer-events: none;
+
+}
+
+.verdict-top {
+
+display: flex; justify-content:
+space-between; align-items: 
+flex-start;
+
+flex-wrap: wrap; gap: 
+16px; margin-bottom: 
+24px;
+
+}
+
+.verdict-badge {
+
+display: inline-flex; align-items:
+center; gap: 
+8px;
+
+background: rgba(61,220,151,.12);
+ border: 1px solid
+rgba(61,220,151,.3);
+
+border-radius: 50px; padding:
+7px
+18px;
+
+font-size: 14px; font-weight:
+600; color: 
+var(--green);
+
+letter-spacing: 0;
+
+}
+
+.verdict-badge.old-wins {
+
+background: rgba(255,140,66,.12);
+ border-color: rgba(255,140,66,.3);
+
+color: var(--old);
+
+}
+
+.savings {
+
+font-family: var(--mono); font-size:
+30px; font-weight:
+500;
+
+color: var(--accent); letter-spacing:
+-1px;
+
+}
+
+.savings 
+small { font-size: 13px; color:
+var(--muted); font-family:
+var(--font); font-weight:
+400; letter-spacing: 
+0; }
+
+
+
+.regime-cards {
+
+display: grid; grid-template-columns:
+1fr
+1fr; gap: 
+16px;
+
+}
+
+@media (max-width: 
+500px) { 
+.regime-cards { grid-template-columns: 
+1fr; } }
+
+
+
+.regime-card {
+
+border-radius: 10px; padding:
+16px;
+
+border: 2px solid
+var(--border);
+
+transition: border-color .3s;
+
+}
+
+.regime-card.winner { border-color:
+var(--green); }
+
+.regime-card.winner.old-winner { border-color:
+var(--old); }
+
+
+
+.regime-card 
+h3 {
+
+font-size: 11px; font-weight:
+700; letter-spacing: 
+1.2px;
+
+text-transform: uppercase; margin-bottom:
+12px;
+
+}
+
+.regime-card.old 
+h3 { color: var(--old); }
+
+.regime-card.new 
+h3 { color: var(--new); }
+
+
+
+.tax-num {
+
+font-family: var(--mono); font-size:
+26px; font-weight:
+500;
+
+margin-bottom: 14px; letter-spacing:
+-0.5px;
+
+}
+
+.breakdown { font-size: 
+13px; color: 
+var(--muted); line-height:
+2; font-weight: 
+400; }
+
+.breakdown 
+span { font-family: var(--mono); font-size:
+12px; color:
+var(--text); float:
+right; }
+
+
+
+/* Cap warning */
+
+.cap-warn {
+
+background: rgba(255,95,109,.1);
+ border: 1px solid
+rgba(255,95,109,.25);
+
+border-radius: 8px; padding:
+10px
+14px; font-size:
+12px;
+
+color: #ff8a93; margin-top: 
+10px; display: 
+none;
+
+}
+
+
+
+/* Section divider */
+
+.divider {
+
+grid-column: 1 /
+-1; height: 
+1px; background: 
+var(--border);
+
+margin: 4px
+0;
+
+}
+
+
+
+/* Chip */
+
+.chip {
+
+display: inline-block; background:
+rgba(91,141,238,.15);
+
+border: 1px solid
+rgba(91,141,238,.3);
+ border-radius: 50px;
+
+padding: 2px
+10px; font-size:
+11px; color:
+var(--blue);
+
+font-weight: 600; margin-left:
+6px;
+
+}
+
+.chip.green {
+
+background: rgba(61,220,151,.1);
+ border-color: rgba(61,220,151,.25);
+
+color: var(--green);
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div 
+class="page">
+
+
+
+<header>
+
+<div 
+class="logo">₹</div>
+
+<div 
+class="header-text">
+
+<h1>Tax Regime Calculator</h1>
+
+<p>Old vs New — FY 2025–26 · Pre-filled from your payslip</p>
+
+</div>
+
+</header>
+
+
+
+<!-- Monthly / Yearly toggle -->
+
+<div 
+class="toggle-bar">
+
+<span>Salary inputs</span>
+
+<label 
+class="toggle-pill">
+
+<input 
+type="checkbox" 
+id="freqToggle" />
+
+<div 
+class="knob"></div>
+
+<div 
+class="labels"><span>MO</span><span>YR</span></div>
+
+</label>
+
+<span 
+id="freqLabel" 
+style="font-size:13px;color:var(--text);font-weight:600;">Monthly</span>
+
+</div>
+
+
+
+<div 
+class="grid">
+
+
+
+<!-- VERDICT -->
+
+<div 
+class="verdict" 
+id="verdictCard">
+
+<div 
+class="verdict-top">
+
+<div>
+
+<div 
+style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase;">Best Regime</div>
+
+<div 
+class="verdict-badge" 
+id="verdictBadge">✦ New Regime</div>
+
+</div>
+
+<div 
+style="text-align:right;">
+
+<div 
+style="font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px;letter-spacing:1px;text-transform:uppercase;">You save</div>
+
+<div 
+class="savings" 
+id="savingsAmt">₹0 <small>/year</small></div>
+
+</div>
+
+</div>
+
+<div 
+class="regime-cards">
+
+<div 
+class="regime-card old" 
+id="oldCard">
+
+<h3>Old Regime</h3>
+
+<div 
+class="tax-num" 
+id="oldTax">₹0</div>
+
+<div 
+class="breakdown" 
+id="oldBreakdown">—</div>
+
+</div>
+
+<div 
+class="regime-card new winner"
+id="newCard">
+
+<h3>New Regime</h3>
+
+<div 
+class="tax-num" 
+id="newTax">₹0</div>
+
+<div 
+class="breakdown" 
+id="newBreakdown">—</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- INCOME -->
+
+<div 
+class="card">
+
+<div 
+class="card-title">Income <span
+class="chip"
+id="incomeChip">Monthly</span></div>
+
+
+
+<div 
+class="field">
+
+<label>Basic <span
+class="val"
+id="basicVal"></span></label>
+
+<input 
+type="number" 
+id="basic" 
+value="30000" />
+
+</div>
+
+<div 
+class="field">
+
+<label>HRA <span
+class="val"
+id="hraVal"></span></label>
+
+<input 
+type="number" 
+id="hra" 
+value="15000" />
+
+</div>
+
+<div 
+class="field">
+
+<label>Flexible Allowance <span
+class="val"
+id="flexVal"></span></label>
+
+<input 
+type="number" 
+id="flex" 
+value="0" />
+
+</div>
+
+<div 
+class="field">
+
+<label>Communication Allowance <span
+class="val"
+id="commVal"></span></label>
+
+<input 
+type="number" 
+id="comm" 
+value="0" />
+
+</div>
+
+<div 
+class="field">
+
+<label>LTA <span
+class="val"
+id="ltaVal"></span></label>
+
+<input 
+type="number" 
+id="lta" 
+value="0" />
+
+</div>
+
+<div 
+class="field">
+
+<label>Food Coupon <span
+class="val"
+id="foodVal"></span></label>
+
+<input 
+type="number" 
+id="food" 
+value="0" />
+
+<div 
+style="font-size:11px;color:var(--muted);margin-top:4px;">₹26,400/yr tax-exempt (old regime)</div>
+
+</div>
+
+</div>
+
+
+
+<!-- HRA + HOUSING -->
+
+<div 
+class="card">
+
+<div 
+class="card-title">HRA & Housing</div>
+
+
+
+<div 
+class="field">
+
+<label>Monthly Rent Paid <span
+class="val"
+id="rentVal">₹8,000/mo</span></label>
+
+<div 
+class="slider-row">
+
+<input 
+type="range" 
+id="rent" 
+min="0" 
+max="150000" 
+step="1000" 
+value="8000" />
+
+<input 
+type="number" 
+id="rentNum" 
+value="8000" />
+
+</div>
+
+</div>
+
+<div 
+style="font-size:11px;color:var(--muted);margin-bottom:14px;">
+
+<label 
+style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+
+<input 
+type="checkbox" 
+id="metro" 
+checked style="accent-color:var(--accent);" />
+
+<span>Metro city (Chennai = Yes)</span>
+
+</label>
+
+</div>
+
+<div 
+class="field">
+
+<label>Home Loan Interest / yr <span
+class="val"
+id="intVal">₹0</span></label>
+
+<div 
+class="slider-row">
+
+<input 
+type="range" 
+id="intSlider" 
+min="0" 
+max="500000" 
+step="10000" 
+value="0" />
+
+<input 
+type="number" 
+id="intNum" 
+value="0" />
+
+</div>
+
+<div 
+style="font-size:11px;color:var(--muted);margin-top:4px;">Sec 24(b) cap ₹2,00,000 (old regime)</div>
+
+</div>
+
+<div 
+class="field">
+
+<label>Home Loan Principal / yr <span
+class="val"
+id="principalVal">₹0</span></label>
+
+<div 
+class="slider-row">
+
+<input 
+type="range" 
+id="principalSlider" 
+min="0" 
+max="500000" 
+step="10000" 
+value="0" />
+
+<input 
+type="number" 
+id="principalNum" 
+value="0" />
+
+</div>
+
+<div 
+style="font-size:11px;color:var(--muted);margin-top:4px;">Goes into 80C bucket</div>
+
+</div>
+
+</div>
+
+
+
+<!-- 80C -->
+
+<div 
+class="card">
+
+<div 
+class="card-title">80C Deductions <span
+class="chip green">Cap ₹1,50,000</span></div>
+
+
+
+<div 
+class="field">
+
+<label>PF (auto from payslip) <span
+class="val">₹21,600</span></label>
+
+<input 
+type="number" 
+id="pf" 
+value="21600" 
+readonly style="opacity:.5;cursor:not-allowed;" />
+
+</div>
+
+<div 
+class="field">
+
+<label>PPF / FD / ELSS Deposit <span
+class="val"
+id="depositVal">₹0</span></label>
+
+<div 
+class="slider-row">
+
+<input 
+type="range" 
+id="depositSlider" 
+min="0" 
+max="200000" 
+step="5000" 
+value="0" />
+
+<input 
+type="number" 
+id="depositNum" 
+value="0" />
+
+</div>
+
+</div>
+
+<div 
+class="field">
+
+<label>LIC Premium <span
+class="val"
+id="licVal">₹0</span></label>
+
+<div 
+class="slider-row">
+
+<input 
+type="range" 
+id="licSlider" 
+min="0" 
+max="150000" 
+step="5000" 
+value="0" />
+
+<input 
+type="number" 
+id="licNum" 
+value="0" />
+
+</div>
+
+</div>
+
+<div 
+class="field">
+
+<label>School Tuition Fees <span
+class="val"
+id="schoolVal">₹0</span></label>
+
+<div 
+class="slider-row">
+
+<input 
+type="range" 
+id="schoolSlider" 
+min="0" 
+max="150000" 
+step="1000" 
+value="0" />
+
+<input 
+type="number" 
+id="schoolNum" 
+value="0" />
+
+</div>
+
+</div>
+
+
+
+<div 
+style="margin-top:8px;padding:12px 14px;background:var(--surface2);border-radius:8px;font-size:13px;font-weight:500;">
+
+80C Used: <strong 
+id="c80cUsed" 
+style="font-family:var(--mono);font-weight:500;">₹0</strong>
+
+&nbsp;/&nbsp; Effective: <strong
+id="c80cEff"
+style="font-family:var(--mono);font-weight:500;color:var(--accent);">₹0</strong>
+
+</div>
+
+<div 
+class="cap-warn" 
+id="capWarn">⚠ You've exceeded ₹1,50,000 — extra investments won't save more tax under 80C.</div>
+
+</div>
+
+
+
+<!-- OTHER DEDUCTIONS -->
+
+<div 
+class="card">
+
+<div 
+class="card-title">Other Deductions</div>
+
+
+
+<div 
+class="field">
+
+<label>80D — Health Insurance <span
+class="val"
+id="d80dVal">₹0</span></label>
+
+<div 
+class="slider-row">
+
+<input 
+type="range" 
+id="d80dSlider" 
+min="0" 
+max="50000" 
+step="1000" 
+value="0" />
+
+<input 
+type="number" 
+id="d80dNum" 
+value="0" />
+
+</div>
+
+<div 
+style="font-size:11px;color:var(--muted);margin-top:4px;">Up to ₹25,000 self + ₹25,000 parents</div>
+
+</div>
+
+<div 
+class="field">
+
+<label>80CCD(1B) — NPS Extra <span
+class="val"
+id="npsVal">₹0</span></label>
+
+<div 
+class="slider-row">
+
+<input 
+type="range" 
+id="npsSlider" 
+min="0" 
+max="50000" 
+step="1000" 
+value="0" />
+
+<input 
+type="number" 
+id="npsNum" 
+value="0" />
+
+</div>
+
+<div 
+style="font-size:11px;color:var(--muted);margin-top:4px;">Extra ₹50,000 over 80C cap</div>
+
+</div>
+
+<div 
+class="field">
+
+<label>Other (80G donations, etc.) <span
+class="val"
+id="otherVal">₹0</span></label>
+
+<div 
+class="slider-row">
+
+<input 
+type="range" 
+id="otherSlider" 
+min="0" 
+max="100000" 
+step="1000" 
+value="0" />
+
+<input 
+type="number" 
+id="otherNum" 
+value="0" />
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</div><!-- /grid -->
+
+</div><!-- /page -->
+
+
+
+<script>
+
+// ─── helpers ───────────────────────────────────────────────────────────────
+
+const 
+fmt = n => '₹' + Math.round(n).toLocaleString('en-IN');
+
+const 
+$ = id => document.getElementById(id);
+
+
+
+// sync slider ↔ number input
+
+function 
+syncPair(sliderId, numId, labelId, labelFn) {
+
+const s = 
+$(sliderId), n = $(numId);
+
+const 
+update = val => {
+
+s.value = val; n.value = val;
+
+if (labelId) 
+$(labelId).textContent = labelFn ?
+labelFn(val) : 
+fmt(val);
+
+};
+
+s.addEventListener('input', () =>
+update(s.value));
+
+n.addEventListener('input', () =>
+update(n.value));
+
+update(s.value);
+
+}
+
+
+
+syncPair('rent','rentNum','rentVal', v =>
+fmt(v)+'/mo');
+
+syncPair('intSlider','intNum','intVal');
+
+syncPair('principalSlider','principalNum','principalVal');
+
+syncPair('depositSlider','depositNum','depositVal');
+
+syncPair('licSlider','licNum','licVal');
+
+syncPair('schoolSlider','schoolNum','schoolVal');
+
+syncPair('d80dSlider','d80dNum','d80dVal');
+
+syncPair('npsSlider','npsNum','npsVal');
+
+syncPair('otherSlider','otherNum','otherVal');
+
+
+
+// ─── monthly/yearly toggle ─────────────────────────────────────────────────
+
+const freqToggle = 
+$('freqToggle');
+
+const salaryIds = ['basic','hra','flex','comm','lta','food'];
+
+let isYearly = 
+false;
+
+const baseMonthly = {basic:30000,hra:15000,flex:0,comm:0,lta:0,food:0};
+
+
+
+freqToggle.addEventListener('change', () => {
+
+isYearly = freqToggle.checked;
+
+$('freqLabel').textContent = isYearly ?
+'Yearly' : 
+'Monthly';
+
+$('incomeChip').textContent = isYearly ?
+'Yearly' : 
+'Monthly';
+
+salaryIds.forEach(id => {
+
+const m = 
+Number($(id).value) / (isYearly ?
+12 : 
+1);
+
+// if switching direction, recalculate from base
+
+});
+
+// reset to base × multiplier
+
+const mul = isYearly ? 
+12 : 1;
+
+Object.entries(baseMonthly).forEach(([id, val]) => {
+
+const cur = 
+Number($(id).value);
+
+// adjust proportionally from current
+
+$(id).value = Math.round(isYearly ? cur *
+12 : cur / 
+12);
+
+});
+
+calculate();
+
+});
+
+
+
+// ─── slab helpers ──────────────────────────────────────────────────────────
+
+function 
+taxOldSlab(income) {
+
+if (income <= 
+250000) return 
+0;
+
+let t = 
+0;
+
+if (income > 
+1000000) { t += (income - 1000000) *
+0.3; income = 
+1000000; }
+
+if (income > 
+500000) { t += (income - 500000) *
+0.2; income = 
+500000; }
+
+if (income > 
+250000) { t += (income - 250000) *
+0.05; }
+
+return t;
+
+}
+
+
+
+function 
+taxNewSlab(income) {
+
+// FY 2025-26 new regime slabs (after budget 2025)
+
+if (income <= 
+400000) return 
+0;
+
+const slabs = [
+
+[400000, 
+800000, 0.05],
+
+[800000, 
+1200000, 0.10],
+
+[1200000, 
+1600000, 0.15],
+
+[1600000, 
+2000000, 0.20],
+
+[2000000, 
+2400000, 0.25],
+
+[2400000, 
+Infinity,0.30],
+
+];
+
+let t = 
+0;
+
+for (const [lo, hi, rate] of slabs) {
+
+if (income > lo) t += (Math.min(income, hi) - lo) * rate;
+
+}
+
+return t;
+
+}
+
+
+
+function 
+addSurchargeAndCess(tax, income) {
+
+let surcharge = 
+0;
+
+if (income > 
+50000000) surcharge = tax * 0.37;
+
+else 
+if (income > 20000000) surcharge = tax *
+0.25;
+
+else 
+if (income > 10000000) surcharge = tax *
+0.15;
+
+else 
+if (income > 5000000) surcharge = tax *
+0.10;
+
+const total = tax + surcharge;
+
+return total + total * 
+0.04; // 4% cess
+
+}
+
+
+
+function 
+calcHRAExemption(basicMonthly, hraMonthly, rentMonthly, isMetro) {
+
+const basic = basicMonthly * 
+12;
+
+const hraReceived = hraMonthly *
+12;
+
+const rentPaid = rentMonthly *
+12;
+
+const metroFactor = isMetro ? 
+0.5 : 0.4;
+
+return Math.min(
+
+hraReceived,
+
+rentPaid - basic * 0.1,
+
+basic * metroFactor
+
+);
+
+}
+
+
+
+// ─── main calculation ──────────────────────────────────────────────────────
+
+function 
+calculate() {
+
+const mul = isYearly ? 
+1 : 12;
+
+
+
+const basicM = 
+Number($('basic').value);
+
+const hraM = 
+Number($('hra').value);
+
+const flexM = 
+Number($('flex').value);
+
+const commM = 
+Number($('comm').value);
+
+const ltaM = 
+Number($('lta').value);
+
+const foodM = 
+Number($('food').value);
+
+
+
+// annualise
+
+const basic = basicM * mul;
+
+const hraRec = hraM * mul;
+
+const flex = flexM * mul;
+
+const comm = commM * mul;
+
+const lta = ltaM * mul;
+
+const food = foodM * mul;
+
+
+
+const gross = basic + hraRec + flex + comm + lta + food;
+
+
+
+const rent = 
+Number($('rent').value);
+// always monthly
+
+const isMetro = 
+$('metro').checked;
+
+const interest = 
+Number($('intSlider').value);
+
+const principal = 
+Number($('principalSlider').value);
+
+
+
+const pf = 
+21600;
+
+const deposit = 
+Number($('depositSlider').value);
+
+const lic = 
+Number($('licSlider').value);
+
+const school = 
+Number($('schoolSlider').value);
+
+const d80d = 
+Number($('d80dSlider').value);
+
+const nps = 
+Number($('npsSlider').value);
+
+const other = 
+Number($('otherSlider').value);
+
+
+
+// 80C bucket
+
+const raw80c = pf + deposit + lic + school + principal;
+
+const eff80c = Math.min(raw80c,
+150000);
+
+$('c80cUsed').textContent =
+fmt(raw80c);
+
+$('c80cEff').textContent =
+fmt(eff80c);
+
+$('capWarn').style.display = raw80c >
+150000 ? 
+'block' : 'none';
+
+
+
+// ── OLD REGIME ──
+
+const hraExempt = Math.max(0,
+calcHRAExemption(basicM * mul / 
+12, hraM * mul / 12, rent, isMetro));
+
+const foodExempt = Math.min(food,
+26400);
+
+const ltaExempt = Math.min(lta,
+75000); 
+// simplified
+
+const stdDedOld = 
+50000;
+
+const sec24b = Math.min(interest,
+200000);
+
+const d80dCapped = Math.min(d80d,
+50000);
+
+
+
+let taxableOld = gross
+
+- hraExempt
+
+- foodExempt
+
+- ltaExempt
+
+- stdDedOld
+
+- eff80c
+
+- sec24b
+
+- d80dCapped
+
+- nps
+
+- other;
+
+taxableOld = Math.max(0, taxableOld);
+
+const rawOldTax = 
+taxOldSlab(taxableOld);
+
+// Rebate 87A (old: up to ₹5L → tax = 0)
+
+const rebateOld = taxableOld <=
+500000 ? rawOldTax : 
+0;
+
+const finalOldTax = 
+addSurchargeAndCess(Math.max(0, rawOldTax - rebateOld), taxableOld);
+
+
+
+// ── NEW REGIME ──
+
+const stdDedNew = 
+75000;
+
+let taxableNew = gross - stdDedNew;
+
+taxableNew = Math.max(0, taxableNew);
+
+const rawNewTax = 
+taxNewSlab(taxableNew);
+
+// Rebate 87A new (up to ₹12L)
+
+const rebateNew = taxableNew <=
+1200000 ? rawNewTax : 
+0;
+
+const finalNewTax = 
+addSurchargeAndCess(Math.max(0, rawNewTax - rebateNew), taxableNew);
+
+
+
+// ── UPDATE UI ──
+
+const oldWins = finalOldTax < finalNewTax;
+
+const savings = Math.abs(finalOldTax - finalNewTax);
+
+
+
+$('oldTax').textContent =
+fmt(finalOldTax);
+
+$('newTax').textContent =
+fmt(finalNewTax);
+
+$('savingsAmt').innerHTML =
+fmt(savings) + 
+' <small>/year</small>';
+
+
+
+const badge = 
+$('verdictBadge');
+
+badge.textContent = oldWins ? 
+'✦ Old Regime' : '✦ New Regime';
+
+badge.className = 
+'verdict-badge' + (oldWins ? ' old-wins' :
+'');
+
+
+
+const oCard = 
+$('oldCard'), nCard = 
+$('newCard');
+
+oCard.className = 
+'regime-card old' + (oldWins ? ' winner old-winner' :
+'');
+
+nCard.className = 
+'regime-card new' + (!oldWins ?
+' winner' : 
+'');
+
+
+
+// Breakdown lines
+
+$('oldBreakdown').innerHTML =
+`
+
+Gross &nbsp;<span>${fmt(gross)}</span><br>
+
+HRA exempt &nbsp;<span>−${fmt(hraExempt)}</span><br>
+
+Std deduction &nbsp;<span>−₹50,000</span><br>
+
+80C &nbsp;<span>−${fmt(eff80c)}</span><br>
+
+Sec 24(b) &nbsp;<span>−${fmt(sec24b)}</span><br>
+
+80D / NPS &nbsp;<span>−${fmt(d80dCapped + nps)}</span><br>
+
+<strong>Taxable &nbsp;<span>${fmt(taxableOld)}</span></strong>
+
+`;
+
+$('newBreakdown').innerHTML =
+`
+
+Gross &nbsp;<span>${fmt(gross)}</span><br>
+
+Std deduction &nbsp;<span>−₹75,000</span><br>
+
+No other deductions &nbsp;<span>—</span><br>
+
+<strong>Taxable &nbsp;<span>${fmt(taxableNew)}</span></strong><br>
+
+${taxableNew <= 
+1200000 ? '<span style="color:var(--green)">87A rebate applied ✓</span>' :
+''}
+
+`;
+
+}
+
+
+
+// ─── wire all inputs ────────────────────────────────────────────────────────
+
+['basic','hra','flex','comm','lta','food',
+
+'rent','rentNum','intSlider','intNum','principalSlider','principalNum',
+
+'depositSlider','depositNum','licSlider','licNum','schoolSlider','schoolNum',
+
+'d80dSlider','d80dNum','npsSlider','npsNum','otherSlider','otherNum',
+
+'metro'
+
+].forEach(id => 
+$(id).addEventListener('input', calculate));
+
+
+
+calculate();
+
+</script>
+
+</body>
+
+</html>
